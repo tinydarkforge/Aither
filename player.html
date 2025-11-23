@@ -26,6 +26,15 @@
     <div class="video-info">
       <h1 class="video-title" id="videoTitle">ASL Video</h1>
       <p class="video-url" id="videoUrl"></p>
+      <button id="scanQrBtn" class="scan-qr-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        Scan Another QR
+      </button>
     </div>
 
     <!-- Error Message -->
@@ -42,69 +51,90 @@
     </div>
   </div>
 
+  <!-- QR Scanner Modal -->
+  <div id="scannerModal" class="scanner-modal">
+    <div class="scanner-overlay"></div>
+    <div class="scanner-container">
+      <div class="scanner-header">
+        <h3>Scan QR Code</h3>
+        <button id="closeScannerBtn" class="close-scanner-btn">&times;</button>
+      </div>
+      <div id="qrReader" class="qr-reader"></div>
+      <p class="scanner-hint">Point your camera at a QR code</p>
+    </div>
+  </div>
+
   <script type="module">
+    import { Html5Qrcode } from 'html5-qrcode';
+
     const videoPlayer = document.getElementById('videoPlayer');
     const videoTitle = document.getElementById('videoTitle');
     const videoUrl = document.getElementById('videoUrl');
     const errorMessage = document.getElementById('errorMessage');
     const loadingIndicator = document.getElementById('loadingIndicator');
+    const scanQrBtn = document.getElementById('scanQrBtn');
+    const scannerModal = document.getElementById('scannerModal');
+    const closeScannerBtn = document.getElementById('closeScannerBtn');
+
+    let html5QrCode = null;
 
     // Get video URL from query parameter
     const urlParams = new URLSearchParams(window.location.search);
-    const videoSrc = urlParams.get('video');
+    const initialVideoSrc = urlParams.get('video');
 
-    if (!videoSrc) {
+    if (initialVideoSrc) {
+      loadVideo(decodeURIComponent(initialVideoSrc));
+    } else {
       // No video URL provided
       loadingIndicator.style.display = 'none';
       errorMessage.style.display = 'flex';
       document.querySelector('.video-wrapper').style.display = 'none';
       document.querySelector('.video-info').style.display = 'none';
-    } else {
+    }
+
+    // Load video function
+    function loadVideo(videoSrc) {
+      // Show video wrapper and info
+      document.querySelector('.video-wrapper').style.display = 'block';
+      document.querySelector('.video-info').style.display = 'block';
+      errorMessage.style.display = 'none';
+
       // Set video source
-      videoPlayer.src = decodeURIComponent(videoSrc);
+      videoPlayer.src = videoSrc;
 
       // Update UI with video info
-      videoUrl.textContent = decodeURIComponent(videoSrc);
+      videoUrl.textContent = videoSrc;
 
       // Extract filename for title
       try {
-        const url = new URL(decodeURIComponent(videoSrc));
+        const url = new URL(videoSrc);
         const filename = url.pathname.split('/').pop();
         videoTitle.textContent = filename.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
       } catch (e) {
         videoTitle.textContent = 'ASL Video';
       }
 
-      // Handle video load events
-      videoPlayer.addEventListener('loadstart', () => {
-        loadingIndicator.style.display = 'flex';
-      });
-
-      videoPlayer.addEventListener('loadeddata', () => {
-        loadingIndicator.style.display = 'none';
-      });
-
-      videoPlayer.addEventListener('error', (e) => {
-        loadingIndicator.style.display = 'none';
-        errorMessage.style.display = 'flex';
-        errorMessage.querySelector('h2').textContent = 'Error Loading Video';
-        errorMessage.querySelector('p').textContent = 'The video could not be loaded. Please check the URL and try again.';
-        document.querySelector('.video-wrapper').style.display = 'none';
-        console.error('Video error:', e);
-      });
-
-      // Auto-play on mobile after user interaction
-      videoPlayer.addEventListener('canplay', () => {
-        // Attempt autoplay (may be blocked by browser policies)
-        const playPromise = videoPlayer.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {
-            console.log('Autoplay prevented:', error);
-            // Show play button overlay if autoplay is blocked
-          });
-        }
-      });
+      // Play the video
+      videoPlayer.play().catch(err => console.log('Play prevented:', err));
     }
+
+    // Handle video load events
+    videoPlayer.addEventListener('loadstart', () => {
+      loadingIndicator.style.display = 'flex';
+    });
+
+    videoPlayer.addEventListener('loadeddata', () => {
+      loadingIndicator.style.display = 'none';
+    });
+
+    videoPlayer.addEventListener('error', (e) => {
+      loadingIndicator.style.display = 'none';
+      errorMessage.style.display = 'flex';
+      errorMessage.querySelector('h2').textContent = 'Error Loading Video';
+      errorMessage.querySelector('p').textContent = 'The video could not be loaded. Please check the URL and try again.';
+      document.querySelector('.video-wrapper').style.display = 'none';
+      console.error('Video error:', e);
+    });
 
     // Handle fullscreen
     const videoWrapper = document.querySelector('.video-wrapper');
@@ -117,6 +147,92 @@
         document.exitFullscreen();
       }
     });
+
+    // QR Scanner functionality
+    scanQrBtn.addEventListener('click', openScanner);
+    closeScannerBtn.addEventListener('click', closeScanner);
+
+    // Close on overlay click
+    scannerModal.querySelector('.scanner-overlay').addEventListener('click', closeScanner);
+
+    async function openScanner() {
+      scannerModal.classList.add('active');
+
+      try {
+        html5QrCode = new Html5Qrcode('qrReader');
+
+        await html5QrCode.start(
+          { facingMode: 'environment' },
+          {
+            fps: 10,
+            qrbox: { width: 250, height: 250 }
+          },
+          onScanSuccess,
+          onScanError
+        );
+      } catch (err) {
+        console.error('Error starting scanner:', err);
+        alert('Unable to access camera. Please check permissions.');
+        closeScanner();
+      }
+    }
+
+    async function closeScanner() {
+      if (html5QrCode) {
+        try {
+          await html5QrCode.stop();
+          html5QrCode.clear();
+        } catch (err) {
+          console.error('Error stopping scanner:', err);
+        }
+        html5QrCode = null;
+      }
+      scannerModal.classList.remove('active');
+    }
+
+    function onScanSuccess(decodedText, decodedResult) {
+      console.log('QR Code detected:', decodedText);
+
+      // Extract video URL from the scanned text
+      let videoSrc = extractVideoUrl(decodedText);
+
+      if (videoSrc) {
+        // Close scanner and load new video
+        closeScanner();
+        loadVideo(videoSrc);
+      }
+    }
+
+    function onScanError(error) {
+      // Ignore scan errors (they happen frequently while scanning)
+    }
+
+    function extractVideoUrl(scannedText) {
+      try {
+        // Check if it's a player URL with video parameter
+        const url = new URL(scannedText);
+        const videoParam = url.searchParams.get('video');
+
+        if (videoParam) {
+          // It's a player URL, extract the video parameter
+          return decodeURIComponent(videoParam);
+        } else if (scannedText.toLowerCase().endsWith('.mp4')) {
+          // It's a direct MP4 URL
+          return scannedText;
+        } else {
+          // Not a recognized video URL
+          alert('QR code does not contain a valid video URL');
+          return null;
+        }
+      } catch (e) {
+        // If it's not a URL, check if it ends with .mp4
+        if (scannedText.toLowerCase().endsWith('.mp4')) {
+          return scannedText;
+        }
+        alert('QR code does not contain a valid video URL');
+        return null;
+      }
+    }
   </script>
 </body>
 </html>

@@ -211,9 +211,10 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
 2. The QR code will link to: `https://yoursite.com/player.html?video=<encoded-url>`
 3. When scanned, visitors see a beautiful video player with:
    - Play/pause controls
-   - Fullscreen support
+   - Fullscreen support (double-click video)
    - Mobile-optimized layout
    - Dark theme matching the app
+   - **Built-in QR scanner** for watching multiple videos
 
 **Benefits:**
 - Videos play directly in the browser (no download required)
@@ -225,6 +226,18 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
 The original MP4 URL is saved for your reference in the library.
 
 **Note:** Only the admin app (Generate/List tabs) requires login. The video player page is public so visitors can watch videos without authentication.
+
+### Scanning Multiple Videos
+
+Visitors can watch multiple videos without leaving the player:
+
+1. Watch the first video after scanning a QR code
+2. Click the **"Scan Another QR"** button in the player
+3. Camera opens with QR scanner
+4. Scan a new QR code for another video
+5. New video loads automatically and starts playing
+
+This feature is perfect for museum exhibits where visitors want to explore multiple ASL videos without repeatedly opening their camera app.
 
 ## Customization
 
