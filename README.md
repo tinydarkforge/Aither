@@ -64,10 +64,27 @@ npm run dev
 npm run build
 ```
 
-The static files will be output to the `dist/` directory. You can deploy these to any static hosting service:
+The static files will be output to the `dist/` directory. You can deploy these to any static hosting service.
 
-- **Netlify**: Drag and drop the `dist` folder
-- **Vercel**: Connect your repo and set build command to `npm run build`
+### Deploying to Vercel
+
+1. **Connect your repository** to Vercel
+2. **Set environment variable:**
+   - Go to Project Settings → Environment Variables
+   - Add new variable:
+     - **Key:** `VITE_ADMIN_PASS_HASH`
+     - **Value:** (your password hash from `.env`)
+     - **Environments:** Check Production, Preview, and Development
+3. **Deploy settings:**
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+4. **Redeploy** after adding the environment variable
+
+**Important:** Vite requires environment variables at build time, so you must redeploy after adding them.
+
+### Other Deployment Options
+
+- **Netlify**: Drag and drop the `dist` folder, or connect repo and set env vars in Build & Deploy settings
 - **GitHub Pages**: Push the `dist` folder to a `gh-pages` branch
 - **Any web server**: Copy `dist` contents to your web root
 
@@ -203,8 +220,11 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
 - Consistent viewing experience across devices
 - Professional presentation for museum visitors
 - Works perfectly on mobile devices after QR scanning
+- **No login required** - The player page is completely public and accessible to anyone
 
 The original MP4 URL is saved for your reference in the library.
+
+**Note:** Only the admin app (Generate/List tabs) requires login. The video player page is public so visitors can watch videos without authentication.
 
 ## Customization
 
