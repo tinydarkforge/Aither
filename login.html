@@ -17,9 +17,20 @@
         <p class="app-subtitle">QR Code Manager for ASL Videos</p>
       </div>
 
-      <form id="loginForm" class="login-form">
+      <form id="authForm" class="login-form">
+        <div class="form-group" id="orgNameGroup">
+          <label for="orgName">Organization Name</label>
+          <input
+            type="text"
+            id="orgName"
+            name="orgName"
+            placeholder="Enter your organization name"
+            autocomplete="organization"
+          >
+        </div>
+
         <div class="form-group">
-          <label for="password">Admin Password</label>
+          <label for="password">Password</label>
           <input
             type="password"
             id="password"
@@ -30,30 +41,78 @@
           >
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">
+        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
           Login
         </button>
 
         <div id="errorMessage" class="error-message" style="display: none;"></div>
+        <div id="successMessage" class="success-message" style="display: none;"></div>
       </form>
 
       <div class="login-footer">
-        <p class="text-muted">For authorized museum staff only</p>
+        <p class="text-muted">
+          <span id="loginModeText">Login as Organization</span> •
+          <a href="#" id="toggleLoginMode" style="color: var(--color-primary); margin-left: 0.5rem;">Superadmin Login</a>
+        </p>
       </div>
     </div>
   </div>
 
   <script type="module">
-    import { login, checkAuth } from '/src/js/auth.js';
+    import { login, loginAsSuperadmin, checkAuth, isSuperadmin } from '/src/js/auth.js';
 
     // Redirect if already logged in
     if (checkAuth()) {
-      window.location.href = '/index.html';
+      if (isSuperadmin()) {
+        window.location.href = '/admin.html';
+      } else {
+        window.location.href = '/index.html';
+      }
     }
 
-    const form = document.getElementById('loginForm');
+    const form = document.getElementById('authForm');
+    const orgNameGroup = document.getElementById('orgNameGroup');
+    const orgNameInput = document.getElementById('orgName');
     const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submitBtn');
     const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    const toggleLoginMode = document.getElementById('toggleLoginMode');
+    const loginModeText = document.getElementById('loginModeText');
+
+    let isSuperadminMode = false;
+
+    // Toggle between organization and superadmin login
+    toggleLoginMode.addEventListener('click', (e) => {
+      e.preventDefault();
+      isSuperadminMode = !isSuperadminMode;
+
+      if (isSuperadminMode) {
+        // Superadmin mode
+        orgNameGroup.style.display = 'none';
+        orgNameInput.removeAttribute('required');
+        loginModeText.textContent = 'Login as Superadmin';
+        toggleLoginMode.textContent = 'Organization Login';
+        passwordInput.placeholder = 'Enter superadmin password';
+      } else {
+        // Organization mode
+        orgNameGroup.style.display = 'block';
+        orgNameInput.setAttribute('required', '');
+        loginModeText.textContent = 'Login as Organization';
+        toggleLoginMode.textContent = 'Superadmin Login';
+        passwordInput.placeholder = 'Enter your password';
+      }
+
+      // Clear messages and inputs
+      hideMessages();
+      form.reset();
+
+      if (isSuperadminMode) {
+        passwordInput.focus();
+      } else {
+        orgNameInput.focus();
+      }
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -61,32 +120,77 @@
       const password = passwordInput.value;
 
       try {
-        const success = await login(password);
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Logging in...';
 
-        if (success) {
-          window.location.href = '/index.html';
+        if (isSuperadminMode) {
+          // Superadmin login
+          const result = await loginAsSuperadmin(password);
+
+          if (result.success) {
+            window.location.href = '/admin.html';
+          } else {
+            showError(result.message);
+            passwordInput.value = '';
+            passwordInput.focus();
+          }
         } else {
-          showError('Invalid password. Please try again.');
-          passwordInput.value = '';
-          passwordInput.focus();
+          // Organization login
+          const orgName = orgNameInput.value.trim();
+
+          if (!orgName) {
+            showError('Please enter your organization name');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Login';
+            return;
+          }
+
+          const result = await login(orgName, password);
+
+          if (result.success) {
+            window.location.href = '/index.html';
+          } else {
+            showError(result.message);
+            passwordInput.value = '';
+            passwordInput.focus();
+          }
         }
       } catch (error) {
         showError('An error occurred. Please try again.');
-        console.error('Login error:', error);
+        console.error('Auth error:', error);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Login';
       }
     });
 
     function showError(message) {
       errorMessage.textContent = message;
       errorMessage.style.display = 'block';
+      successMessage.style.display = 'none';
 
       setTimeout(() => {
         errorMessage.style.display = 'none';
-      }, 3000);
+      }, 5000);
     }
 
-    // Focus password input on load
-    passwordInput.focus();
+    function showSuccess(message) {
+      successMessage.textContent = message;
+      successMessage.style.display = 'block';
+      errorMessage.style.display = 'none';
+    }
+
+    function hideMessages() {
+      errorMessage.style.display = 'none';
+      successMessage.style.display = 'none';
+    }
+
+    // Focus appropriate input on load
+    if (isSuperadminMode) {
+      passwordInput.focus();
+    } else {
+      orgNameInput.focus();
+    }
   </script>
 </body>
 </html>

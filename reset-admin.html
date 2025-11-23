@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Admin Password - Aither</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/src/styles/vars.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1 class="app-title">Reset Admin Password</h1>
+        <p class="app-subtitle">Clear password override and use .env default</p>
+      </div>
+
+      <div style="padding: 2rem;">
+        <p style="margin-bottom: 1rem; color: var(--text);">
+          This will clear any custom superadmin password and revert to the password in the .env file.
+        </p>
+
+        <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 0.875rem;">
+          Current .env password: <strong style="color: var(--accent);">100%Pandango!</strong>
+        </p>
+
+        <button id="resetBtn" class="btn btn-primary btn-block">
+          Reset to Default Password
+        </button>
+
+        <div id="message" class="success-message" style="display: none; margin-top: 1rem;"></div>
+        <div id="error" class="error-message" style="display: none; margin-top: 1rem;"></div>
+
+        <p style="margin-top: 2rem; text-align: center;">
+          <a href="/login.html" style="color: var(--accent);">← Back to Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { deleteSetting } from '/src/js/db.js';
+
+    const resetBtn = document.getElementById('resetBtn');
+    const message = document.getElementById('message');
+    const error = document.getElementById('error');
+
+    resetBtn.addEventListener('click', async () => {
+      try {
+        resetBtn.disabled = true;
+        resetBtn.textContent = 'Resetting...';
+
+        // Clear the password override from IndexedDB
+        await deleteSetting('superadmin_password_hash');
+
+        message.textContent = 'Password reset successfully! You can now login with: 100%Pandango!';
+        message.style.display = 'block';
+        error.style.display = 'none';
+
+        setTimeout(() => {
+          window.location.href = '/login.html';
+        }, 2000);
+      } catch (err) {
+        console.error('Error resetting password:', err);
+        error.textContent = 'Error resetting password: ' + err.message;
+        error.style.display = 'block';
+        message.style.display = 'none';
+        resetBtn.disabled = false;
+        resetBtn.textContent = 'Reset to Default Password';
+      }
+    });
+  </script>
+</body>
+</html>

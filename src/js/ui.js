@@ -3,8 +3,19 @@
  * Handles all user interface interactions and app initialization
  */
 
-import { requireAuth, logout } from './auth.js';
-import { saveQRCode, getAllQRCodes, deleteQRCode, searchQRCodes } from './db.js';
+import { requireAuth, requireOrganization, logout, getCurrentOrganizationId, getCurrentOrganizationName, isSuperadmin } from './auth.js';
+import {
+  saveQRCode,
+  getAllQRCodes,
+  deleteQRCode,
+  searchQRCodes,
+  getCollections,
+  createCollection,
+  deleteCollection,
+  getQRCodesByCollection,
+  getCollectionById,
+  updateCollectionScanTime
+} from './db.js';
 import {
   generateQR,
   getQRDataURL,
@@ -14,17 +25,42 @@ import {
   generateFilename,
   createQRCode
 } from './qr.js';
+import { parseDirectoryForMP4s, getFilenameFromURL } from './parser.js';
 
 // State
 let currentQRCode = null;
 let currentQRInstance = null;
 let logoDataURL = null;
 let selectedQRId = null;
+let organizationId = null;
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
   // Check authentication
   requireAuth();
+
+  // Redirect superadmin to admin panel
+  if (isSuperadmin()) {
+    window.location.href = '/admin.html';
+    return;
+  }
+
+  // Require organization access
+  requireOrganization();
+
+  // Get organization ID from session
+  organizationId = getCurrentOrganizationId();
+  if (!organizationId) {
+    logout();
+    window.location.href = '/login.html';
+    return;
+  }
+
+  // Display organization name in header
+  const orgName = getCurrentOrganizationName();
+  if (orgName) {
+    document.getElementById('orgNameDisplay').textContent = orgName;
+  }
 
   // Initialize UI
   initializeUI();
@@ -96,6 +132,9 @@ function initializeEventListeners() {
   document.getElementById('downloadPngBtn').addEventListener('click', () => downloadFromModal('png'));
   document.getElementById('downloadSvgBtn').addEventListener('click', () => downloadFromModal('svg'));
   document.getElementById('copyUrlBtn').addEventListener('click', copyUrlFromModal);
+
+  // Collection form submission
+  document.getElementById('collectionForm').addEventListener('submit', handleCollectionFormSubmit);
 }
 
 /**
@@ -123,6 +162,11 @@ function showTab(tabName) {
   // Refresh list if switching to list tab
   if (tabName === 'list') {
     loadQRList();
+  }
+
+  // Load collections if switching to collection tab
+  if (tabName === 'collection') {
+    loadCollections();
   }
 }
 
@@ -247,7 +291,8 @@ async function handleQRFormSubmit(e) {
     await saveQRCode({
       url,
       imageData,
-      options
+      options,
+      organizationId
     });
 
     // Show success message
@@ -273,7 +318,7 @@ async function handleQRFormSubmit(e) {
  */
 async function loadQRList() {
   try {
-    const codes = await getAllQRCodes();
+    const codes = await getAllQRCodes(organizationId);
     renderQRList(codes);
   } catch (error) {
     console.error('Error loading QR codes:', error);
@@ -323,7 +368,7 @@ async function handleSearch(e) {
   const searchTerm = e.target.value;
 
   try {
-    const results = await searchQRCodes(searchTerm);
+    const results = await searchQRCodes(organizationId, searchTerm);
     renderQRList(results);
   } catch (error) {
     console.error('Error searching:', error);
@@ -335,7 +380,7 @@ async function handleSearch(e) {
  */
 async function viewQR(id) {
   try {
-    const codes = await getAllQRCodes();
+    const codes = await getAllQRCodes(organizationId);
     const code = codes.find(c => c.id === id);
 
     if (!code) {
@@ -367,7 +412,7 @@ async function viewQR(id) {
  */
 async function downloadQRById(id, format = 'png') {
   try {
-    const codes = await getAllQRCodes();
+    const codes = await getAllQRCodes(organizationId);
     const code = codes.find(c => c.id === id);
 
     if (!code) {
@@ -393,7 +438,7 @@ async function downloadFromModal(format) {
   if (!currentQRCode) return;
 
   try {
-    const codes = await getAllQRCodes();
+    const codes = await getAllQRCodes(organizationId);
     const code = codes.find(c => c.id === selectedQRId);
 
     if (code) {
@@ -411,7 +456,7 @@ async function downloadFromModal(format) {
  */
 async function copyUrlFromModal() {
   try {
-    const codes = await getAllQRCodes();
+    const codes = await getAllQRCodes(organizationId);
     const code = codes.find(c => c.id === selectedQRId);
 
     if (code) {
@@ -488,7 +533,340 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+// ============================================
+// COLLECTION MANAGEMENT FUNCTIONS
+// ============================================
+
+/**
+ * Handle collection form submission
+ */
+async function handleCollectionFormSubmit(e) {
+  e.preventDefault();
+
+  const directoryUrl = document.getElementById('directoryUrlInput').value.trim();
+  const collectionName = document.getElementById('collectionNameInput').value.trim();
+
+  if (!isValidURL(directoryUrl)) {
+    showCollectionError('Please enter a valid URL');
+    return;
+  }
+
+  if (!collectionName) {
+    showCollectionError('Please enter a collection name');
+    return;
+  }
+
+  try {
+    // Show progress
+    document.getElementById('collectionProgress').style.display = 'block';
+    document.getElementById('collectionResults').style.display = 'none';
+    document.getElementById('collectionMessage').style.display = 'none';
+    document.getElementById('collectionError').style.display = 'none';
+    document.getElementById('scanDirectoryBtn').disabled = true;
+
+    updateProgress(10, 'Scanning directory...');
+
+    // Parse directory for MP4 files
+    const result = await parseDirectoryForMP4s(directoryUrl);
+
+    if (!result.success) {
+      showCollectionError(result.error);
+      document.getElementById('collectionProgress').style.display = 'none';
+      document.getElementById('scanDirectoryBtn').disabled = false;
+      return;
+    }
+
+    updateProgress(30, `Found ${result.mp4Urls.length} MP4 files. Creating collection...`);
+
+    // Create collection in database
+    const collectionId = await createCollection({
+      organizationId,
+      name: collectionName,
+      sourceUrl: directoryUrl
+    });
+
+    updateProgress(40, 'Generating QR codes...');
+
+    // Generate QR codes for each MP4
+    const options = {
+      size: 300,
+      margin: 10,
+      fgColor: '#000000',
+      bgColor: '#ffffff',
+      logo: null
+    };
+
+    let successCount = 0;
+    const total = result.mp4Urls.length;
+
+    for (let i = 0; i < total; i++) {
+      const mp4Url = result.mp4Urls[i];
+
+      try {
+        // Use player-wrapped URL for QR code
+        const qrUrl = getPlayerURL(mp4Url);
+        const qrCode = createQRCode(qrUrl, options);
+        const imageData = await getQRDataURL(qrCode, 'png');
+
+        // Save to database
+        await saveQRCode({
+          url: mp4Url,
+          imageData,
+          options,
+          organizationId,
+          collectionId
+        });
+
+        successCount++;
+
+        // Update progress
+        const progress = 40 + ((i + 1) / total) * 60;
+        updateProgress(progress, `Generated ${successCount} of ${total} QR codes...`);
+      } catch (error) {
+        console.error(`Error generating QR for ${mp4Url}:`, error);
+      }
+    }
+
+    // Complete
+    updateProgress(100, 'Complete!');
+    document.getElementById('collectionProgress').style.display = 'none';
+    showCollectionMessage(`Successfully generated ${successCount} QR codes in collection "${collectionName}"!`);
+
+    // Reset form
+    document.getElementById('collectionForm').reset();
+
+    // Reload collections list
+    loadCollections();
+
+  } catch (error) {
+    console.error('Error creating collection:', error);
+    showCollectionError('An error occurred while creating the collection');
+    document.getElementById('collectionProgress').style.display = 'none';
+  } finally {
+    document.getElementById('scanDirectoryBtn').disabled = false;
+  }
+}
+
+/**
+ * Update progress bar
+ */
+function updateProgress(percentage, text) {
+  document.getElementById('progressFill').style.width = `${percentage}%`;
+  document.getElementById('progressText').textContent = text;
+}
+
+/**
+ * Show collection success message
+ */
+function showCollectionMessage(message) {
+  const messageEl = document.getElementById('collectionMessage');
+  messageEl.textContent = message;
+  messageEl.style.display = 'block';
+
+  setTimeout(() => {
+    messageEl.style.display = 'none';
+  }, 5000);
+}
+
+/**
+ * Show collection error message
+ */
+function showCollectionError(message) {
+  const errorEl = document.getElementById('collectionError');
+  errorEl.textContent = message;
+  errorEl.style.display = 'block';
+
+  setTimeout(() => {
+    errorEl.style.display = 'none';
+  }, 5000);
+}
+
+/**
+ * Load and render collections
+ */
+async function loadCollections() {
+  try {
+    const collections = await getCollections(organizationId);
+    renderCollections(collections);
+  } catch (error) {
+    console.error('Error loading collections:', error);
+    showCollectionError('Error loading collections');
+  }
+}
+
+/**
+ * Render collections list
+ */
+async function renderCollections(collections) {
+  const listContainer = document.getElementById('collectionsList');
+  const emptyState = document.getElementById('collectionsEmptyState');
+
+  if (collections.length === 0) {
+    listContainer.innerHTML = '';
+    emptyState.style.display = 'block';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+
+  const collectionsHTML = [];
+
+  for (const collection of collections) {
+    const codes = await getQRCodesByCollection(collection.id);
+    const qrCount = codes.length;
+
+    collectionsHTML.push(`
+      <div class="collection-item" data-id="${collection.id}">
+        <div class="collection-info">
+          <h4>${escapeHtml(collection.name)}</h4>
+          <p class="collection-meta">
+            ${qrCount} QR code${qrCount !== 1 ? 's' : ''} • Created ${formatDate(collection.createdAt)}
+          </p>
+          <p class="collection-url">${escapeHtml(collection.sourceUrl)}</p>
+        </div>
+        <div class="collection-actions">
+          <button class="btn btn-sm btn-secondary" onclick="window.viewCollection(${collection.id})">View QRs</button>
+          <button class="btn btn-sm btn-secondary" onclick="window.rescanCollection(${collection.id})">Re-scan</button>
+          <button class="btn btn-sm btn-danger" onclick="window.deleteCollectionById(${collection.id})">Delete</button>
+        </div>
+      </div>
+    `);
+  }
+
+  listContainer.innerHTML = collectionsHTML.join('');
+}
+
+/**
+ * View collection (show all QR codes in it)
+ */
+async function viewCollection(collectionId) {
+  try {
+    // Switch to library tab and filter by collection
+    showTab('list');
+
+    const codes = await getQRCodesByCollection(collectionId);
+    renderQRList(codes);
+
+    // Update search input to show we're filtering
+    const collection = await getCollectionById(collectionId);
+    if (collection) {
+      showMessage(`Showing ${codes.length} QR codes from "${collection.name}"`, 'success');
+    }
+  } catch (error) {
+    console.error('Error viewing collection:', error);
+    showCollectionError('Error loading collection QR codes');
+  }
+}
+
+/**
+ * Re-scan a collection for new MP4s
+ */
+async function rescanCollection(collectionId) {
+  if (!confirm('This will scan the directory again and add any new MP4 files found. Continue?')) {
+    return;
+  }
+
+  try {
+    const collection = await getCollectionById(collectionId);
+    if (!collection) {
+      showCollectionError('Collection not found');
+      return;
+    }
+
+    showCollectionMessage('Rescanning directory...');
+
+    // Parse directory for MP4 files
+    const result = await parseDirectoryForMP4s(collection.sourceUrl);
+
+    if (!result.success) {
+      showCollectionError(`Re-scan failed: ${result.error}`);
+      return;
+    }
+
+    // Get existing QR codes in this collection
+    const existingCodes = await getQRCodesByCollection(collectionId);
+    const existingUrls = new Set(existingCodes.map(code => code.url));
+
+    // Filter out MP4s that already have QR codes
+    const newMp4Urls = result.mp4Urls.filter(url => !existingUrls.has(url));
+
+    if (newMp4Urls.length === 0) {
+      showCollectionMessage('No new MP4 files found in the directory');
+      await updateCollectionScanTime(collectionId);
+      return;
+    }
+
+    // Generate QR codes for new MP4s
+    const options = {
+      size: 300,
+      margin: 10,
+      fgColor: '#000000',
+      bgColor: '#ffffff',
+      logo: null
+    };
+
+    let successCount = 0;
+
+    for (const mp4Url of newMp4Urls) {
+      try {
+        const qrUrl = getPlayerURL(mp4Url);
+        const qrCode = createQRCode(qrUrl, options);
+        const imageData = await getQRDataURL(qrCode, 'png');
+
+        await saveQRCode({
+          url: mp4Url,
+          imageData,
+          options,
+          organizationId,
+          collectionId
+        });
+
+        successCount++;
+      } catch (error) {
+        console.error(`Error generating QR for ${mp4Url}:`, error);
+      }
+    }
+
+    // Update last scanned time
+    await updateCollectionScanTime(collectionId);
+
+    showCollectionMessage(`Added ${successCount} new QR codes to collection "${collection.name}"!`);
+    loadCollections();
+
+  } catch (error) {
+    console.error('Error rescanning collection:', error);
+    showCollectionError('An error occurred while rescanning');
+  }
+}
+
+/**
+ * Delete a collection and all its QR codes
+ */
+async function deleteCollectionById(collectionId) {
+  const collection = await getCollectionById(collectionId);
+  if (!collection) {
+    showCollectionError('Collection not found');
+    return;
+  }
+
+  if (!confirm(`Are you sure you want to delete the collection "${collection.name}" and all its QR codes? This cannot be undone.`)) {
+    return;
+  }
+
+  try {
+    await deleteCollection(collectionId);
+    showCollectionMessage('Collection deleted successfully');
+    loadCollections();
+  } catch (error) {
+    console.error('Error deleting collection:', error);
+    showCollectionError('Error deleting collection');
+  }
+}
+
 // Expose functions to window for inline event handlers
 window.viewQR = viewQR;
 window.downloadQRById = downloadQRById;
 window.deleteQR = deleteQR;
+window.viewCollection = viewCollection;
+window.rescanCollection = rescanCollection;
+window.deleteCollectionById = deleteCollectionById;

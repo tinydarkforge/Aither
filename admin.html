@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Aither</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/src/styles/vars.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <div>
+          <h1 class="app-title">Aither Admin</h1>
+          <p class="org-name">Superadmin Panel</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button id="settingsBtn" class="btn btn-secondary btn-sm">⚙️ Settings</button>
+          <button id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <section class="tab-content active">
+        <div class="content-wrapper">
+          <h2 class="section-title">Organization Management</h2>
+          <p class="section-description">Create and manage organizations</p>
+
+          <!-- Create Organization Form -->
+          <div class="card" style="margin-bottom: 2rem;">
+            <h3>Create New Organization</h3>
+            <form id="createOrgForm" class="qr-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="newOrgName">Organization Name *</label>
+                  <input
+                    type="text"
+                    id="newOrgName"
+                    name="newOrgName"
+                    placeholder="e.g., Natural History Museum"
+                    required
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="newOrgPassword">Password *</label>
+                  <input
+                    type="password"
+                    id="newOrgPassword"
+                    name="newOrgPassword"
+                    placeholder="Minimum 6 characters"
+                    required
+                    minlength="6"
+                  >
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                Create Organization
+              </button>
+            </form>
+
+            <div id="createMessage" class="success-message" style="display: none; margin-top: 1rem;"></div>
+            <div id="createError" class="error-message" style="display: none; margin-top: 1rem;"></div>
+          </div>
+
+          <!-- Organizations List -->
+          <div>
+            <h3>All Organizations</h3>
+            <div id="orgsList" class="collections-list">
+              <!-- Organizations will be dynamically inserted here -->
+            </div>
+            <div id="orgsEmptyState" class="empty-state" style="display: none;">
+              <p>No organizations yet. Create the first one!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Rename Organization Modal -->
+  <div id="renameModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Rename Organization</h3>
+        <button class="modal-close" id="renameModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="renameForm">
+          <div class="form-group">
+            <label for="renameOrgName">New Organization Name</label>
+            <input
+              type="text"
+              id="renameOrgName"
+              required
+              minlength="3"
+            >
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Rename</button>
+            <button type="button" class="btn btn-secondary" id="renameCancelBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Password Modal -->
+  <div id="resetPasswordModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Reset Organization Password</h3>
+        <button class="modal-close" id="resetPasswordModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="resetPasswordForm">
+          <div class="form-group">
+            <label for="resetPassword">New Password</label>
+            <input
+              type="password"
+              id="resetPassword"
+              required
+              minlength="6"
+              placeholder="Minimum 6 characters"
+            >
+          </div>
+          <div class="form-group">
+            <label for="resetPasswordConfirm">Confirm Password</label>
+            <input
+              type="password"
+              id="resetPasswordConfirm"
+              required
+              minlength="6"
+              placeholder="Re-enter password"
+            >
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Reset Password</button>
+            <button type="button" class="btn btn-secondary" id="resetPasswordCancelBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Superadmin Settings Modal -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Superadmin Settings</h3>
+        <button class="modal-close" id="settingsModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="changePasswordForm">
+          <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--text);">Change Superadmin Password</h4>
+          <div class="form-group">
+            <label for="currentPassword">Current Password</label>
+            <input
+              type="password"
+              id="currentPassword"
+              required
+              placeholder="Enter current password"
+            >
+          </div>
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input
+              type="password"
+              id="newPassword"
+              required
+              minlength="6"
+              placeholder="Minimum 6 characters"
+            >
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm New Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              required
+              minlength="6"
+              placeholder="Re-enter new password"
+            >
+          </div>
+          <div id="settingsMessage" class="success-message" style="display: none;"></div>
+          <div id="settingsError" class="error-message" style="display: none;"></div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Change Password</button>
+            <button type="button" class="btn btn-secondary" id="settingsCancelBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { requireSuperadmin, logout, registerOrganization, renameOrganization, resetOrganizationPassword, removeOrganization, changeSuperadminPassword } from '/src/js/auth.js';
+    import db from '/src/js/db.js';
+
+    // Require superadmin access
+    requireSuperadmin();
+
+    const createOrgForm = document.getElementById('createOrgForm');
+    const newOrgNameInput = document.getElementById('newOrgName');
+    const newOrgPasswordInput = document.getElementById('newOrgPassword');
+    const createMessage = document.getElementById('createMessage');
+    const createError = document.getElementById('createError');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const settingsBtn = document.getElementById('settingsBtn');
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      logout();
+      window.location.href = '/login.html';
+    });
+
+    // Settings modal
+    const settingsModal = document.getElementById('settingsModal');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+    const currentPasswordInput = document.getElementById('currentPassword');
+    const newPasswordInput = document.getElementById('newPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const settingsMessage = document.getElementById('settingsMessage');
+    const settingsError = document.getElementById('settingsError');
+
+    settingsBtn.addEventListener('click', () => {
+      changePasswordForm.reset();
+      settingsMessage.style.display = 'none';
+      settingsError.style.display = 'none';
+      settingsModal.classList.add('active');
+      currentPasswordInput.focus();
+    });
+
+    document.getElementById('settingsModalClose').addEventListener('click', () => {
+      settingsModal.classList.remove('active');
+    });
+
+    document.getElementById('settingsCancelBtn').addEventListener('click', () => {
+      settingsModal.classList.remove('active');
+    });
+
+    changePasswordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const currentPassword = currentPasswordInput.value;
+      const newPassword = newPasswordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+
+      if (newPassword !== confirmPassword) {
+        showSettingsError('New passwords do not match');
+        return;
+      }
+
+      try {
+        const result = await changeSuperadminPassword(currentPassword, newPassword);
+
+        if (result.success) {
+          showSettingsMessage(result.message);
+          setTimeout(() => {
+            settingsModal.classList.remove('active');
+          }, 2000);
+        } else {
+          showSettingsError(result.message);
+        }
+      } catch (error) {
+        console.error('Error changing password:', error);
+        showSettingsError('An error occurred while changing the password');
+      }
+    });
+
+    function showSettingsMessage(message) {
+      settingsMessage.textContent = message;
+      settingsMessage.style.display = 'block';
+      settingsError.style.display = 'none';
+    }
+
+    function showSettingsError(message) {
+      settingsError.textContent = message;
+      settingsError.style.display = 'block';
+      settingsMessage.style.display = 'none';
+    }
+
+    // Create organization
+    createOrgForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const orgName = newOrgNameInput.value.trim();
+      const password = newOrgPasswordInput.value;
+
+      try {
+        const result = await registerOrganization(orgName, password);
+
+        if (result.success) {
+          showMessage(result.message);
+          createOrgForm.reset();
+          loadOrganizations();
+        } else {
+          showError(result.message);
+        }
+      } catch (error) {
+        console.error('Error creating organization:', error);
+        showError('An error occurred while creating the organization');
+      }
+    });
+
+    // Load organizations
+    async function loadOrganizations() {
+      try {
+        const orgs = await db.organizations.orderBy('createdAt').reverse().toArray();
+        renderOrganizations(orgs);
+      } catch (error) {
+        console.error('Error loading organizations:', error);
+        showError('Error loading organizations');
+      }
+    }
+
+    // Render organizations
+    async function renderOrganizations(orgs) {
+      const listContainer = document.getElementById('orgsList');
+      const emptyState = document.getElementById('orgsEmptyState');
+
+      if (orgs.length === 0) {
+        listContainer.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      const orgsHTML = [];
+
+      for (const org of orgs) {
+        // Get QR code count for this organization
+        const qrCount = await db.qrCodes.where('organizationId').equals(org.id).count();
+        const collectionCount = await db.collections.where('organizationId').equals(org.id).count();
+
+        orgsHTML.push(`
+          <div class="collection-item">
+            <div class="collection-info">
+              <h4>${escapeHtml(org.name)}</h4>
+              <p class="collection-meta">
+                ${qrCount} QR code${qrCount !== 1 ? 's' : ''} •
+                ${collectionCount} collection${collectionCount !== 1 ? 's' : ''} •
+                Created ${formatDate(org.createdAt)}
+              </p>
+            </div>
+            <div class="collection-actions">
+              <button class="btn btn-sm btn-secondary" onclick="window.renameOrgModal(${org.id}, '${escapeHtml(org.name)}')">Rename</button>
+              <button class="btn btn-sm btn-secondary" onclick="window.resetPasswordModal(${org.id}, '${escapeHtml(org.name)}')">Reset Password</button>
+              <button class="btn btn-sm btn-danger" onclick="window.deleteOrg(${org.id}, '${escapeHtml(org.name)}')">Delete</button>
+            </div>
+          </div>
+        `);
+      }
+
+      listContainer.innerHTML = orgsHTML.join('');
+    }
+
+    // Modal state
+    let currentOrgId = null;
+
+    // Rename organization modal
+    const renameModal = document.getElementById('renameModal');
+    const renameForm = document.getElementById('renameForm');
+    const renameOrgNameInput = document.getElementById('renameOrgName');
+
+    window.renameOrgModal = (orgId, orgName) => {
+      currentOrgId = orgId;
+      renameOrgNameInput.value = orgName;
+      renameModal.classList.add('active');
+      renameOrgNameInput.focus();
+    };
+
+    document.getElementById('renameModalClose').addEventListener('click', () => {
+      renameModal.classList.remove('active');
+    });
+
+    document.getElementById('renameCancelBtn').addEventListener('click', () => {
+      renameModal.classList.remove('active');
+    });
+
+    renameForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newName = renameOrgNameInput.value.trim();
+
+      try {
+        const result = await renameOrganization(currentOrgId, newName);
+
+        if (result.success) {
+          showMessage(result.message);
+          renameModal.classList.remove('active');
+          loadOrganizations();
+        } else {
+          showError(result.message);
+        }
+      } catch (error) {
+        console.error('Error renaming organization:', error);
+        showError('An error occurred while renaming the organization');
+      }
+    });
+
+    // Reset password modal
+    const resetPasswordModal = document.getElementById('resetPasswordModal');
+    const resetPasswordForm = document.getElementById('resetPasswordForm');
+    const resetPasswordInput = document.getElementById('resetPassword');
+    const resetPasswordConfirmInput = document.getElementById('resetPasswordConfirm');
+
+    window.resetPasswordModal = (orgId, orgName) => {
+      currentOrgId = orgId;
+      resetPasswordForm.reset();
+      resetPasswordModal.classList.add('active');
+      resetPasswordInput.focus();
+    };
+
+    document.getElementById('resetPasswordModalClose').addEventListener('click', () => {
+      resetPasswordModal.classList.remove('active');
+    });
+
+    document.getElementById('resetPasswordCancelBtn').addEventListener('click', () => {
+      resetPasswordModal.classList.remove('active');
+    });
+
+    resetPasswordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = resetPasswordInput.value;
+      const confirmPassword = resetPasswordConfirmInput.value;
+
+      if (password !== confirmPassword) {
+        showError('Passwords do not match');
+        return;
+      }
+
+      try {
+        const result = await resetOrganizationPassword(currentOrgId, password);
+
+        if (result.success) {
+          showMessage(result.message);
+          resetPasswordModal.classList.remove('active');
+        } else {
+          showError(result.message);
+        }
+      } catch (error) {
+        console.error('Error resetting password:', error);
+        showError('An error occurred while resetting the password');
+      }
+    });
+
+    // Delete organization
+    window.deleteOrg = async (orgId, orgName) => {
+      if (!confirm(`Are you sure you want to delete "${orgName}"?\n\nThis will permanently delete:\n- The organization\n- All QR codes\n- All collections\n\nThis action cannot be undone.`)) {
+        return;
+      }
+
+      try {
+        const result = await removeOrganization(orgId);
+
+        if (result.success) {
+          showMessage(result.message);
+          loadOrganizations();
+        } else {
+          showError(result.message);
+        }
+      } catch (error) {
+        console.error('Error deleting organization:', error);
+        showError('An error occurred while deleting the organization');
+      }
+    };
+
+    // Utility functions
+    function showMessage(message) {
+      createMessage.textContent = message;
+      createMessage.style.display = 'block';
+      createError.style.display = 'none';
+
+      setTimeout(() => {
+        createMessage.style.display = 'none';
+      }, 5000);
+    }
+
+    function showError(message) {
+      createError.textContent = message;
+      createError.style.display = 'block';
+      createMessage.style.display = 'none';
+
+      setTimeout(() => {
+        createError.style.display = 'none';
+      }, 5000);
+    }
+
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Load organizations on page load
+    loadOrganizations();
+  </script>
+</body>
+</html>

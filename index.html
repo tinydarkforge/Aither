@@ -14,14 +14,18 @@
     <!-- Header -->
     <header class="app-header">
       <div class="header-content">
-        <h1 class="app-title">Aither</h1>
+        <div>
+          <h1 class="app-title">Aither</h1>
+          <p class="org-name" id="orgNameDisplay"></p>
+        </div>
         <button id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
       </div>
     </header>
 
     <!-- Navigation Tabs -->
     <nav class="tab-nav">
-      <button class="tab-btn active" data-tab="generate">Generate</button>
+      <button class="tab-btn active" data-tab="generate">Single QR</button>
+      <button class="tab-btn" data-tab="collection">Bulk Collection</button>
       <button class="tab-btn" data-tab="list">Library</button>
     </nav>
 
@@ -128,6 +132,78 @@
           <!-- Success Message -->
           <div id="successMessage" class="success-message" style="display: none;">
             QR code generated and saved successfully!
+          </div>
+        </div>
+      </section>
+
+      <!-- Bulk Collection Tab -->
+      <section id="collectionTab" class="tab-content">
+        <div class="content-wrapper">
+          <h2 class="section-title">Bulk QR Code Collection</h2>
+          <p class="section-description">Generate multiple QR codes from a directory listing URL</p>
+
+          <form id="collectionForm" class="qr-form">
+            <div class="form-grid">
+              <!-- Directory URL Input -->
+              <div class="form-group span-2">
+                <label for="directoryUrlInput">Directory Listing URL *</label>
+                <input
+                  type="url"
+                  id="directoryUrlInput"
+                  name="directoryUrl"
+                  placeholder="https://example.com/videos/"
+                  required
+                >
+                <small class="form-hint">💡 Paste a URL to a directory listing page containing MP4 files</small>
+              </div>
+
+              <!-- Collection Name Input -->
+              <div class="form-group span-2">
+                <label for="collectionNameInput">Collection Name *</label>
+                <input
+                  type="text"
+                  id="collectionNameInput"
+                  name="collectionName"
+                  placeholder="e.g., Exhibition Floor 2, ASL Videos Spring 2024"
+                  required
+                >
+                <small class="form-hint">💡 Name this group of QR codes for easy organization</small>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="scanDirectoryBtn">
+              Scan Directory & Generate QR Codes
+            </button>
+          </form>
+
+          <!-- Progress Section -->
+          <div id="collectionProgress" class="collection-progress" style="display: none;">
+            <h3>Processing...</h3>
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <p id="progressText">Scanning directory...</p>
+          </div>
+
+          <!-- Collection Results -->
+          <div id="collectionResults" class="collection-results" style="display: none;">
+            <h3>Found MP4 Files</h3>
+            <div id="mp4List" class="mp4-list"></div>
+          </div>
+
+          <!-- Success/Error Messages -->
+          <div id="collectionMessage" class="success-message" style="display: none;"></div>
+          <div id="collectionError" class="error-message" style="display: none;"></div>
+
+          <!-- Existing Collections -->
+          <div class="collections-section">
+            <h3>Your Collections</h3>
+            <div id="collectionsList" class="collections-list">
+              <!-- Collections will be dynamically inserted here -->
+            </div>
+            <div id="collectionsEmptyState" class="empty-state" style="display: none;">
+              <p>No collections yet. Create your first bulk collection!</p>
+            </div>
           </div>
         </div>
       </section>
