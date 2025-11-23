@@ -7,7 +7,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'index.html',
-        login: 'login.html'
+        login: 'login.html',
+        player: 'player.html'
       }
     }
   },

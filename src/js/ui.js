@@ -155,6 +155,37 @@ async function handleLogoUpload(e) {
 }
 
 /**
+ * Check if URL is an MP4 video
+ */
+function isMP4URL(url) {
+  try {
+    const urlObj = new URL(url);
+    const path = urlObj.pathname.toLowerCase();
+    return path.endsWith('.mp4');
+  } catch {
+    return url.toLowerCase().endsWith('.mp4');
+  }
+}
+
+/**
+ * Wrap video URL with player page
+ */
+function getPlayerURL(videoUrl) {
+  const baseUrl = window.location.origin;
+  return `${baseUrl}/player.html?video=${encodeURIComponent(videoUrl)}`;
+}
+
+/**
+ * Get the QR-ready URL (wraps MP4s with player page)
+ */
+function getQRReadyURL(url) {
+  if (isMP4URL(url)) {
+    return getPlayerURL(url);
+  }
+  return url;
+}
+
+/**
  * Update QR preview
  */
 function updatePreview() {
@@ -168,7 +199,9 @@ function updatePreview() {
   const options = getFormOptions();
   const container = document.getElementById('qrCanvas');
 
-  currentQRInstance = generateQR(container, url, options);
+  // Use player-wrapped URL for MP4s
+  const qrUrl = getQRReadyURL(url);
+  currentQRInstance = generateQR(container, qrUrl, options);
   document.getElementById('qrPreview').style.display = 'block';
 }
 
@@ -201,13 +234,16 @@ async function handleQRFormSubmit(e) {
   try {
     const options = getFormOptions();
 
-    // Generate QR code
-    const qrCode = createQRCode(url, options);
+    // Use player-wrapped URL for MP4s
+    const qrUrl = getQRReadyURL(url);
+
+    // Generate QR code with the player URL (if MP4)
+    const qrCode = createQRCode(qrUrl, options);
 
     // Get image data
     const imageData = await getQRDataURL(qrCode, 'png');
 
-    // Save to database
+    // Save to database (store original URL for display)
     await saveQRCode({
       url,
       imageData,
@@ -313,9 +349,10 @@ async function viewQR(id) {
     document.getElementById('modalUrl').textContent = code.url;
     document.getElementById('modalDate').textContent = formatDate(code.generatedAt);
 
-    // Render QR code
+    // Render QR code (use player-wrapped URL for MP4s)
+    const qrUrl = getQRReadyURL(code.url);
     const modalCanvas = document.getElementById('modalQrCanvas');
-    currentQRCode = generateQR(modalCanvas, code.url, code.options);
+    currentQRCode = generateQR(modalCanvas, qrUrl, code.options);
 
     // Show modal
     document.getElementById('qrModal').classList.add('active');
@@ -338,7 +375,9 @@ async function downloadQRById(id, format = 'png') {
       return;
     }
 
-    const qrCode = createQRCode(code.url, code.options);
+    // Use player-wrapped URL for MP4s
+    const qrUrl = getQRReadyURL(code.url);
+    const qrCode = createQRCode(qrUrl, code.options);
     const filename = generateFilename(code.url);
     await downloadQR(qrCode, filename, format);
   } catch (error) {

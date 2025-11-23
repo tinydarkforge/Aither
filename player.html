@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASL Video Player - Aither</title>
+  <link rel="stylesheet" href="/src/styles/vars.css">
+  <link rel="stylesheet" href="/src/styles/player.css">
+</head>
+<body class="player-page">
+  <div class="player-container">
+    <!-- Video Player -->
+    <div class="video-wrapper">
+      <video
+        id="videoPlayer"
+        class="video-player"
+        controls
+        playsinline
+        preload="metadata"
+      >
+        <p>Your browser doesn't support HTML5 video.</p>
+      </video>
+    </div>
+
+    <!-- Video Info -->
+    <div class="video-info">
+      <h1 class="video-title" id="videoTitle">ASL Video</h1>
+      <p class="video-url" id="videoUrl"></p>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-container" style="display: none;">
+      <div class="error-icon">⚠️</div>
+      <h2>Video Not Found</h2>
+      <p>No video URL was provided. Please scan a valid QR code.</p>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading video...</p>
+    </div>
+  </div>
+
+  <script type="module">
+    const videoPlayer = document.getElementById('videoPlayer');
+    const videoTitle = document.getElementById('videoTitle');
+    const videoUrl = document.getElementById('videoUrl');
+    const errorMessage = document.getElementById('errorMessage');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+
+    // Get video URL from query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoSrc = urlParams.get('video');
+
+    if (!videoSrc) {
+      // No video URL provided
+      loadingIndicator.style.display = 'none';
+      errorMessage.style.display = 'flex';
+      document.querySelector('.video-wrapper').style.display = 'none';
+      document.querySelector('.video-info').style.display = 'none';
+    } else {
+      // Set video source
+      videoPlayer.src = decodeURIComponent(videoSrc);
+
+      // Update UI with video info
+      videoUrl.textContent = decodeURIComponent(videoSrc);
+
+      // Extract filename for title
+      try {
+        const url = new URL(decodeURIComponent(videoSrc));
+        const filename = url.pathname.split('/').pop();
+        videoTitle.textContent = filename.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+      } catch (e) {
+        videoTitle.textContent = 'ASL Video';
+      }
+
+      // Handle video load events
+      videoPlayer.addEventListener('loadstart', () => {
+        loadingIndicator.style.display = 'flex';
+      });
+
+      videoPlayer.addEventListener('loadeddata', () => {
+        loadingIndicator.style.display = 'none';
+      });
+
+      videoPlayer.addEventListener('error', (e) => {
+        loadingIndicator.style.display = 'none';
+        errorMessage.style.display = 'flex';
+        errorMessage.querySelector('h2').textContent = 'Error Loading Video';
+        errorMessage.querySelector('p').textContent = 'The video could not be loaded. Please check the URL and try again.';
+        document.querySelector('.video-wrapper').style.display = 'none';
+        console.error('Video error:', e);
+      });
+
+      // Auto-play on mobile after user interaction
+      videoPlayer.addEventListener('canplay', () => {
+        // Attempt autoplay (may be blocked by browser policies)
+        const playPromise = videoPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log('Autoplay prevented:', error);
+            // Show play button overlay if autoplay is blocked
+          });
+        }
+      });
+    }
+
+    // Handle fullscreen
+    const videoWrapper = document.querySelector('.video-wrapper');
+    videoPlayer.addEventListener('dblclick', () => {
+      if (!document.fullscreenElement) {
+        videoWrapper.requestFullscreen().catch(err => {
+          console.log('Fullscreen error:', err);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>

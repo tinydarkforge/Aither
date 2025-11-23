@@ -6,6 +6,7 @@ A static QR code generator and manager for ASL (American Sign Language) museum v
 
 - **Pure Static App**: Runs 100% in the browser with no server needed
 - **QR Code Generation**: Create beautiful QR codes for video URLs with customization options
+- **Smart Video Player**: MP4 URLs automatically use a custom video player when scanned
 - **Client-Side Storage**: Saves all QR codes locally using IndexedDB
 - **Secure Login**: Client-side password authentication with SHA-256 hashing
 - **Dark Theme**: Clean, spiritual aesthetic inspired by JW.org
@@ -138,6 +139,7 @@ VITE_ADMIN_PASS_HASH=a1b2c3d4e5f6...
 aither/
 ├── index.html              # Main app page
 ├── login.html              # Login page
+├── player.html             # Video player page (for QR scans)
 ├── package.json
 ├── vite.config.js
 ├── .env.example
@@ -152,7 +154,8 @@ aither/
     ├── styles/
     │   ├── vars.css        # CSS variables (theme)
     │   ├── layout.css      # Layout styles
-    │   └── components.css  # Component styles
+    │   ├── components.css  # Component styles
+    │   └── player.css      # Video player styles
     └── assets/
         └── logo.svg        # App logo
 ```
@@ -181,6 +184,27 @@ aither/
 3. Click on any QR to view full-size
 4. Download as PNG or SVG
 5. Copy URL or delete as needed
+
+### Video Player Feature
+
+When you enter an MP4 URL, Aither automatically creates a QR code that links to a custom video player instead of the raw MP4 file. This provides a better user experience:
+
+**How it works:**
+1. Enter an MP4 URL (e.g., `https://example.com/video.mp4`)
+2. The QR code will link to: `https://yoursite.com/player.html?video=<encoded-url>`
+3. When scanned, visitors see a beautiful video player with:
+   - Play/pause controls
+   - Fullscreen support
+   - Mobile-optimized layout
+   - Dark theme matching the app
+
+**Benefits:**
+- Videos play directly in the browser (no download required)
+- Consistent viewing experience across devices
+- Professional presentation for museum visitors
+- Works perfectly on mobile devices after QR scanning
+
+The original MP4 URL is saved for your reference in the library.
 
 ## Customization
 
