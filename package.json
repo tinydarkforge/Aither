@@ -2,6 +2,10 @@
   "name": "aither",
   "version": "1.0.0",
   "description": "A static QR code generator and manager for ASL museum videos",
+  "author": "Cirrus <info@hellocirrus.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "copyright": "Copyright (c) 2025 Cirrus. All rights reserved.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +14,9 @@
     "hash-password": "node scripts/hash-password.js"
   },
   "devDependencies": {
-    "vite": "^5.0.0"
+    "javascript-obfuscator": "^4.1.1",
+    "vite": "^5.0.0",
+    "vite-plugin-javascript-obfuscator": "^3.1.0"
   },
   "dependencies": {
     "dexie": "^3.2.4",

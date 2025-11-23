@@ -1,4 +1,9 @@
 /**
+ * Aither - QR Code Manager for ASL Videos
+ *
+ * Copyright (c) 2025 Cirrus. All rights reserved.
+ * Licensed under Proprietary License - see LICENSE file
+ *
  * Authentication Module
  * Handles organization-based authentication using SHA-256 hashing
  *

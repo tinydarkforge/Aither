@@ -1,4 +1,9 @@
 /**
+ * Aither - QR Code Manager for ASL Videos
+ *
+ * Copyright (c) 2025 Cirrus. All rights reserved.
+ * Licensed under Proprietary License - see LICENSE file
+ *
  * Directory Parser Module
  * Extracts MP4 file URLs from directory listing pages
  */

@@ -1,4 +1,9 @@
 /**
+ * Aither - QR Code Manager for ASL Videos
+ *
+ * Copyright (c) 2025 Cirrus. All rights reserved.
+ * Licensed under Proprietary License - see LICENSE file
+ *
  * Database Module
  * IndexedDB wrapper using Dexie.js for storing QR codes
  */
