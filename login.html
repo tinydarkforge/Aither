@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Aither</title>
+  <link rel="stylesheet" href="/src/styles/vars.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1 class="app-title">Aither</h1>
+        <p class="app-subtitle">QR Code Manager for ASL Videos</p>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="password">Admin Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+            autocomplete="current-password"
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          Login
+        </button>
+
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+      </form>
+
+      <div class="login-footer">
+        <p class="text-muted">For authorized museum staff only</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { login, checkAuth } from '/src/js/auth.js';
+
+    // Redirect if already logged in
+    if (checkAuth()) {
+      window.location.href = '/index.html';
+    }
+
+    const form = document.getElementById('loginForm');
+    const passwordInput = document.getElementById('password');
+    const errorMessage = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const password = passwordInput.value;
+
+      try {
+        const success = await login(password);
+
+        if (success) {
+          window.location.href = '/index.html';
+        } else {
+          showError('Invalid password. Please try again.');
+          passwordInput.value = '';
+          passwordInput.focus();
+        }
+      } catch (error) {
+        showError('An error occurred. Please try again.');
+        console.error('Login error:', error);
+      }
+    });
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+
+      setTimeout(() => {
+        errorMessage.style.display = 'none';
+      }, 3000);
+    }
+
+    // Focus password input on load
+    passwordInput.focus();
+  </script>
+</body>
+</html>

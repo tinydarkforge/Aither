@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aither - QR Code Manager</title>
+  <link rel="stylesheet" href="/src/styles/vars.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <h1 class="app-title">Aither</h1>
+        <button id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="generate">Generate</button>
+      <button class="tab-btn" data-tab="list">Library</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Generate Tab -->
+      <section id="generateTab" class="tab-content active">
+        <div class="content-wrapper">
+          <h2 class="section-title">Generate QR Code</h2>
+
+          <form id="qrForm" class="qr-form">
+            <div class="form-grid">
+              <!-- URL Input -->
+              <div class="form-group span-2">
+                <label for="urlInput">Video URL *</label>
+                <input
+                  type="url"
+                  id="urlInput"
+                  name="url"
+                  placeholder="https://example.com/video"
+                  required
+                >
+              </div>
+
+              <!-- Size -->
+              <div class="form-group">
+                <label for="sizeInput">Size (px)</label>
+                <input
+                  type="number"
+                  id="sizeInput"
+                  name="size"
+                  value="300"
+                  min="100"
+                  max="1000"
+                  step="50"
+                >
+              </div>
+
+              <!-- Margin -->
+              <div class="form-group">
+                <label for="marginInput">Margin</label>
+                <input
+                  type="number"
+                  id="marginInput"
+                  name="margin"
+                  value="10"
+                  min="0"
+                  max="50"
+                >
+              </div>
+
+              <!-- Foreground Color -->
+              <div class="form-group">
+                <label for="fgColorInput">Foreground Color</label>
+                <div class="color-input-wrapper">
+                  <input
+                    type="color"
+                    id="fgColorInput"
+                    name="fgColor"
+                    value="#000000"
+                  >
+                  <span id="fgColorValue">#000000</span>
+                </div>
+              </div>
+
+              <!-- Background Color -->
+              <div class="form-group">
+                <label for="bgColorInput">Background Color</label>
+                <div class="color-input-wrapper">
+                  <input
+                    type="color"
+                    id="bgColorInput"
+                    name="bgColor"
+                    value="#ffffff"
+                  >
+                  <span id="bgColorValue">#ffffff</span>
+                </div>
+              </div>
+
+              <!-- Logo Upload -->
+              <div class="form-group span-2">
+                <label for="logoInput">Logo (optional)</label>
+                <input
+                  type="file"
+                  id="logoInput"
+                  name="logo"
+                  accept="image/*"
+                >
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              Generate QR Code
+            </button>
+          </form>
+
+          <!-- QR Preview -->
+          <div id="qrPreview" class="qr-preview" style="display: none;">
+            <h3 class="preview-title">Preview</h3>
+            <div id="qrCanvas" class="qr-canvas"></div>
+          </div>
+
+          <!-- Success Message -->
+          <div id="successMessage" class="success-message" style="display: none;">
+            QR code generated and saved successfully!
+          </div>
+        </div>
+      </section>
+
+      <!-- List Tab -->
+      <section id="listTab" class="tab-content">
+        <div class="content-wrapper">
+          <div class="list-header">
+            <h2 class="section-title">QR Code Library</h2>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search by URL..."
+              class="search-input"
+            >
+          </div>
+
+          <div id="qrList" class="qr-list">
+            <!-- QR items will be dynamically inserted here -->
+          </div>
+
+          <div id="emptyState" class="empty-state" style="display: none;">
+            <p>No QR codes yet. Generate your first one!</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- QR Viewer Modal -->
+  <div id="qrModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">QR Code</h3>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="modalQrCanvas" class="modal-qr-canvas"></div>
+        <div class="modal-info">
+          <p><strong>URL:</strong> <span id="modalUrl"></span></p>
+          <p><strong>Created:</strong> <span id="modalDate"></span></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="downloadPngBtn" class="btn btn-primary">Download PNG</button>
+        <button id="downloadSvgBtn" class="btn btn-secondary">Download SVG</button>
+        <button id="copyUrlBtn" class="btn btn-secondary">Copy URL</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/js/ui.js"></script>
+</body>
+</html>
