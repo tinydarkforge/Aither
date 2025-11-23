@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="/src/styles/components.css">
 </head>
 <body class="login-page">
+  <!-- Theme Toggle (Fixed Position) -->
+  <div id="themeToggle" style="position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1000;"></div>
+
   <div class="login-container">
     <div class="login-card">
       <div class="login-header">
@@ -43,9 +46,15 @@
   <script type="module">
     import { requireSuperadmin } from '/src/js/auth.js';
     import { deleteSetting } from '/src/js/db.js';
+    import { createThemeToggle } from '/src/js/theme.js';
 
     // Require superadmin access
     requireSuperadmin();
+
+    // Initialize theme toggle
+    const themeToggleContainer = document.getElementById('themeToggle');
+    const themeToggle = createThemeToggle();
+    themeToggleContainer.appendChild(themeToggle);
 
     const resetBtn = document.getElementById('resetBtn');
     const message = document.getElementById('message');

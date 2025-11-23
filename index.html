@@ -18,7 +18,10 @@
           <h1 class="app-title">Aither</h1>
           <p class="org-name" id="orgNameDisplay"></p>
         </div>
-        <button id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div id="themeToggle"></div>
+          <button id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
+        </div>
       </div>
     </header>
 
@@ -255,6 +258,14 @@
     </div>
   </div>
 
+  <script type="module">
+    import { createThemeToggle } from '/src/js/theme.js';
+
+    // Initialize theme toggle
+    const themeToggleContainer = document.getElementById('themeToggle');
+    const themeToggle = createThemeToggle();
+    themeToggleContainer.appendChild(themeToggle);
+  </script>
   <script type="module" src="/src/js/ui.js"></script>
 </body>
 </html>

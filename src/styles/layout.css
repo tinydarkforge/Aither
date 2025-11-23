@@ -13,6 +13,10 @@
   background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 50%, #93C5FD 100%);
 }
 
+[data-theme="dark"] .login-page {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+}
+
 .login-container {
   width: 100%;
   max-width: 420px;

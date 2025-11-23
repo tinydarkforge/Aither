@@ -18,7 +18,8 @@
           <h1 class="app-title">Aither Admin</h1>
           <p class="org-name">Superadmin Panel</p>
         </div>
-        <div style="display: flex; gap: 0.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div id="themeToggle"></div>
           <button id="settingsBtn" class="btn btn-secondary btn-sm">⚙️ Settings</button>
           <button id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
         </div>
@@ -203,9 +204,15 @@
   <script type="module">
     import { requireSuperadmin, logout, registerOrganization, renameOrganization, resetOrganizationPassword, removeOrganization, changeSuperadminPassword } from '/src/js/auth.js';
     import db from '/src/js/db.js';
+    import { createThemeToggle } from '/src/js/theme.js';
 
     // Require superadmin access
     requireSuperadmin();
+
+    // Initialize theme toggle
+    const themeToggleContainer = document.getElementById('themeToggle');
+    const themeToggle = createThemeToggle();
+    themeToggleContainer.appendChild(themeToggle);
 
     const createOrgForm = document.getElementById('createOrgForm');
     const newOrgNameInput = document.getElementById('newOrgName');

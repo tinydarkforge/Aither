@@ -3,6 +3,47 @@
  * Reusable component styles (buttons, forms, cards, etc.)
  */
 
+/* Theme Toggle */
+.theme-toggle {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: var(--border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background var(--transition-base);
+  border: 2px solid var(--border);
+}
+
+.theme-toggle:hover {
+  background: var(--text-muted);
+}
+
+.theme-toggle-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: transform var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] .theme-toggle-slider {
+  transform: translateX(22px);
+  background: white;
+}
+
 /* Buttons */
 .btn {
   display: inline-block;

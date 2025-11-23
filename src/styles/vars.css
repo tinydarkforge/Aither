@@ -1,10 +1,10 @@
 /**
- * CSS Variables - Modern SaaS Theme
- * Clean, professional light theme with blue accents
+ * CSS Variables - Modern SaaS Theme with Light/Dark Mode
+ * Professional dual-theme design
  */
 
 :root {
-  /* Color Palette */
+  /* Light Theme (Default) */
   --bg: #F9FAFB;
   --bg-secondary: #FFFFFF;
   --panel: #FFFFFF;
@@ -24,7 +24,32 @@
   --danger: #DC2626;
   --warning: #F59E0B;
   --warning-bg: #FEF3C7;
+}
 
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg: #0F172A;
+  --bg-secondary: #1E293B;
+  --panel: #1E293B;
+  --accent: #3B82F6;
+  --accent-hover: #60A5FA;
+  --accent-light: #1E3A8A;
+  --muted: #94A3B8;
+  --text: #F1F5F9;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+  --border: #334155;
+  --border-light: #293548;
+  --success: #10B981;
+  --success-bg: #064E3B;
+  --error: #EF4444;
+  --error-bg: #7F1D1D;
+  --danger: #DC2626;
+  --warning: #F59E0B;
+  --warning-bg: #78350F;
+}
+
+:root {
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
