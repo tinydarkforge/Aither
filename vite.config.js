@@ -8,7 +8,9 @@ export default defineConfig({
       input: {
         main: 'index.html',
         login: 'login.html',
-        player: 'player.html'
+        player: 'player.html',
+        admin: 'admin.html',
+        reset: 'reset-admin.html'
       }
     }
   },
