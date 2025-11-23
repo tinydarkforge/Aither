@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/src/styles/vars.css">
   <link rel="stylesheet" href="/src/styles/layout.css">
   <link rel="stylesheet" href="/src/styles/components.css">
+  <link rel="stylesheet" href="/src/styles/error-handler.css">
 </head>
 <body class="login-page">
   <!-- Theme Toggle (Fixed Position) -->
@@ -64,6 +65,10 @@
   <script type="module">
     import { login, loginAsSuperadmin, checkAuth, isSuperadmin } from '/src/js/auth.js';
     import { createThemeToggle } from '/src/js/theme.js';
+    import { initializeErrorHandlers } from '/src/js/error-handler.js';
+
+    // Initialize error handlers
+    initializeErrorHandlers();
 
     // Initialize theme toggle
     const themeToggleContainer = document.getElementById('themeToggle');

@@ -7,6 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/src/styles/vars.css">
   <link rel="stylesheet" href="/src/styles/player.css">
+  <link rel="stylesheet" href="/src/styles/error-handler.css">
 </head>
 <body class="player-page">
   <div class="player-container">
@@ -67,6 +68,10 @@
 
   <script type="module">
     import { Html5Qrcode } from 'html5-qrcode';
+    import { initializeErrorHandlers } from '/src/js/error-handler.js';
+
+    // Initialize error handlers
+    initializeErrorHandlers();
 
     const videoPlayer = document.getElementById('videoPlayer');
     const videoTitle = document.getElementById('videoTitle');

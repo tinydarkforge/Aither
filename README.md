@@ -1,24 +1,51 @@
 # Aither
 
-A static QR code generator and manager for ASL (American Sign Language) museum videos. Built with a JW.org-inspired dark theme, Aither runs entirely client-side with no backend required.
+**Copyright © 2025 Cirrus. All rights reserved.**
+
+A static QR code generator and manager for ASL (American Sign Language) museum videos. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
 
 ## Features
 
+### Core Functionality
 - **Pure Static App**: Runs 100% in the browser with no server needed
 - **QR Code Generation**: Create beautiful QR codes for video URLs with customization options
 - **Smart Video Player**: MP4 URLs automatically use a custom video player when scanned
 - **Client-Side Storage**: Saves all QR codes locally using IndexedDB
-- **Secure Login**: Client-side password authentication with SHA-256 hashing
-- **Dark Theme**: Clean, spiritual aesthetic inspired by JW.org
-- **Offline Capable**: Works without an internet connection once loaded
 - **Export Options**: Download QR codes as PNG or SVG
+- **Offline Capable**: Works without an internet connection once loaded
+
+### Multi-Tenant Organization System
+- **Organization Management**: Superadmin can create and manage multiple organizations
+- **Organization Isolation**: Each organization has separate data and authentication
+- **Per-Organization Login**: Each organization has its own credentials and QR code library
+- **Password Management**: Superadmin can reset organization passwords
+
+### Bulk Collection Generation
+- **Directory URL Parsing**: Paste a directory listing URL to extract all video links
+- **Automatic Collection Creation**: Generates QR codes for all videos in a directory at once
+- **Smart Filtering**: Automatically filters for MP4 files
+- **Collection Organization**: Group related videos together for easy management
+
+### Modern UI/UX
+- **Theme Switcher**: Toggle between light and dark mode with user preference persistence
+- **Modern SaaS Design**: Clean, professional interface inspired by hellocirrus.com
+- **Responsive Layout**: Works seamlessly on desktop, tablet, and mobile devices
+- **Keyboard Shortcuts**: Efficient navigation for power users
+
+### Security & Authentication
+- **Secure Login**: Client-side password authentication with SHA-256 hashing
+- **Superadmin Panel**: Dedicated admin interface for organization management
+- **Password Reset Utility**: Built-in tool for superadmin password recovery
+- **Code Protection**: Obfuscated and minified production builds
 
 ## Tech Stack
 
-- **Build Tool**: Vite
+- **Build Tool**: Vite 5.0
 - **Storage**: IndexedDB via Dexie.js
 - **QR Generation**: qr-code-styling
+- **QR Scanning**: html5-qrcode (in-player scanner)
 - **Authentication**: Client-side SHA-256 hashed passwords
+- **Code Protection**: javascript-obfuscator with terser minification
 - **Languages**: Vanilla HTML, CSS, JavaScript (no frameworks)
 
 ## Quick Start
@@ -40,7 +67,7 @@ cd aither
 npm install
 ```
 
-3. Set up your admin password:
+3. Set up your superadmin password:
 ```bash
 # Generate a password hash
 npm run hash-password
@@ -56,7 +83,7 @@ cp .env.example .env
 npm run dev
 ```
 
-5. Open your browser to `http://localhost:3000/login.html`
+5. Open your browser to `http://localhost:3010/login.html`
 
 ## Building for Production
 
@@ -64,7 +91,12 @@ npm run dev
 npm run build
 ```
 
-The static files will be output to the `dist/` directory. You can deploy these to any static hosting service.
+The static files will be output to the `dist/` directory. Production builds include:
+- Code obfuscation for IP protection
+- Terser minification for smaller bundle size
+- Optimized assets for faster loading
+
+You can deploy these to any static hosting service.
 
 ### Deploying to Vercel
 
@@ -98,19 +130,23 @@ The static files will be output to the `dist/` directory. You can deploy these t
 - Physical security is assumed
 - The risk of credential compromise is low
 
+For detailed security information, see [SECURITY.md](SECURITY.md).
+
 ### How Authentication Works
 
-1. **Password Hashing**: Your admin password is hashed using SHA-256 during setup
-2. **Hash Storage**: The hash is stored in the app's environment variables (embedded during build)
-3. **Client-Side Validation**: When logging in, the entered password is hashed and compared to the stored hash
-4. **Session Management**: On successful login, a session token is stored in localStorage with a 24-hour expiration
+1. **Password Hashing**: Passwords are hashed using SHA-256
+2. **Hash Storage**: Superadmin hash is embedded during build; organization hashes are stored in IndexedDB
+3. **Client-Side Validation**: Entered password is hashed and compared to stored hash
+4. **Session Management**: Session tokens stored in localStorage with 24-hour expiration
 
 ### Limitations
 
-- **No Server Validation**: Anyone with browser dev tools can bypass the login
-- **Hash Visibility**: The password hash is visible in the compiled JavaScript
-- **Local Storage**: Session tokens are stored in plain localStorage
+- **Client-Side Only**: Anyone with browser dev tools can bypass authentication
+- **No Salt**: Passwords hashed without salts (vulnerable to rainbow tables)
+- **Local Storage**: Session tokens stored in plain localStorage
 - **No Rate Limiting**: No protection against brute force attempts
+
+See [SECURITY.md](SECURITY.md) for comprehensive security documentation and best practices.
 
 ### When This Approach is Appropriate
 
@@ -129,7 +165,7 @@ If you need real security, consider:
 
 ## Generating Password Hashes
 
-To create or update your admin password:
+To create or update your superadmin password:
 
 ```bash
 npm run hash-password
@@ -154,38 +190,57 @@ VITE_ADMIN_PASS_HASH=a1b2c3d4e5f6...
 
 ```
 aither/
-├── index.html              # Main app page
+├── index.html              # Main app page (QR generator)
 ├── login.html              # Login page
 ├── player.html             # Video player page (for QR scans)
+├── admin.html              # Superadmin panel
+├── reset-admin.html        # Superadmin password reset utility
 ├── package.json
 ├── vite.config.js
 ├── .env.example
+├── LICENSE                 # Proprietary license
+├── TERMS.md                # Terms of Service
+├── SECURITY.md             # Security policy and documentation
 ├── scripts/
 │   └── hash-password.js    # Password hashing utility
 └── src/
     ├── js/
     │   ├── auth.js         # Authentication logic
-    │   ├── db.js           # IndexedDB wrapper
+    │   ├── db.js           # IndexedDB wrapper (Dexie)
     │   ├── qr.js           # QR generation
-    │   └── ui.js           # UI interactions
+    │   ├── ui.js           # UI interactions
+    │   ├── theme.js        # Theme switcher (light/dark)
+    │   └── parser.js       # Directory URL parser
     ├── styles/
     │   ├── vars.css        # CSS variables (theme)
     │   ├── layout.css      # Layout styles
     │   ├── components.css  # Component styles
     │   └── player.css      # Video player styles
     └── assets/
-        └── logo.svg        # App logo
+        ├── logo.svg        # App logo
+        └── favicon.svg     # Custom favicon with QR code
 ```
 
 ## Usage
 
-### Logging In
+### Superadmin: Managing Organizations
 
-1. Navigate to the app URL
-2. Enter your admin password
+1. Navigate to `/admin.html`
+2. Enter your superadmin password
+3. Create new organizations with unique credentials
+4. View all organizations and their login links
+5. Reset organization passwords as needed
+
+**Password Reset Utility:**
+If you forget your superadmin password, use the reset utility at `/reset-admin.html` to set a new password.
+
+### Organization Admin: Logging In
+
+1. Navigate to the app URL or use the organization-specific login link
+2. Enter your organization password
 3. Click "Login"
 
-### Generating QR Codes
+### Generating Individual QR Codes
 
 1. Go to the "Generate" tab
 2. Enter the video URL
@@ -194,13 +249,29 @@ aither/
 5. Preview the QR code
 6. Click "Generate QR" to save
 
+### Generating Bulk Collections
+
+1. Go to the "Collections" tab
+2. Enter a directory listing URL (e.g., `https://example.com/videos/`)
+3. Click "Parse Directory"
+4. Review the extracted video URLs
+5. Enter a collection name
+6. Click "Generate Collection"
+7. All QR codes are created and saved automatically
+
+**Directory URL Requirements:**
+- Must be a publicly accessible webpage
+- Should contain links to MP4 files
+- Works best with Apache-style directory listings
+
 ### Managing QR Codes
 
 1. Go to the "List" tab
 2. View all saved QR codes
-3. Click on any QR to view full-size
-4. Download as PNG or SVG
-5. Copy URL or delete as needed
+3. Filter by collection (if applicable)
+4. Click on any QR to view full-size
+5. Download as PNG or SVG
+6. Copy URL or delete as needed
 
 ### Video Player Feature
 
@@ -213,7 +284,7 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
    - Play/pause controls
    - Fullscreen support (double-click video)
    - Mobile-optimized layout
-   - Dark theme matching the app
+   - Adaptive theme (light/dark based on user preference)
    - **Built-in QR scanner** for watching multiple videos
 
 **Benefits:**
@@ -225,7 +296,7 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
 
 The original MP4 URL is saved for your reference in the library.
 
-**Note:** Only the admin app (Generate/List tabs) requires login. The video player page is public so visitors can watch videos without authentication.
+**Note:** Only the admin app (Generate/List/Collections tabs) requires login. The video player page is public so visitors can watch videos without authentication.
 
 ### Scanning Multiple Videos
 
@@ -239,6 +310,14 @@ Visitors can watch multiple videos without leaving the player:
 
 This feature is perfect for museum exhibits where visitors want to explore multiple ASL videos without repeatedly opening their camera app.
 
+### Theme Switcher
+
+Toggle between light and dark mode:
+- Click the theme toggle button in the navigation bar
+- Your preference is saved automatically
+- Theme persists across sessions
+- Also applies to the video player for a consistent experience
+
 ## Customization
 
 ### Theme Colors
@@ -246,12 +325,22 @@ This feature is perfect for museum exhibits where visitors want to explore multi
 Edit `/src/styles/vars.css` to customize the color scheme:
 
 ```css
-:root {
-  --bg: #0b2a37;      /* Background */
-  --panel: #0f3b56;   /* Card/panel background */
-  --accent: #0ea5b7;  /* Accent color */
-  --muted: #9fb8c0;   /* Muted text */
-  --text: #e6f7f8;    /* Primary text */
+/* Light theme */
+body {
+  --bg: #f5f5f5;
+  --panel: #ffffff;
+  --accent: #0ea5b7;
+  --text: #1a1a1a;
+  --text-muted: #666666;
+}
+
+/* Dark theme */
+body.dark-theme {
+  --bg: #0b2a37;
+  --panel: #0f3b56;
+  --accent: #0ea5b7;
+  --text: #e6f7f8;
+  --text-muted: #9fb8c0;
 }
 ```
 
@@ -265,38 +354,75 @@ Edit `/src/js/qr.js` to change default QR code settings.
 - Check that your `.env` file has the correct `VITE_ADMIN_PASS_HASH`
 - Restart the dev server after changing `.env`
 - Clear browser localStorage and try again
+- For organization login, ensure you're using the correct organization credentials
 
 ### QR codes not saving
 - Check browser console for IndexedDB errors
 - Ensure you're not in private/incognito mode
 - Check that localStorage is enabled
+- Try clearing browser data and logging in again
+
+### Collection parsing not working
+- Ensure the directory URL is publicly accessible
+- Check that the page contains links to MP4 files
+- Some websites may block CORS requests (use a CORS proxy if needed)
+- Check browser console for detailed error messages
+
+### Theme not persisting
+- Check that localStorage is enabled
+- Clear browser cache and try again
+- Ensure JavaScript is enabled in your browser
 
 ### Build fails
 - Delete `node_modules` and run `npm install` again
 - Ensure Node.js version is 16 or higher
 - Check for syntax errors in `.env`
+- Verify all dependencies are properly installed
+
+## Legal & Documentation
+
+This project is proprietary software owned by Cirrus. Please review the following documentation:
+
+- **[LICENSE](LICENSE)** - Proprietary license and usage restrictions
+- **[TERMS.md](TERMS.md)** - Terms of Service for users
+- **[SECURITY.md](SECURITY.md)** - Security policy, limitations, and best practices
+
+**Important Legal Notes:**
+- This software is NOT open source
+- All rights reserved by Cirrus
+- Redistribution, modification, or commercial use is prohibited without written permission
+- See LICENSE file for full terms
 
 ## Contributing
 
-This is an internal museum tool. If you'd like to contribute:
+This is a proprietary internal tool developed by Cirrus. External contributions are not accepted at this time.
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-MIT License - feel free to use and modify for your needs.
+For authorized team members:
+1. Create a feature branch
+2. Make your changes
+3. Test thoroughly
+4. Submit a pull request for review
 
 ## Support
 
-For questions or issues:
-- Check the browser console for errors
-- Review the troubleshooting section above
-- Open an issue on GitHub
+For questions, issues, or security concerns:
+
+**Cirrus Support:**
+- Email: info@hellocirrus.com
+- Website: https://hellocirrus.com
+- Security: security@hellocirrus.com
+
+**Security Issues:**
+- See [SECURITY.md](SECURITY.md) for responsible disclosure policy
+- Email security@hellocirrus.com for sensitive vulnerabilities
+- Do not publicly disclose security issues
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 ---
 
-Built with care for the ASL museum community.
+**© 2025 Cirrus. All rights reserved.**
+
+Built for the ASL museum community with care and attention to detail.

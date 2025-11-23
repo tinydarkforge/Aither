@@ -31,6 +31,7 @@ import {
   createQRCode
 } from './qr.js';
 import { parseDirectoryForMP4s, getFilenameFromURL } from './parser.js';
+import { initializeErrorHandlers } from './error-handler.js';
 
 // State
 let currentQRCode = null;
@@ -41,6 +42,9 @@ let organizationId = null;
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize error handlers
+  initializeErrorHandlers();
+
   // Check authentication
   requireAuth();
 

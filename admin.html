@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/src/styles/vars.css">
   <link rel="stylesheet" href="/src/styles/layout.css">
   <link rel="stylesheet" href="/src/styles/components.css">
+  <link rel="stylesheet" href="/src/styles/error-handler.css">
 </head>
 <body>
   <div class="app-container">
@@ -205,6 +206,10 @@
     import { requireSuperadmin, logout, registerOrganization, renameOrganization, resetOrganizationPassword, removeOrganization, changeSuperadminPassword } from '/src/js/auth.js';
     import db from '/src/js/db.js';
     import { createThemeToggle } from '/src/js/theme.js';
+    import { initializeErrorHandlers } from '/src/js/error-handler.js';
+
+    // Initialize error handlers
+    initializeErrorHandlers();
 
     // Require superadmin access
     requireSuperadmin();
