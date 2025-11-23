@@ -23,7 +23,7 @@
         </p>
 
         <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 0.875rem;">
-          Current .env password: <strong style="color: var(--accent);">100%Pandango!</strong>
+          Use this if you've changed your superadmin password and need to reset it to the default configured password.
         </p>
 
         <button id="resetBtn" class="btn btn-primary btn-block">
@@ -41,7 +41,11 @@
   </div>
 
   <script type="module">
+    import { requireSuperadmin } from '/src/js/auth.js';
     import { deleteSetting } from '/src/js/db.js';
+
+    // Require superadmin access
+    requireSuperadmin();
 
     const resetBtn = document.getElementById('resetBtn');
     const message = document.getElementById('message');
@@ -55,7 +59,7 @@
         // Clear the password override from IndexedDB
         await deleteSetting('superadmin_password_hash');
 
-        message.textContent = 'Password reset successfully! You can now login with: 100%Pandango!';
+        message.textContent = 'Password reset successfully! You can now login with the default password from your .env file.';
         message.style.display = 'block';
         error.style.display = 'none';
 
