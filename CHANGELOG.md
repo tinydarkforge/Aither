@@ -247,7 +247,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **No rate limiting**: No protection against brute force password attempts
 - **Visible hash in build**: Superadmin password hash embedded in compiled JavaScript
 
-**Note:** These limitations are acceptable for internal museum use with trusted staff. See SECURITY.md for detailed security information and recommendations.
+**Note:** These limitations are acceptable for internal use with trusted staff. See SECURITY.md for detailed security information and recommendations.
 
 ### Deployment
 

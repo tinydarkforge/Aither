@@ -2,7 +2,7 @@
 
 **Copyright © 2025 Cirrus. All rights reserved.**
 
-A static QR code generator and manager for ASL (American Sign Language) videos. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
+A static QR code generator and manager for video content. Perfect for exhibits, advertising campaigns, events, digital signage, and more. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
 
 ## Features
 
@@ -124,7 +124,7 @@ You can deploy these to any static hosting service.
 
 ### Important Security Notes
 
-**This is NOT enterprise-grade security.** The authentication system is designed for internal museum use where:
+**This is NOT enterprise-grade security.** The authentication system is designed for internal use where:
 
 - The app is accessed by trusted staff only
 - Physical security is assumed
@@ -290,7 +290,11 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
 **Benefits:**
 - Videos play directly in the browser (no download required)
 - Consistent viewing experience across devices
+<<<<<<< HEAD
 - Professional presentation for museum visitors and other entities
+=======
+- Professional presentation for your audience
+>>>>>>> 55f2de0 (Generalize documentation for broader use cases)
 - Works perfectly on mobile devices after QR scanning
 - **No login required** - The player page is completely public and accessible to anyone
 
@@ -300,7 +304,7 @@ The original MP4 URL is saved for your reference in the library.
 
 ### Mobile Video Experience
 
-The video player provides a **native-like mobile experience** optimized for museum visitors:
+The video player provides a **native-like mobile experience** optimized for on-the-go viewing:
 
 **Auto-Fullscreen on Mobile:**
 - When a visitor scans a QR code on their mobile device, they see a "Start Video" button
@@ -309,7 +313,7 @@ The video player provides a **native-like mobile experience** optimized for muse
 
 **Forced Landscape Orientation:**
 - Mobile devices are locked to landscape (horizontal) orientation
-- Visitors must rotate their phone horizontally to view the video
+- Users must rotate their phone horizontally to view the video
 - If held vertically, a "Please rotate your device" prompt appears with a rotating phone icon
 - This ensures optimal video viewing on mobile screens
 
@@ -330,11 +334,15 @@ The video player provides a **native-like mobile experience** optimized for muse
 - Translucent status bar on iOS for edge-to-edge display
 - Playsinline attributes for smooth mobile video playback
 
+<<<<<<< HEAD
 This mobile experience makes Aither perfect for museum and other entities exhibits where visitors scan QR codes with their phones and expect a polished, native-app-quality video viewing experience.
+=======
+This mobile experience makes Aither perfect for exhibits, events, advertising campaigns, and any scenario where users scan QR codes with their phones and expect a polished, native-app-quality video viewing experience.
+>>>>>>> 55f2de0 (Generalize documentation for broader use cases)
 
 ### Scanning Multiple Videos
 
-Visitors can watch multiple videos without leaving the player:
+Users can watch multiple videos without leaving the player:
 
 1. Watch the first video after scanning a QR code
 2. Click the **"Scan Another QR"** button in the player
@@ -342,7 +350,7 @@ Visitors can watch multiple videos without leaving the player:
 4. Scan a new QR code for another video
 5. New video loads automatically and starts playing
 
-This feature is perfect for museum exhibits where visitors want to explore multiple ASL videos without repeatedly opening their camera app.
+This feature is perfect for exhibits, product showcases, event programs, or any scenario where viewers want to explore multiple videos without repeatedly opening their camera app.
 
 ### Theme Switcher
 
@@ -459,4 +467,8 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 **© 2025 Cirrus. All rights reserved.**
 
+<<<<<<< HEAD
 Built for the ASL community with care and attention to detail.
+=======
+Built with care and attention to detail for organizations that want to share video content through QR codes.
+>>>>>>> 55f2de0 (Generalize documentation for broader use cases)

@@ -2,14 +2,14 @@
 
 **Copyright © 2025 Cirrus. All rights reserved.**
 
-Welcome to Aither! This comprehensive guide will help you get started with creating, managing, and sharing QR codes for ASL museum videos.
+Welcome to Aither! This comprehensive guide will help you get started with creating, managing, and sharing QR codes for your video content.
 
 ## Table of Contents
 
 1. [Quick Start](#quick-start)
 2. [For Superadmins](#for-superadmins)
 3. [For Organization Administrators](#for-organization-administrators)
-4. [For Museum Visitors](#for-museum-visitors)
+4. [For Viewers](#for-viewers)
 5. [Advanced Features](#advanced-features)
 6. [Troubleshooting](#troubleshooting)
 7. [Best Practices](#best-practices)
@@ -21,12 +21,12 @@ Welcome to Aither! This comprehensive guide will help you get started with creat
 
 ### What is Aither?
 
-Aither is a QR code generator designed specifically for ASL (American Sign Language) museum videos. It allows museums and organizations to:
+Aither is a QR code generator for video content. Perfect for exhibits, advertising campaigns, events, product showcases, and more. It allows organizations to:
 
 - Create professional QR codes for video content
 - Manage multiple organizations with separate credentials
 - Generate QR codes in bulk from directory URLs
-- Provide a seamless viewing experience for visitors
+- Provide a seamless viewing experience for audiences
 - Operate completely offline after initial setup
 
 ### User Roles
@@ -35,7 +35,7 @@ Aither has three user roles:
 
 1. **Superadmin**: Manages the entire system and creates organizations
 2. **Organization Administrator**: Creates and manages QR codes for their organization
-3. **Museum Visitor**: Scans QR codes to watch videos (no login required)
+3. **Viewer**: Scans QR codes to watch videos (no login required)
 
 ---
 
@@ -80,7 +80,7 @@ You'll see the organization management interface.
 
 1. In the Superadmin Panel, locate the "Create New Organization" section
 2. Fill in the organization details:
-   - **Organization Name**: The museum or organization name (e.g., "National ASL Museum")
+   - **Organization Name**: Your organization name (e.g., "Acme Corporation", "City Art Gallery", "Tech Conference 2025")
    - **Password**: A secure password for this organization's administrators
 3. Click "Create Organization"
 
@@ -93,7 +93,7 @@ You'll see the organization management interface.
 #### Viewing Organizations
 
 The organization list shows:
-- **Organization Name**: The museum or organization name
+- **Organization Name**: The organization name
 - **Login Link**: Direct link for organization admins to login
 - **Created**: When the organization was created
 - **Reset Password**: Button to change the organization's password
@@ -297,8 +297,9 @@ Index of /videos/
 ```
 
 **Example directory URLs:**
-- `https://example.com/asl-videos/`
-- `https://museum.org/exhibits/videos/`
+- `https://example.com/videos/`
+- `https://mycompany.com/product-demos/`
+- `https://event.org/presentations/`
 
 #### Step 1: Navigate to Collections Tab
 
@@ -371,7 +372,7 @@ After parsing, you'll see:
 
 ---
 
-## For Museum Visitors
+## For Viewers
 
 ### Scanning QR Codes
 
@@ -426,7 +427,7 @@ When you scan a QR code on your phone, Aither provides a **native app-like video
 **Landscape Mode:**
 - Hold your phone horizontally to watch the video
 - If you hold it vertically, you'll see a "Please rotate your device" prompt
-- This ensures the best viewing experience for ASL videos
+- This ensures the best viewing experience
 - The video fills your entire screen for immersive viewing
 
 **Fullscreen QR Scanner:**
@@ -441,7 +442,7 @@ When you scan a QR code on your phone, Aither provides a **native app-like video
 - **All devices**: Touch-optimized controls designed for easy one-handed use
 
 **Why This Matters:**
-- Museum visitors get a professional, app-like experience
+- Viewers get a professional, app-like experience
 - No distractions from browser UI or notifications
 - Easy navigation between multiple videos
 - Optimized for the way people naturally hold their phones
@@ -748,7 +749,7 @@ Aither works on modern browsers:
 - 🎬 Keep original videos backed up
 - 🎬 Use descriptive filenames for videos
 
-### For Museum Visitors
+### For Viewers
 
 **Scanning:**
 - 📱 Ensure good lighting
@@ -761,8 +762,8 @@ Aither works on modern browsers:
 - 🎥 Use headphones for better audio
 - 🎥 Enable captions if available
 - 🎥 Use fullscreen for better viewing
-- 🎥 Be mindful of other visitors
-- 🎥 Report broken QR codes to staff
+- 🎥 Be mindful of your surroundings
+- 🎥 Report broken QR codes if encountered
 
 ---
 
@@ -822,10 +823,10 @@ A: No! The video player is completely public and requires no login.
 A: The custom player provides a better experience: controls, fullscreen, QR scanner, and branding.
 
 **Q: Can I download the videos?**
-A: The player is designed for streaming. Contact the museum for download options.
+A: The player is designed for streaming. Contact the content owner for download options.
 
 **Q: What if a QR code doesn't work?**
-A: Report it to museum staff. The video URL may have changed or the QR code may be damaged.
+A: Report it to the content provider. The video URL may have changed or the QR code may be damaged.
 
 ### Technical Questions
 
@@ -869,10 +870,10 @@ A: Client-side authentication is NOT enterprise-grade. See SECURITY.md for detai
 
 ### Community
 
-Aither is an internal tool developed by Cirrus for the ASL museum community. External community support is not currently available.
+Aither is a tool developed by Cirrus for organizations that want to share video content through QR codes. External community support is not currently available.
 
 ---
 
 **© 2025 Cirrus. All rights reserved.**
 
-Thank you for using Aither! We hope this guide helps you create amazing QR code experiences for your museum visitors.
+Thank you for using Aither! We hope this guide helps you create amazing QR code experiences for your audience.
