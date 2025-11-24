@@ -43,7 +43,7 @@
           <form id="qrForm" class="qr-form">
             <div class="form-grid">
               <!-- URL Input -->
-              <div class="form-group span-2">
+              <div class="form-group">
                 <label for="urlInput">Video URL *</label>
                 <input
                   type="url"
@@ -52,59 +52,29 @@
                   placeholder="https://example.com/video.mp4"
                   required
                 >
-                <small class="form-hint">💡 MP4 files will automatically use the video player</small>
               </div>
 
               <!-- Title -->
-              <div class="form-group span-2">
+              <div class="form-group">
                 <label for="titleInput">Title (optional)</label>
                 <input
                   type="text"
                   id="titleInput"
                   name="title"
-                  placeholder="Enter a descriptive title for this video"
+                  placeholder="Enter a descriptive title"
                   maxlength="100"
                 >
-                <small class="form-hint">Custom title to display in the video player</small>
               </div>
 
               <!-- Description -->
-              <div class="form-group span-2">
+              <div class="form-group">
                 <label for="descriptionInput">Description (optional)</label>
-                <textarea
+                <input
+                  type="text"
                   id="descriptionInput"
                   name="description"
-                  placeholder="Enter a description for this video"
-                  rows="3"
+                  placeholder="Enter a description"
                   maxlength="500"
-                ></textarea>
-                <small class="form-hint">Additional details about the video content</small>
-              </div>
-
-              <!-- Size -->
-              <div class="form-group">
-                <label for="sizeInput">Size (px)</label>
-                <input
-                  type="number"
-                  id="sizeInput"
-                  name="size"
-                  value="300"
-                  min="100"
-                  max="1000"
-                  step="50"
-                >
-              </div>
-
-              <!-- Margin -->
-              <div class="form-group">
-                <label for="marginInput">Margin</label>
-                <input
-                  type="number"
-                  id="marginInput"
-                  name="margin"
-                  value="10"
-                  min="0"
-                  max="50"
                 >
               </div>
 
@@ -153,11 +123,37 @@
                   accept="image/*"
                   style="display: none;"
                 >
-                <small class="form-hint">Click to upload a logo</small>
+              </div>
+
+              <!-- Size -->
+              <div class="form-group">
+                <label for="sizeInput">Size (px)</label>
+                <input
+                  type="number"
+                  id="sizeInput"
+                  name="size"
+                  value="300"
+                  min="100"
+                  max="1000"
+                  step="50"
+                >
+              </div>
+
+              <!-- Margin -->
+              <div class="form-group">
+                <label for="marginInput">Margin</label>
+                <input
+                  type="number"
+                  id="marginInput"
+                  name="margin"
+                  value="10"
+                  min="0"
+                  max="50"
+                >
               </div>
 
               <!-- Generate Button -->
-              <div class="form-group form-group-button">
+              <div class="form-group">
                 <label>&nbsp;</label>
                 <button type="submit" class="btn btn-primary btn-generate">
                   Generate QR Code
@@ -204,46 +200,17 @@
                   placeholder="https://example.com/videos/"
                   required
                 >
-                <small class="form-hint">💡 Paste a URL to a directory listing page containing MP4 files</small>
               </div>
 
               <!-- Collection Name Input -->
-              <div class="form-group span-2">
+              <div class="form-group">
                 <label for="collectionNameInput">Collection Name *</label>
                 <input
                   type="text"
                   id="collectionNameInput"
                   name="collectionName"
-                  placeholder="e.g., Exhibition Floor 2, ASL Videos Spring 2024"
+                  placeholder="e.g., Exhibition Floor 2"
                   required
-                >
-                <small class="form-hint">💡 Name this group of QR codes for easy organization</small>
-              </div>
-
-              <!-- Size -->
-              <div class="form-group">
-                <label for="dirSizeInput">Size (px)</label>
-                <input
-                  type="number"
-                  id="dirSizeInput"
-                  name="size"
-                  value="300"
-                  min="100"
-                  max="1000"
-                  step="50"
-                >
-              </div>
-
-              <!-- Margin -->
-              <div class="form-group">
-                <label for="dirMarginInput">Margin</label>
-                <input
-                  type="number"
-                  id="dirMarginInput"
-                  name="margin"
-                  value="10"
-                  min="0"
-                  max="50"
                 >
               </div>
 
@@ -292,14 +259,40 @@
                   accept="image/*"
                   style="display: none;"
                 >
-                <small class="form-hint">Click to upload a logo</small>
+              </div>
+
+              <!-- Size -->
+              <div class="form-group">
+                <label for="dirSizeInput">Size (px)</label>
+                <input
+                  type="number"
+                  id="dirSizeInput"
+                  name="size"
+                  value="300"
+                  min="100"
+                  max="1000"
+                  step="50"
+                >
+              </div>
+
+              <!-- Margin -->
+              <div class="form-group">
+                <label for="dirMarginInput">Margin</label>
+                <input
+                  type="number"
+                  id="dirMarginInput"
+                  name="margin"
+                  value="10"
+                  min="0"
+                  max="50"
+                >
               </div>
 
               <!-- Generate Button -->
-              <div class="form-group form-group-button">
+              <div class="form-group">
                 <label>&nbsp;</label>
                 <button type="submit" class="btn btn-primary btn-generate" id="scanDirectoryBtn">
-                  Scan Directory & Generate QR Codes
+                  Scan & Generate
                 </button>
               </div>
             </div>
@@ -315,49 +308,20 @@
                   id="bulkUrlsInput"
                   name="bulkUrls"
                   placeholder="https://example.com/video1.mp4&#10;https://example.com/video2.mp4&#10;https://example.com/video3.mp4"
-                  rows="10"
+                  rows="5"
                   required
                 ></textarea>
-                <small class="form-hint">💡 Paste multiple video URLs, one per line. Each will get its own QR code.</small>
               </div>
 
               <!-- Collection Name Input -->
-              <div class="form-group span-2">
+              <div class="form-group">
                 <label for="bulkCollectionNameInput">Collection Name *</label>
                 <input
                   type="text"
                   id="bulkCollectionNameInput"
                   name="collectionName"
-                  placeholder="e.g., Training Videos, ASL Lessons"
+                  placeholder="e.g., Training Videos"
                   required
-                >
-                <small class="form-hint">💡 Name this group of QR codes for easy organization</small>
-              </div>
-
-              <!-- Size -->
-              <div class="form-group">
-                <label for="bulkSizeInput">Size (px)</label>
-                <input
-                  type="number"
-                  id="bulkSizeInput"
-                  name="size"
-                  value="300"
-                  min="100"
-                  max="1000"
-                  step="50"
-                >
-              </div>
-
-              <!-- Margin -->
-              <div class="form-group">
-                <label for="bulkMarginInput">Margin</label>
-                <input
-                  type="number"
-                  id="bulkMarginInput"
-                  name="margin"
-                  value="10"
-                  min="0"
-                  max="50"
                 >
               </div>
 
@@ -406,14 +370,40 @@
                   accept="image/*"
                   style="display: none;"
                 >
-                <small class="form-hint">Click to upload a logo</small>
+              </div>
+
+              <!-- Size -->
+              <div class="form-group">
+                <label for="bulkSizeInput">Size (px)</label>
+                <input
+                  type="number"
+                  id="bulkSizeInput"
+                  name="size"
+                  value="300"
+                  min="100"
+                  max="1000"
+                  step="50"
+                >
+              </div>
+
+              <!-- Margin -->
+              <div class="form-group">
+                <label for="bulkMarginInput">Margin</label>
+                <input
+                  type="number"
+                  id="bulkMarginInput"
+                  name="margin"
+                  value="10"
+                  min="0"
+                  max="50"
+                >
               </div>
 
               <!-- Generate Button -->
-              <div class="form-group form-group-button">
+              <div class="form-group">
                 <label>&nbsp;</label>
                 <button type="submit" class="btn btn-primary btn-generate" id="generateBulkQRBtn">
-                  Generate QR Codes from URLs
+                  Generate
                 </button>
               </div>
             </div>

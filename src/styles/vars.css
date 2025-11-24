@@ -31,20 +31,20 @@
   --warning-bg: #FEF3C7;
 }
 
-/* Dark Theme */
+/* Dark Theme - Cirrus Inspired */
 [data-theme="dark"] {
-  --bg: #0F172A;
-  --bg-secondary: #1E293B;
-  --panel: #1E293B;
-  --accent: #3B82F6;
-  --accent-hover: #60A5FA;
-  --accent-light: #1E3A8A;
-  --muted: #94A3B8;
-  --text: #E2E8F0;
-  --text-secondary: #CBD5E1;
-  --text-muted: #64748B;
-  --border: #334155;
-  --border-light: #293548;
+  --bg: #0B0B1A;
+  --bg-secondary: #14142B;
+  --panel: #1A1A2E;
+  --accent: #6366F1;
+  --accent-hover: #818CF8;
+  --accent-light: #312E81;
+  --muted: #9CA3AF;
+  --text: #F9FAFB;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
+  --border: #2A2A3E;
+  --border-light: #1F1F35;
   --success: #10B981;
   --success-bg: #064E3B;
   --error: #EF4444;
