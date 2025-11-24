@@ -38,6 +38,8 @@ import { initializeErrorHandlers } from './error-handler.js';
 let currentQRCode = null;
 let currentQRInstance = null;
 let logoDataURL = null;
+let dirLogoDataURL = null;
+let bulkLogoDataURL = null;
 let selectedQRId = null;
 let editingQRId = null;
 let organizationId = null;
@@ -89,6 +91,10 @@ function initializeUI() {
   // Initialize color value displays
   updateColorDisplay('fgColorInput', 'fgColorValue');
   updateColorDisplay('bgColorInput', 'bgColorValue');
+  updateColorDisplay('dirFgColorInput', 'dirFgColorValue');
+  updateColorDisplay('dirBgColorInput', 'dirBgColorValue');
+  updateColorDisplay('bulkFgColorInput', 'bulkFgColorValue');
+  updateColorDisplay('bulkBgColorInput', 'bulkBgColorValue');
 }
 
 /**
@@ -171,6 +177,34 @@ function initializeEventListeners() {
       toggleBulkMode(mode);
     });
   });
+
+  // Directory scan form color inputs
+  document.getElementById('dirFgColorInput').addEventListener('input', () => {
+    updateColorDisplay('dirFgColorInput', 'dirFgColorValue');
+  });
+  document.getElementById('dirBgColorInput').addEventListener('input', () => {
+    updateColorDisplay('dirBgColorInput', 'dirBgColorValue');
+  });
+
+  // Directory scan logo upload
+  document.getElementById('dirLogoInput').addEventListener('click', () => {
+    document.getElementById('dirLogoFileInput').click();
+  });
+  document.getElementById('dirLogoFileInput').addEventListener('change', handleDirLogoUpload);
+
+  // Bulk URLs form color inputs
+  document.getElementById('bulkFgColorInput').addEventListener('input', () => {
+    updateColorDisplay('bulkFgColorInput', 'bulkFgColorValue');
+  });
+  document.getElementById('bulkBgColorInput').addEventListener('input', () => {
+    updateColorDisplay('bulkBgColorInput', 'bulkBgColorValue');
+  });
+
+  // Bulk URLs logo upload
+  document.getElementById('bulkLogoInput').addEventListener('click', () => {
+    document.getElementById('bulkLogoFileInput').click();
+  });
+  document.getElementById('bulkLogoFileInput').addEventListener('change', handleBulkLogoUpload);
 }
 
 /**
@@ -256,6 +290,44 @@ async function handleLogoUpload(e) {
     logoDataURL = null;
     document.getElementById('logoInput').value = '';
     updatePreview();
+  }
+}
+
+/**
+ * Handle directory scan logo upload
+ */
+async function handleDirLogoUpload(e) {
+  const file = e.target.files[0];
+  if (file) {
+    try {
+      dirLogoDataURL = await readImageFile(file);
+      document.getElementById('dirLogoInput').value = file.name;
+    } catch (error) {
+      console.error('Error reading logo:', error);
+      showCollectionError('Error loading logo');
+    }
+  } else {
+    dirLogoDataURL = null;
+    document.getElementById('dirLogoInput').value = '';
+  }
+}
+
+/**
+ * Handle bulk URLs logo upload
+ */
+async function handleBulkLogoUpload(e) {
+  const file = e.target.files[0];
+  if (file) {
+    try {
+      bulkLogoDataURL = await readImageFile(file);
+      document.getElementById('bulkLogoInput').value = file.name;
+    } catch (error) {
+      console.error('Error reading logo:', error);
+      showCollectionError('Error loading logo');
+    }
+  } else {
+    bulkLogoDataURL = null;
+    document.getElementById('bulkLogoInput').value = '';
   }
 }
 
@@ -746,13 +818,13 @@ async function handleCollectionFormSubmit(e) {
 
     updateProgress(40, 'Generating QR codes...');
 
-    // Generate QR codes for each MP4
+    // Get form options
     const options = {
-      size: 300,
-      margin: 10,
-      fgColor: '#000000',
-      bgColor: '#ffffff',
-      logo: null
+      size: parseInt(document.getElementById('dirSizeInput').value) || 300,
+      margin: parseInt(document.getElementById('dirMarginInput').value) || 10,
+      fgColor: document.getElementById('dirFgColorInput').value,
+      bgColor: document.getElementById('dirBgColorInput').value,
+      logo: dirLogoDataURL
     };
 
     let successCount = 0;
@@ -791,8 +863,12 @@ async function handleCollectionFormSubmit(e) {
     document.getElementById('collectionProgress').style.display = 'none';
     showCollectionMessage(`Successfully generated ${successCount} QR codes in collection "${collectionName}"!`);
 
-    // Reset form
+    // Reset form and logo
     document.getElementById('collectionForm').reset();
+    dirLogoDataURL = null;
+    document.getElementById('dirLogoInput').value = '';
+    updateColorDisplay('dirFgColorInput', 'dirFgColorValue');
+    updateColorDisplay('dirBgColorInput', 'dirBgColorValue');
 
     // Reload collections list
     loadCollections();
@@ -883,13 +959,13 @@ async function handleBulkUrlsFormSubmit(e) {
 
     updateProgress(30, 'Generating QR codes...');
 
-    // Generate QR codes for each URL
+    // Get form options
     const options = {
-      size: 300,
-      margin: 10,
-      fgColor: '#000000',
-      bgColor: '#ffffff',
-      logo: null
+      size: parseInt(document.getElementById('bulkSizeInput').value) || 300,
+      margin: parseInt(document.getElementById('bulkMarginInput').value) || 10,
+      fgColor: document.getElementById('bulkFgColorInput').value,
+      bgColor: document.getElementById('bulkBgColorInput').value,
+      logo: bulkLogoDataURL
     };
 
     let successCount = 0;
@@ -933,8 +1009,12 @@ async function handleBulkUrlsFormSubmit(e) {
     }
     showCollectionMessage(message);
 
-    // Reset form
+    // Reset form and logo
     document.getElementById('bulkUrlsForm').reset();
+    bulkLogoDataURL = null;
+    document.getElementById('bulkLogoInput').value = '';
+    updateColorDisplay('bulkFgColorInput', 'bulkFgColorValue');
+    updateColorDisplay('bulkBgColorInput', 'bulkBgColorValue');
 
     // Reload collections list
     loadCollections();

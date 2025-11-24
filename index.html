@@ -219,11 +219,90 @@
                 >
                 <small class="form-hint">💡 Name this group of QR codes for easy organization</small>
               </div>
-            </div>
 
-            <button type="submit" class="btn btn-primary" id="scanDirectoryBtn">
-              Scan Directory & Generate QR Codes
-            </button>
+              <!-- Size -->
+              <div class="form-group">
+                <label for="dirSizeInput">Size (px)</label>
+                <input
+                  type="number"
+                  id="dirSizeInput"
+                  name="size"
+                  value="300"
+                  min="100"
+                  max="1000"
+                  step="50"
+                >
+              </div>
+
+              <!-- Margin -->
+              <div class="form-group">
+                <label for="dirMarginInput">Margin</label>
+                <input
+                  type="number"
+                  id="dirMarginInput"
+                  name="margin"
+                  value="10"
+                  min="0"
+                  max="50"
+                >
+              </div>
+
+              <!-- Foreground Color -->
+              <div class="form-group">
+                <label for="dirFgColorInput">Foreground Color</label>
+                <div class="color-input-wrapper">
+                  <input
+                    type="color"
+                    id="dirFgColorInput"
+                    name="fgColor"
+                    value="#000000"
+                  >
+                  <span id="dirFgColorValue">#000000</span>
+                </div>
+              </div>
+
+              <!-- Background Color -->
+              <div class="form-group">
+                <label for="dirBgColorInput">Background Color</label>
+                <div class="color-input-wrapper">
+                  <input
+                    type="color"
+                    id="dirBgColorInput"
+                    name="bgColor"
+                    value="#ffffff"
+                  >
+                  <span id="dirBgColorValue">#ffffff</span>
+                </div>
+              </div>
+
+              <!-- Logo Upload -->
+              <div class="form-group">
+                <label for="dirLogoInput">Logo (optional)</label>
+                <input
+                  type="text"
+                  id="dirLogoInput"
+                  name="logo"
+                  placeholder="Click to select an image..."
+                  readonly
+                  style="cursor: pointer;"
+                >
+                <input
+                  type="file"
+                  id="dirLogoFileInput"
+                  accept="image/*"
+                  style="display: none;"
+                >
+                <small class="form-hint">Click to upload a logo</small>
+              </div>
+
+              <!-- Generate Button -->
+              <div class="form-group form-group-button">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-primary btn-generate" id="scanDirectoryBtn">
+                  Scan Directory & Generate QR Codes
+                </button>
+              </div>
+            </div>
           </form>
 
           <!-- Multiple URLs Mode -->
@@ -254,11 +333,90 @@
                 >
                 <small class="form-hint">💡 Name this group of QR codes for easy organization</small>
               </div>
-            </div>
 
-            <button type="submit" class="btn btn-primary" id="generateBulkQRBtn">
-              Generate QR Codes from URLs
-            </button>
+              <!-- Size -->
+              <div class="form-group">
+                <label for="bulkSizeInput">Size (px)</label>
+                <input
+                  type="number"
+                  id="bulkSizeInput"
+                  name="size"
+                  value="300"
+                  min="100"
+                  max="1000"
+                  step="50"
+                >
+              </div>
+
+              <!-- Margin -->
+              <div class="form-group">
+                <label for="bulkMarginInput">Margin</label>
+                <input
+                  type="number"
+                  id="bulkMarginInput"
+                  name="margin"
+                  value="10"
+                  min="0"
+                  max="50"
+                >
+              </div>
+
+              <!-- Foreground Color -->
+              <div class="form-group">
+                <label for="bulkFgColorInput">Foreground Color</label>
+                <div class="color-input-wrapper">
+                  <input
+                    type="color"
+                    id="bulkFgColorInput"
+                    name="fgColor"
+                    value="#000000"
+                  >
+                  <span id="bulkFgColorValue">#000000</span>
+                </div>
+              </div>
+
+              <!-- Background Color -->
+              <div class="form-group">
+                <label for="bulkBgColorInput">Background Color</label>
+                <div class="color-input-wrapper">
+                  <input
+                    type="color"
+                    id="bulkBgColorInput"
+                    name="bgColor"
+                    value="#ffffff"
+                  >
+                  <span id="bulkBgColorValue">#ffffff</span>
+                </div>
+              </div>
+
+              <!-- Logo Upload -->
+              <div class="form-group">
+                <label for="bulkLogoInput">Logo (optional)</label>
+                <input
+                  type="text"
+                  id="bulkLogoInput"
+                  name="logo"
+                  placeholder="Click to select an image..."
+                  readonly
+                  style="cursor: pointer;"
+                >
+                <input
+                  type="file"
+                  id="bulkLogoFileInput"
+                  accept="image/*"
+                  style="display: none;"
+                >
+                <small class="form-hint">Click to upload a logo</small>
+              </div>
+
+              <!-- Generate Button -->
+              <div class="form-group form-group-button">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-primary btn-generate" id="generateBulkQRBtn">
+                  Generate QR Codes from URLs
+                </button>
+              </div>
+            </div>
           </form>
 
           <!-- Progress Section -->
