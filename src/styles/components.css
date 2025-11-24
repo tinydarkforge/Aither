@@ -709,3 +709,69 @@
     word-break: break-all;
   }
 }
+
+/* Dark Theme Overrides */
+[data-theme="dark"] .btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .btn-secondary:hover:not(:disabled) {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .form-group input[type="text"],
+[data-theme="dark"] .form-group input[type="email"],
+[data-theme="dark"] .form-group input[type="password"],
+[data-theme="dark"] .form-group input[type="url"],
+[data-theme="dark"] .form-group input[type="number"],
+[data-theme="dark"] .form-group input[type="search"],
+[data-theme="dark"] .form-group textarea,
+[data-theme="dark"] .form-group select {
+  background: var(--panel);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .form-group input::placeholder,
+[data-theme="dark"] .form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .form-group input[type="file"] {
+  background: var(--panel);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+[data-theme="dark"] .form-group input[type="file"]:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] .color-input-wrapper {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .search-input {
+  background: var(--bg-secondary);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .search-input::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .form-group input[type="file"]::file-selector-button {
+  background: var(--bg-secondary);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .form-group input[type="file"]::file-selector-button:hover {
+  background: var(--panel);
+}

@@ -123,8 +123,12 @@ function initializeEventListeners() {
     document.getElementById(id).addEventListener('input', updatePreview);
   });
 
-  // Logo upload
-  document.getElementById('logoInput').addEventListener('change', handleLogoUpload);
+  // Logo upload - clicking text input triggers hidden file input
+  document.getElementById('logoInput').addEventListener('click', () => {
+    document.getElementById('logoFileInput').click();
+  });
+
+  document.getElementById('logoFileInput').addEventListener('change', handleLogoUpload);
 
   // Search
   document.getElementById('searchInput').addEventListener('input', handleSearch);
@@ -196,6 +200,7 @@ async function handleLogoUpload(e) {
   if (file) {
     try {
       logoDataURL = await readImageFile(file);
+      document.getElementById('logoInput').value = file.name;
       updatePreview();
     } catch (error) {
       console.error('Error reading logo:', error);
@@ -203,6 +208,7 @@ async function handleLogoUpload(e) {
     }
   } else {
     logoDataURL = null;
+    document.getElementById('logoInput').value = '';
     updatePreview();
   }
 }
@@ -312,6 +318,7 @@ async function handleQRFormSubmit(e) {
       document.getElementById('qrForm').reset();
       document.getElementById('qrPreview').style.display = 'none';
       logoDataURL = null;
+      document.getElementById('logoInput').value = '';
       updateColorDisplay('fgColorInput', 'fgColorValue');
       updateColorDisplay('bgColorInput', 'bgColorValue');
     }, 2000);

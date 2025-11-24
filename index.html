@@ -114,11 +114,20 @@
               <div class="form-group span-2">
                 <label for="logoInput">Logo (optional)</label>
                 <input
-                  type="file"
+                  type="text"
                   id="logoInput"
                   name="logo"
-                  accept="image/*"
+                  placeholder="Click to select an image..."
+                  readonly
+                  style="cursor: pointer;"
                 >
+                <input
+                  type="file"
+                  id="logoFileInput"
+                  accept="image/*"
+                  style="display: none;"
+                >
+                <span class="form-hint">Click to upload a logo for the center of the QR code</span>
               </div>
             </div>
 
