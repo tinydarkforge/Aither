@@ -7,6 +7,118 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 2025-11-24
+
+### Added
+
+#### Native-Like Mobile Video Experience
+- **Auto-fullscreen on video load**: "Start Video" button triggers fullscreen mode (required for browser security)
+- **Landscape orientation locking**: Forces horizontal viewing on mobile devices
+- **Device-specific implementations**:
+  - iOS: CSS-based fullscreen preserves HTML overlay controls
+  - Android: Native Fullscreen API with Screen Orientation lock
+  - Cross-browser support with webkit, moz, and ms prefixes
+- **Rotation prompts**: "Please rotate your device" overlay when in portrait mode
+- **Mobile-optimized meta tags**: Viewport settings and web app capabilities
+- **Comprehensive device detection**: Automatic iOS/Android/mobile detection
+
+#### Video Player Enhancements
+- **Always-visible QR scan button**: Overlay button stays visible in fullscreen (z-index: 1,000,000)
+- **Scanner modal overlay**: QR scanner appears above fullscreen video (z-index: 10,000,000)
+- **Seamless video switching**: Scan new QR codes without exiting fullscreen
+- **iOS-specific fullscreen**: CSS fullscreen mode preserves overlay buttons on iPhone/iPad
+- **Touch-optimized controls**: 48px buttons for easy mobile interaction
+- **Fullscreen toggle**: Double-tap video to enter/exit fullscreen
+
+#### Modal UI Improvements
+- **Download button icons**: Replaced "Download" text with icon + format label
+- **Compact modal spacing**: Reduced padding and margins for cleaner appearance
+- **Smaller modal buttons**: 38px height for better proportions
+- **Tighter QR preview**: Minimal white box padding with fit-content sizing
+- **Better visual hierarchy**: Icons improve scannability and professionalism
+
+#### Theme Enhancements
+- **Cirrus brand colors**: Dark theme updated with purple/blue aesthetic (#6366F1 accent)
+- **Professional dark mode**: Deep navy backgrounds with indigo accents
+- **Improved contrast**: Better text readability in dark mode
+- **Consistent branding**: Matches hellocirrus.com design language
+
+#### Form Layout Improvements
+- **3-column grid system**: Fixed grid layout for consistent form structure
+- **Uniform input heights**: All inputs and buttons standardized to 42px
+- **Logical row organization**:
+  - Row 1: URL, Title, Description
+  - Row 2: Foreground Color, Background Color, Logo
+  - Row 3: Size, Margin, Generate Button
+- **Better alignment**: Color pickers match input field heights
+
+### Changed
+
+#### Mobile Player Architecture
+- **iOS fullscreen method**: Switched from native `video.webkitEnterFullscreen()` to CSS fullscreen
+  - Reason: Native iOS fullscreen removes all HTML overlays
+  - Solution: `position: fixed` with full viewport coverage
+  - Benefit: QR scan button remains accessible
+- **Z-index hierarchy**: Established clear layering system
+  - iOS fullscreen video: 999,999
+  - QR scan button: 1,000,000
+  - Scanner modal: 10,000,000
+  - Scanner container: 10,000,001
+- **User interaction flow**: Start Video button provides required user gesture for fullscreen
+
+#### Video Player Meta Tags
+- **Viewport optimization**: `maximum-scale=1.0, user-scalable=no` for web app feel
+- **Mobile web app capable**: `apple-mobile-web-app-capable="yes"` for iOS
+- **Status bar styling**: `black-translucent` for immersive fullscreen
+- **Video attributes**: Added `webkit-playsinline`, `x5-playsinline`, `x5-video-orientation`
+
+#### Form Design
+- **Grid from auto-fit to fixed**: Changed to `repeat(3, 1fr)` for consistent 3-column layout
+- **Description field type**: Changed from `<textarea>` to `<input type="text">` for height consistency
+- **Button positioning**: Removed special button classes in favor of uniform grid cells
+- **Color picker styling**: Fixed height and internal sizing for better alignment
+
+### Fixed
+
+#### iOS Overlay Issues
+- **QR button visibility**: Fixed QR scan button disappearing in iOS fullscreen
+- **Scanner z-index**: Scanner now properly overlays fullscreen video
+- **Button persistence**: Overlay buttons use `!important` to ensure visibility
+- **Touch target sizes**: Increased to 48px for better mobile usability
+
+#### Modal Spacing
+- **Excessive padding**: Reduced modal body and footer padding
+- **QR preview size**: Minimized white box around QR code (8px padding vs 16px)
+- **Button-to-content gap**: Reduced spacing between QR and action buttons
+- **Info section margins**: Tighter spacing in modal info displays
+
+#### Form Layout Consistency
+- **Grid column overflow**: Fixed auto-fit creating too many columns
+- **Input height mismatch**: All form inputs now consistently 42px
+- **Color picker alignment**: Fixed color input wrapper height issues
+- **Label spacing**: Consistent vertical rhythm across all form rows
+
+### Technical Details
+
+#### Orientation Locking
+- **Primary lock**: `screen.orientation.lock('landscape')`
+- **Fallback**: `screen.orientation.lock('landscape-primary')`
+- **Detection**: Real-time orientation change monitoring
+- **User feedback**: Visual prompt when user holds phone vertically
+
+#### Browser Compatibility
+- **iOS Safari**: CSS fullscreen with webkit prefixes
+- **Android Chrome**: Native Fullscreen API with orientation lock
+- **Desktop browsers**: Standard Fullscreen API
+- **Graceful degradation**: Falls back to standard video controls if APIs unavailable
+
+#### Debugging Features
+- **Console logging**: Comprehensive logs for device detection and fullscreen attempts
+- **Error handling**: Try-catch blocks with descriptive error messages
+- **State tracking**: Monitors fullscreen state, orientation, and video playback
+
+---
+
 ## [1.0.0] - 2025-01-23
 
 ### Added

@@ -298,6 +298,40 @@ The original MP4 URL is saved for your reference in the library.
 
 **Note:** Only the admin app (Generate/List/Collections tabs) requires login. The video player page is public so visitors can watch videos without authentication.
 
+### Mobile Video Experience
+
+The video player provides a **native-like mobile experience** optimized for museum visitors:
+
+**Auto-Fullscreen on Mobile:**
+- When a visitor scans a QR code on their mobile device, they see a "Start Video" button
+- Tapping this button automatically enters fullscreen mode and begins video playback
+- This provides an immersive, distraction-free viewing experience
+
+**Forced Landscape Orientation:**
+- Mobile devices are locked to landscape (horizontal) orientation
+- Visitors must rotate their phone horizontally to view the video
+- If held vertically, a "Please rotate your device" prompt appears with a rotating phone icon
+- This ensures optimal video viewing on mobile screens
+
+**Device-Specific Implementations:**
+- **iOS (iPhone/iPad)**: Uses CSS-based fullscreen to preserve HTML overlay controls
+- **Android**: Uses native Fullscreen API with Screen Orientation lock
+- **Desktop**: Standard fullscreen support via double-click
+
+**Always-Visible QR Scan Button:**
+- The QR scan button remains visible even in fullscreen mode
+- Positioned in the top-left corner as a compact icon button
+- Works seamlessly on iOS (where native fullscreen removes HTML overlays)
+- Ultra-high z-index ensures it's always accessible
+
+**Mobile-Optimized Meta Tags:**
+- Viewport settings prevent zooming for an app-like feel
+- iOS web app capabilities for immersive fullscreen
+- Translucent status bar on iOS for edge-to-edge display
+- Playsinline attributes for smooth mobile video playback
+
+This mobile experience makes Aither perfect for museum exhibits where visitors scan QR codes with their phones and expect a polished, native-app-quality video viewing experience.
+
 ### Scanning Multiple Videos
 
 Visitors can watch multiple videos without leaving the player:

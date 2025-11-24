@@ -413,6 +413,41 @@ After scanning a QR code, you'll see the Aither video player:
 - **Offline Capable**: Once loaded, works without internet
 - **No Login Required**: Open to all visitors
 
+#### Mobile Experience
+
+When you scan a QR code on your phone, Aither provides a **native app-like video experience**:
+
+**Getting Started:**
+1. After scanning a QR code, you'll see a large "Start Video" button
+2. Tap this button to begin watching
+3. The video automatically enters fullscreen mode
+4. Your phone locks to landscape (horizontal) orientation
+
+**Landscape Mode:**
+- Hold your phone horizontally to watch the video
+- If you hold it vertically, you'll see a "Please rotate your device" prompt
+- This ensures the best viewing experience for ASL videos
+- The video fills your entire screen for immersive viewing
+
+**Fullscreen QR Scanner:**
+- Even in fullscreen, you'll see a small QR code button in the top-left corner
+- Tap this button to scan another QR code without leaving fullscreen
+- The camera appears as an overlay on top of the video
+- After scanning, the new video loads immediately in fullscreen
+
+**Device-Specific Features:**
+- **iPhone/iPad**: Uses a special fullscreen mode that keeps all buttons visible
+- **Android**: Uses native fullscreen with orientation locking
+- **All devices**: Touch-optimized controls designed for easy one-handed use
+
+**Why This Matters:**
+- Museum visitors get a professional, app-like experience
+- No distractions from browser UI or notifications
+- Easy navigation between multiple videos
+- Optimized for the way people naturally hold their phones
+
+**Tip:** Once you start the first video, you can scan and watch multiple QR codes without ever leaving fullscreen mode!
+
 ### Scanning Multiple Videos
 
 You can watch multiple videos without leaving the player:
