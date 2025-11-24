@@ -35,14 +35,6 @@
           <rect x="3" y="14" width="7" height="7"></rect>
         </svg>
       </button>
-
-      <!-- iOS Exit Fullscreen Button -->
-      <button id="iosExitBtn" class="ios-exit-btn" title="Exit Fullscreen" style="display: none;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
       <video
         id="videoPlayer"
         class="video-player"
@@ -126,7 +118,6 @@
     const loadingIndicator = document.getElementById('loadingIndicator');
     const scanQrBtn = document.getElementById('scanQrBtn');
     const overlayQrBtn = document.getElementById('overlayQrBtn');
-    const iosExitBtn = document.getElementById('iosExitBtn');
     const startOverlay = document.getElementById('startOverlay');
     const startVideoBtn = document.getElementById('startVideoBtn');
     const rotatePrompt = document.getElementById('rotatePrompt');
@@ -240,9 +231,6 @@
           videoWrapper.classList.add('ios-fullscreen');
           document.body.classList.add('ios-fullscreen-active');
 
-          // Show iOS exit button
-          iosExitBtn.style.display = 'flex';
-
           // Try to lock orientation (may not work on iOS, but worth trying)
           if (screen.orientation && screen.orientation.lock) {
             try {
@@ -300,7 +288,6 @@
         if (isIOS && videoWrapper.classList.contains('ios-fullscreen')) {
           videoWrapper.classList.remove('ios-fullscreen');
           document.body.classList.remove('ios-fullscreen-active');
-          iosExitBtn.style.display = 'none';
           console.log('✓ iOS CSS fullscreen exited');
           return;
         }
@@ -404,9 +391,6 @@
         }
       }
     });
-
-    // iOS Exit button
-    iosExitBtn.addEventListener('click', exitFullscreenLandscape);
 
     // QR Scanner functionality
     scanQrBtn.addEventListener('click', openScanner);

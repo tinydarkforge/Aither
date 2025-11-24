@@ -434,46 +434,8 @@ body.ios-fullscreen-active {
   flex-shrink: 0;
 }
 
-/* iOS Exit Button - Top right corner */
-.ios-exit-btn {
-  position: absolute;
-  top: var(--spacing-md);
-  right: var(--spacing-md);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  background: rgba(239, 68, 68, 0.9);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition-base);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-.ios-exit-btn:hover {
-  background: rgba(220, 38, 38, 1);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-}
-
-.ios-exit-btn:active {
-  transform: scale(0.98);
-}
-
-.ios-exit-btn svg {
-  flex-shrink: 0;
-}
-
-/* Ensure buttons are always visible in iOS fullscreen */
-.video-wrapper.ios-fullscreen .overlay-qr-btn,
-.video-wrapper.ios-fullscreen .ios-exit-btn {
+/* Ensure QR button is always visible in iOS fullscreen */
+.video-wrapper.ios-fullscreen .overlay-qr-btn {
   position: fixed !important;
   display: flex !important;
   z-index: 1000000 !important;
@@ -520,7 +482,7 @@ body.ios-fullscreen-active {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 10000000;
 }
 
 .scanner-modal.active {
@@ -546,7 +508,7 @@ body.ios-fullscreen-active {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
   padding: var(--spacing-lg);
-  z-index: 10000;
+  z-index: 10000001;
 }
 
 .scanner-header {
