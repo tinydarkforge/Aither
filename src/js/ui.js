@@ -119,7 +119,7 @@ function initializeEventListeners() {
   });
 
   // Other form inputs for live preview
-  ['urlInput', 'sizeInput', 'marginInput'].forEach(id => {
+  ['urlInput', 'titleInput', 'descriptionInput', 'sizeInput', 'marginInput'].forEach(id => {
     document.getElementById(id).addEventListener('input', updatePreview);
   });
 
@@ -229,17 +229,26 @@ function isMP4URL(url) {
 /**
  * Wrap video URL with player page
  */
-function getPlayerURL(videoUrl) {
+function getPlayerURL(videoUrl, title = null, description = null) {
   const baseUrl = window.location.origin;
-  return `${baseUrl}/player.html?video=${encodeURIComponent(videoUrl)}`;
+  let url = `${baseUrl}/player.html?video=${encodeURIComponent(videoUrl)}`;
+
+  if (title) {
+    url += `&title=${encodeURIComponent(title)}`;
+  }
+  if (description) {
+    url += `&description=${encodeURIComponent(description)}`;
+  }
+
+  return url;
 }
 
 /**
  * Get the QR-ready URL (wraps MP4s with player page)
  */
-function getQRReadyURL(url) {
+function getQRReadyURL(url, title = null, description = null) {
   if (isMP4URL(url)) {
-    return getPlayerURL(url);
+    return getPlayerURL(url, title, description);
   }
   return url;
 }
@@ -257,9 +266,11 @@ function updatePreview() {
 
   const options = getFormOptions();
   const container = document.getElementById('qrCanvas');
+  const title = document.getElementById('titleInput').value.trim() || null;
+  const description = document.getElementById('descriptionInput').value.trim() || null;
 
-  // Use player-wrapped URL for MP4s
-  const qrUrl = getQRReadyURL(url);
+  // Use player-wrapped URL for MP4s with title and description
+  const qrUrl = getQRReadyURL(url, title, description);
   currentQRInstance = generateQR(container, qrUrl, options);
   document.getElementById('qrPreview').style.display = 'block';
 }
@@ -284,6 +295,8 @@ async function handleQRFormSubmit(e) {
   e.preventDefault();
 
   const url = document.getElementById('urlInput').value;
+  const title = document.getElementById('titleInput').value.trim() || null;
+  const description = document.getElementById('descriptionInput').value.trim() || null;
 
   if (!isValidURL(url)) {
     showMessage('Please enter a valid URL', 'error');
@@ -293,8 +306,8 @@ async function handleQRFormSubmit(e) {
   try {
     const options = getFormOptions();
 
-    // Use player-wrapped URL for MP4s
-    const qrUrl = getQRReadyURL(url);
+    // Use player-wrapped URL for MP4s with title and description
+    const qrUrl = getQRReadyURL(url, title, description);
 
     // Generate QR code with the player URL (if MP4)
     const qrCode = createQRCode(qrUrl, options);
@@ -302,9 +315,11 @@ async function handleQRFormSubmit(e) {
     // Get image data
     const imageData = await getQRDataURL(qrCode, 'png');
 
-    // Save to database (store original URL for display)
+    // Save to database (store original URL, title, and description)
     await saveQRCode({
       url,
+      title,
+      description,
       imageData,
       options,
       organizationId
@@ -363,6 +378,8 @@ function renderQRList(codes) {
         <img src="${code.imageData}" alt="QR Code">
       </div>
       <div class="qr-info">
+        ${code.title ? `<div class="qr-title">${escapeHtml(code.title)}</div>` : ''}
+        ${code.description ? `<div class="qr-description">${escapeHtml(code.description)}</div>` : ''}
         <div class="qr-url">${escapeHtml(code.url)}</div>
         <div class="qr-meta">
           ${formatDate(code.generatedAt)}

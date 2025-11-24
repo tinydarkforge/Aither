@@ -55,6 +55,32 @@
                 <small class="form-hint">💡 MP4 files will automatically use the video player</small>
               </div>
 
+              <!-- Title -->
+              <div class="form-group span-2">
+                <label for="titleInput">Title (optional)</label>
+                <input
+                  type="text"
+                  id="titleInput"
+                  name="title"
+                  placeholder="Enter a descriptive title for this video"
+                  maxlength="100"
+                >
+                <small class="form-hint">Custom title to display in the video player</small>
+              </div>
+
+              <!-- Description -->
+              <div class="form-group span-2">
+                <label for="descriptionInput">Description (optional)</label>
+                <textarea
+                  id="descriptionInput"
+                  name="description"
+                  placeholder="Enter a description for this video"
+                  rows="3"
+                  maxlength="500"
+                ></textarea>
+                <small class="form-hint">Additional details about the video content</small>
+              </div>
+
               <!-- Size -->
               <div class="form-group">
                 <label for="sizeInput">Size (px)</label>

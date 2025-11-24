@@ -56,6 +56,14 @@ db.version(3).stores({
   settings: 'key, value'
 });
 
+// Version 4: Add title and description fields to QR codes
+db.version(4).stores({
+  organizations: '++id, name, createdAt',
+  collections: '++id, organizationId, name, sourceUrl, createdAt, lastScannedAt',
+  qrCodes: '++id, organizationId, collectionId, url, title, description, generatedAt, size, format',
+  settings: 'key, value'
+});
+
 /**
  * Save a QR code to the database
  * @param {Object} qrData - QR code data
@@ -64,6 +72,8 @@ db.version(3).stores({
  * @param {Object} qrData.options - QR generation options
  * @param {number} qrData.organizationId - Organization ID
  * @param {number} [qrData.collectionId] - Optional collection ID
+ * @param {string} [qrData.title] - Optional title for the video
+ * @param {string} [qrData.description] - Optional description for the video
  * @returns {Promise<number>} The ID of the saved record
  */
 export async function saveQRCode(qrData) {
@@ -74,6 +84,8 @@ export async function saveQRCode(qrData) {
       options: qrData.options,
       organizationId: qrData.organizationId,
       collectionId: qrData.collectionId || null,
+      title: qrData.title || null,
+      description: qrData.description || null,
       generatedAt: Date.now(),
       size: qrData.options.width,
       format: 'png' // default format
