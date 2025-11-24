@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aither - Professional QR code video platform for exhibits, events, advertising, and more. Create stunning QR codes with a native mobile experience.">
+  <meta name="keywords" content="QR code generator, video QR codes, mobile video player, exhibits, events, digital signage, advertising">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Aither - QR Code Video Platform">
+  <meta property="og:description" content="Professional QR code video platform for exhibits, events, advertising, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aither.app">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aither - QR Code Video Platform">
+  <meta name="twitter:description" content="Professional QR code video platform for exhibits, events, advertising, and more.">
+
+  <title>Aither - QR Code Video Platform</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/src/styles/vars.css">
+  <link rel="stylesheet" href="/src/styles/info.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <path d="M7 7h10v10H7z"></path>
+        </svg>
+        <span class="nav-title">Aither</span>
+      </div>
+      <div class="nav-links">
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#use-cases" class="nav-link">Use Cases</a>
+        <a href="#mobile-experience" class="nav-link">Mobile</a>
+        <a href="#why-aither" class="nav-link">Why Aither</a>
+        <a href="/login.html" class="btn btn-primary btn-sm">Login</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+    <a href="#features" class="mobile-nav-link">Features</a>
+    <a href="#use-cases" class="mobile-nav-link">Use Cases</a>
+    <a href="#mobile-experience" class="mobile-nav-link">Mobile</a>
+    <a href="#why-aither" class="mobile-nav-link">Why Aither</a>
+    <a href="/login.html" class="mobile-nav-link">Login</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          QR Code Videos<br>
+          <span class="hero-gradient">Made Engaging</span>
+        </h1>
+        <p class="hero-subtitle">
+          Transform your video content into scannable experiences. Perfect for exhibits, events, advertising campaigns, and digital signage.
+        </p>
+        <div class="hero-cta">
+          <a href="/login.html" class="btn btn-primary btn-lg">
+            Get Started
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+          <a href="#how-it-works" class="btn btn-secondary btn-lg">
+            Learn More
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-number">100%</div>
+            <div class="hero-stat-label">Client-Side</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">0</div>
+            <div class="hero-stat-label">Backend Required</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-number">Offline</div>
+            <div class="hero-stat-label">First Design</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-phone">
+          <div class="hero-phone-screen">
+            <div class="hero-qr-demo">
+              <svg class="hero-qr-icon" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+              </svg>
+              <div class="hero-scan-animation"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Three simple steps to create engaging video experiences</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"></path>
+            </svg>
+          </div>
+          <h3 class="step-title">Create QR Codes</h3>
+          <p class="step-description">
+            Upload your video URLs and generate beautiful, customizable QR codes. Bulk import from directories or create individual codes.
+          </p>
+        </div>
+        <div class="step-arrow">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="step-title">Scan & Watch</h3>
+          <p class="step-description">
+            Visitors scan the QR code with their phone. Videos auto-launch in fullscreen with landscape orientation for the best experience.
+          </p>
+        </div>
+        <div class="step-arrow">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3 class="step-title">Seamless Experience</h3>
+          <p class="step-description">
+            In-player QR scanner lets viewers discover more content without leaving fullscreen. Perfect for multi-video experiences.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Powerful Features</h2>
+        <p class="section-subtitle">Everything you need for professional video QR codes</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">Native Mobile Experience</h3>
+          <p class="feature-description">
+            Auto-fullscreen, landscape orientation locking, and always-visible controls. Feels like a native app on iOS and Android.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Multi-Tenant System</h3>
+          <p class="feature-description">
+            Manage multiple organizations with separate authentication and data. Perfect for agencies or multi-location businesses.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">Bulk Generation</h3>
+          <p class="feature-description">
+            Parse directory URLs to generate hundreds of QR codes at once. Perfect for large video libraries and collections.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <path d="M9 9h6v6H9z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">In-Player Scanner</h3>
+          <p class="feature-description">
+            Scan additional QR codes without leaving fullscreen. Seamlessly switch between videos for continuous viewing.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Zero Infrastructure</h3>
+          <p class="feature-description">
+            Pure client-side application. No backend servers, no databases, no hosting costs. Deploy anywhere as static files.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Light & Dark Mode</h3>
+          <p class="feature-description">
+            Modern theme system with automatic persistence. Consistent branding across admin panel and video player.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="use-cases" id="use-cases">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Perfect For Any Industry</h2>
+        <p class="section-subtitle">Versatile QR code video solutions for diverse applications</p>
+      </div>
+      <div class="use-case-grid">
+        <div class="use-case-card">
+          <div class="use-case-image">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <path d="M9 3v18M3 9h18M3 15h18"></path>
+            </svg>
+          </div>
+          <h3 class="use-case-title">Exhibits & Galleries</h3>
+          <p class="use-case-description">
+            Create interactive museum exhibits with video content. Visitors scan QR codes to watch artist interviews, behind-the-scenes footage, or educational content.
+          </p>
+          <ul class="use-case-benefits">
+            <li>Multi-language support</li>
+            <li>Accessibility features</li>
+            <li>Offline viewing capability</li>
+          </ul>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-image">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <h3 class="use-case-title">Events & Conferences</h3>
+          <p class="use-case-description">
+            Share speaker sessions, product demos, and sponsor videos at events. Attendees can scan codes on badges, posters, or booths.
+          </p>
+          <ul class="use-case-benefits">
+            <li>Instant access to content</li>
+            <li>Track engagement metrics</li>
+            <li>No app downloads needed</li>
+          </ul>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-image">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </div>
+          <h3 class="use-case-title">Advertising Campaigns</h3>
+          <p class="use-case-description">
+            Place QR codes on billboards, print ads, or packaging. Drive viewers to product videos, testimonials, or brand storytelling content.
+          </p>
+          <ul class="use-case-benefits">
+            <li>Measure campaign effectiveness</li>
+            <li>A/B test different videos</li>
+            <li>Update content anytime</li>
+          </ul>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-image">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 6v6l4 2"></path>
+            </svg>
+          </div>
+          <h3 class="use-case-title">Product Showcases</h3>
+          <p class="use-case-description">
+            Add QR codes to retail displays or product packaging. Show tutorial videos, assembly instructions, or customer testimonials.
+          </p>
+          <ul class="use-case-benefits">
+            <li>Reduce support tickets</li>
+            <li>Enhance customer experience</li>
+            <li>Build brand loyalty</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Experience Showcase -->
+  <section class="mobile-showcase" id="mobile-experience">
+    <div class="container">
+      <div class="mobile-showcase-content">
+        <div class="mobile-showcase-text">
+          <h2 class="section-title">Native Mobile Experience</h2>
+          <p class="mobile-showcase-intro">
+            Aither delivers a polished, app-like experience that viewers expect on mobile devices.
+          </p>
+          <div class="mobile-features">
+            <div class="mobile-feature">
+              <div class="mobile-feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"></path>
+                  <polyline points="21 3 12 12"></polyline>
+                  <line x1="21" y1="3" x2="21" y2="9"></line>
+                  <line x1="21" y1="3" x2="15" y2="3"></line>
+                </svg>
+              </div>
+              <div class="mobile-feature-text">
+                <h4>Auto-Fullscreen</h4>
+                <p>Videos launch in fullscreen mode with a single tap for distraction-free viewing.</p>
+              </div>
+            </div>
+            <div class="mobile-feature">
+              <div class="mobile-feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <div class="mobile-feature-text">
+                <h4>Landscape Orientation</h4>
+                <p>Automatically locks to horizontal viewing for optimal video display on mobile.</p>
+              </div>
+            </div>
+            <div class="mobile-feature">
+              <div class="mobile-feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <path d="M9 9h6v6H9z"></path>
+                </svg>
+              </div>
+              <div class="mobile-feature-text">
+                <h4>Always-Visible Scanner</h4>
+                <p>QR scan button stays visible in fullscreen, even on iOS where overlays typically disappear.</p>
+              </div>
+            </div>
+            <div class="mobile-feature">
+              <div class="mobile-feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <div class="mobile-feature-text">
+                <h4>Device-Specific Optimizations</h4>
+                <p>Custom implementations for iOS and Android ensure the best experience on every device.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mobile-showcase-visual">
+          <div class="phone-mockup">
+            <div class="phone-mockup-screen">
+              <div class="video-demo">
+                <div class="video-demo-controls">
+                  <div class="video-demo-play">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="white" stroke="none">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </div>
+                </div>
+                <div class="video-demo-qr-btn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Aither -->
+  <section class="why-aither" id="why-aither">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Choose Aither?</h2>
+        <p class="section-subtitle">Built for performance, designed for simplicity</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-number">01</div>
+          <h3 class="benefit-title">No Backend Required</h3>
+          <p class="benefit-description">
+            Runs 100% in the browser using IndexedDB. No server costs, no database management, no infrastructure headaches.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-number">02</div>
+          <h3 class="benefit-title">Offline First</h3>
+          <p class="benefit-description">
+            Works without an internet connection once loaded. Perfect for events with spotty WiFi or remote locations.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-number">03</div>
+          <h3 class="benefit-title">Deploy Anywhere</h3>
+          <p class="benefit-description">
+            Static files deploy to Vercel, Netlify, GitHub Pages, or any web server. No special hosting requirements.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-number">04</div>
+          <h3 class="benefit-title">Customizable Design</h3>
+          <p class="benefit-description">
+            Full control over QR code colors, size, margins, and logos. Match your brand perfectly with CSS theming.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-number">05</div>
+          <h3 class="benefit-title">Export Flexibility</h3>
+          <p class="benefit-description">
+            Download QR codes as PNG for digital use or SVG for high-quality printing. Both formats included.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-number">06</div>
+          <h3 class="benefit-title">Modern Tech Stack</h3>
+          <p class="benefit-description">
+            Built with Vite, vanilla JavaScript, and modern CSS. Fast builds, minimal dependencies, easy to maintain.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started / CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Get Started?</h2>
+        <p class="cta-description">
+          Transform your video content into engaging QR code experiences today. No credit card required.
+        </p>
+        <div class="cta-buttons">
+          <a href="/login.html" class="btn btn-primary btn-lg">
+            Launch Aither
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+          <a href="mailto:info@hellocirrus.com" class="btn btn-secondary btn-lg">
+            Contact Sales
+          </a>
+        </div>
+        <p class="cta-note">
+          Developed by <a href="https://hellocirrus.com" target="_blank" rel="noopener">Cirrus</a> with care and attention to detail.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4 class="footer-title">Product</h4>
+          <ul class="footer-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#use-cases">Use Cases</a></li>
+            <li><a href="/login.html">Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Resources</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/Pamperito74/Aither" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="/admin.html">Admin Panel</a></li>
+            <li><a href="/player.html">Video Player</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="https://hellocirrus.com" target="_blank" rel="noopener">About Cirrus</a></li>
+            <li><a href="mailto:info@hellocirrus.com">Contact</a></li>
+            <li><a href="mailto:security@hellocirrus.com">Security</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/Pamperito74/Aither/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li>
+            <li><a href="https://github.com/Pamperito74/Aither/blob/main/TERMS.md" target="_blank" rel="noopener">Terms</a></li>
+            <li><a href="https://github.com/Pamperito74/Aither/blob/main/SECURITY.md" target="_blank" rel="noopener">Security Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Cirrus. All rights reserved.</p>
+        <p class="footer-tagline">Built with care for organizations that want to share video content through QR codes.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Nav Toggle Script -->
+  <script>
+    // Mobile navigation toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      document.body.classList.toggle('nav-open');
+    });
+
+    // Close mobile nav when clicking a link
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        mobileNav.classList.remove('active');
+        document.body.classList.remove('nav-open');
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
