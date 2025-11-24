@@ -251,6 +251,56 @@
   }
 }
 
+/* Start Video Overlay */
+.start-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+  border-radius: var(--radius-lg);
+}
+
+.start-video-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  background: rgba(99, 102, 241, 0.95);
+  color: white;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.start-video-btn:hover {
+  background: rgba(129, 140, 248, 1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.start-video-btn:active {
+  transform: scale(0.98);
+}
+
+.start-video-btn svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
 /* Overlay QR Button - Positioned on video */
 .overlay-qr-btn {
   position: absolute;

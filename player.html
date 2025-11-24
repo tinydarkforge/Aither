@@ -13,8 +13,18 @@
   <div class="player-container">
     <!-- Video Player -->
     <div class="video-wrapper">
+      <!-- Start Video Overlay (appears on first load) -->
+      <div id="startOverlay" class="start-overlay">
+        <button id="startVideoBtn" class="start-video-btn">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <span>Start Video</span>
+        </button>
+      </div>
+
       <!-- Overlay QR Scan Button -->
-      <button id="overlayQrBtn" class="overlay-qr-btn" title="Scan Another QR Code">
+      <button id="overlayQrBtn" class="overlay-qr-btn" title="Scan Another QR Code" style="display: none;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="7" height="7"></rect>
           <rect x="14" y="3" width="7" height="7"></rect>
@@ -26,7 +36,6 @@
         id="videoPlayer"
         class="video-player"
         controls
-        autoplay
         playsinline
         preload="metadata"
       >
@@ -92,6 +101,8 @@
     const loadingIndicator = document.getElementById('loadingIndicator');
     const scanQrBtn = document.getElementById('scanQrBtn');
     const overlayQrBtn = document.getElementById('overlayQrBtn');
+    const startOverlay = document.getElementById('startOverlay');
+    const startVideoBtn = document.getElementById('startVideoBtn');
     const scannerModal = document.getElementById('scannerModal');
     const closeScannerBtn = document.getElementById('closeScannerBtn');
 
@@ -232,17 +243,22 @@
       }
     }
 
-    // Auto-enter fullscreen when video is ready to play
-    videoPlayer.addEventListener('canplay', () => {
-      // Only auto-fullscreen on first load
-      if (!videoPlayer.hasAttribute('data-fullscreen-attempted')) {
-        videoPlayer.setAttribute('data-fullscreen-attempted', 'true');
-        // Small delay to ensure video is ready
-        setTimeout(() => {
-          enterFullscreenLandscape();
-        }, 500);
+    // Start Video button - user interaction triggers fullscreen
+    startVideoBtn.addEventListener('click', async () => {
+      // Hide start overlay and show QR button
+      startOverlay.style.display = 'none';
+      overlayQrBtn.style.display = 'flex';
+
+      // Enter fullscreen with landscape orientation
+      await enterFullscreenLandscape();
+
+      // Play the video
+      try {
+        await videoPlayer.play();
+      } catch (err) {
+        console.log('Play error:', err);
       }
-    }, { once: true });
+    });
 
     // Double-click to toggle fullscreen
     videoPlayer.addEventListener('dblclick', () => {
