@@ -560,6 +560,40 @@
   font-size: var(--font-size-base);
 }
 
+/* Bulk Mode Toggle */
+.bulk-mode-toggle {
+  display: flex;
+  gap: 0;
+  margin-bottom: var(--spacing-xl);
+  background: var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  width: fit-content;
+}
+
+.mode-btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.mode-btn:hover {
+  color: var(--text);
+}
+
+.mode-btn.active {
+  background: var(--bg-secondary);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
 /* Collection Progress */
 .collection-progress {
   background: white;

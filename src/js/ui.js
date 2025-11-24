@@ -148,6 +148,40 @@ function initializeEventListeners() {
 
   // Collection form submission
   document.getElementById('collectionForm').addEventListener('submit', handleCollectionFormSubmit);
+
+  // Bulk URLs form submission
+  document.getElementById('bulkUrlsForm').addEventListener('submit', handleBulkUrlsFormSubmit);
+
+  // Bulk mode toggle buttons
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      toggleBulkMode(mode);
+    });
+  });
+}
+
+/**
+ * Toggle between directory scan and bulk URLs modes
+ */
+function toggleBulkMode(mode) {
+  // Update button states
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    if (btn.dataset.mode === mode) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Show/hide forms
+  document.querySelectorAll('.bulk-mode-form').forEach(form => {
+    if (form.dataset.mode === mode) {
+      form.style.display = 'block';
+    } else {
+      form.style.display = 'none';
+    }
+  });
 }
 
 /**
@@ -677,6 +711,148 @@ async function handleCollectionFormSubmit(e) {
     document.getElementById('collectionProgress').style.display = 'none';
   } finally {
     document.getElementById('scanDirectoryBtn').disabled = false;
+  }
+}
+
+/**
+ * Parse URLs from textarea input
+ */
+function parseUrlsFromText(text) {
+  // Split by newlines and filter out empty lines
+  const lines = text.split('\n')
+    .map(line => line.trim())
+    .filter(line => line.length > 0);
+
+  const validUrls = [];
+  const invalidUrls = [];
+
+  for (const line of lines) {
+    if (isValidURL(line)) {
+      validUrls.push(line);
+    } else {
+      invalidUrls.push(line);
+    }
+  }
+
+  return { validUrls, invalidUrls };
+}
+
+/**
+ * Handle bulk URLs form submission
+ */
+async function handleBulkUrlsFormSubmit(e) {
+  e.preventDefault();
+
+  const bulkUrlsText = document.getElementById('bulkUrlsInput').value.trim();
+  const collectionName = document.getElementById('bulkCollectionNameInput').value.trim();
+
+  if (!bulkUrlsText) {
+    showCollectionError('Please enter at least one URL');
+    return;
+  }
+
+  if (!collectionName) {
+    showCollectionError('Please enter a collection name');
+    return;
+  }
+
+  try {
+    // Show progress
+    document.getElementById('collectionProgress').style.display = 'block';
+    document.getElementById('collectionResults').style.display = 'none';
+    document.getElementById('collectionMessage').style.display = 'none';
+    document.getElementById('collectionError').style.display = 'none';
+    document.getElementById('generateBulkQRBtn').disabled = true;
+
+    updateProgress(10, 'Parsing URLs...');
+
+    // Parse URLs from textarea
+    const { validUrls, invalidUrls } = parseUrlsFromText(bulkUrlsText);
+
+    if (validUrls.length === 0) {
+      showCollectionError('No valid URLs found. Please check your input.');
+      document.getElementById('collectionProgress').style.display = 'none';
+      document.getElementById('generateBulkQRBtn').disabled = false;
+      return;
+    }
+
+    if (invalidUrls.length > 0) {
+      console.warn(`Skipped ${invalidUrls.length} invalid URLs:`, invalidUrls);
+    }
+
+    updateProgress(20, `Found ${validUrls.length} valid URLs. Creating collection...`);
+
+    // Create collection in database (using first URL as sourceUrl for reference)
+    const collectionId = await createCollection({
+      organizationId,
+      name: collectionName,
+      sourceUrl: validUrls[0] // Use first URL as reference
+    });
+
+    updateProgress(30, 'Generating QR codes...');
+
+    // Generate QR codes for each URL
+    const options = {
+      size: 300,
+      margin: 10,
+      fgColor: '#000000',
+      bgColor: '#ffffff',
+      logo: null
+    };
+
+    let successCount = 0;
+    const total = validUrls.length;
+
+    for (let i = 0; i < total; i++) {
+      const url = validUrls[i];
+
+      try {
+        // Use player-wrapped URL for MP4s, otherwise use direct URL
+        const qrUrl = getQRReadyURL(url);
+        const qrCode = createQRCode(qrUrl, options);
+        const imageData = await getQRDataURL(qrCode, 'png');
+
+        // Save to database
+        await saveQRCode({
+          url,
+          imageData,
+          options,
+          organizationId,
+          collectionId
+        });
+
+        successCount++;
+
+        // Update progress
+        const progress = 30 + ((i + 1) / total) * 70;
+        updateProgress(progress, `Generated ${successCount} of ${total} QR codes...`);
+      } catch (error) {
+        console.error(`Error generating QR for ${url}:`, error);
+      }
+    }
+
+    // Complete
+    updateProgress(100, 'Complete!');
+    document.getElementById('collectionProgress').style.display = 'none';
+
+    let message = `Successfully generated ${successCount} QR codes in collection "${collectionName}"!`;
+    if (invalidUrls.length > 0) {
+      message += ` (Skipped ${invalidUrls.length} invalid URLs)`;
+    }
+    showCollectionMessage(message);
+
+    // Reset form
+    document.getElementById('bulkUrlsForm').reset();
+
+    // Reload collections list
+    loadCollections();
+
+  } catch (error) {
+    console.error('Error creating collection from bulk URLs:', error);
+    showCollectionError('An error occurred while creating the collection');
+    document.getElementById('collectionProgress').style.display = 'none';
+  } finally {
+    document.getElementById('generateBulkQRBtn').disabled = false;
   }
 }
 

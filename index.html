@@ -179,9 +179,16 @@
       <section id="collectionTab" class="tab-content">
         <div class="content-wrapper">
           <h2 class="section-title">Bulk QR Code Collection</h2>
-          <p class="section-description">Generate multiple QR codes from a directory listing URL</p>
+          <p class="section-description">Generate multiple QR codes from a directory or paste multiple URLs</p>
 
-          <form id="collectionForm" class="qr-form">
+          <!-- Bulk Mode Toggle -->
+          <div class="bulk-mode-toggle">
+            <button type="button" class="mode-btn active" data-mode="directory">Directory Scan</button>
+            <button type="button" class="mode-btn" data-mode="urls">Multiple URLs</button>
+          </div>
+
+          <!-- Directory Scan Mode -->
+          <form id="collectionForm" class="qr-form bulk-mode-form" data-mode="directory">
             <div class="form-grid">
               <!-- Directory URL Input -->
               <div class="form-group span-2">
@@ -212,6 +219,41 @@
 
             <button type="submit" class="btn btn-primary" id="scanDirectoryBtn">
               Scan Directory & Generate QR Codes
+            </button>
+          </form>
+
+          <!-- Multiple URLs Mode -->
+          <form id="bulkUrlsForm" class="qr-form bulk-mode-form" data-mode="urls" style="display: none;">
+            <div class="form-grid">
+              <!-- URLs Textarea -->
+              <div class="form-group span-2">
+                <label for="bulkUrlsInput">Video URLs (one per line) *</label>
+                <textarea
+                  id="bulkUrlsInput"
+                  name="bulkUrls"
+                  placeholder="https://example.com/video1.mp4&#10;https://example.com/video2.mp4&#10;https://example.com/video3.mp4"
+                  rows="10"
+                  required
+                ></textarea>
+                <small class="form-hint">💡 Paste multiple video URLs, one per line. Each will get its own QR code.</small>
+              </div>
+
+              <!-- Collection Name Input -->
+              <div class="form-group span-2">
+                <label for="bulkCollectionNameInput">Collection Name *</label>
+                <input
+                  type="text"
+                  id="bulkCollectionNameInput"
+                  name="collectionName"
+                  placeholder="e.g., Training Videos, ASL Lessons"
+                  required
+                >
+                <small class="form-hint">💡 Name this group of QR codes for easy organization</small>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="generateBulkQRBtn">
+              Generate QR Codes from URLs
             </button>
           </form>
 
