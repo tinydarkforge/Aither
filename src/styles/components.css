@@ -201,6 +201,23 @@
   grid-column: span 2;
 }
 
+/* Form Group Button */
+.form-group-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group-button label {
+  margin-bottom: var(--spacing-sm);
+}
+
+.btn-generate {
+  width: 100%;
+  height: 42px;
+}
+
 /* Color Input */
 .color-input-wrapper {
   display: flex;

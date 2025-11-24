@@ -137,7 +137,7 @@
               </div>
 
               <!-- Logo Upload -->
-              <div class="form-group span-2">
+              <div class="form-group">
                 <label for="logoInput">Logo (optional)</label>
                 <input
                   type="text"
@@ -153,13 +153,17 @@
                   accept="image/*"
                   style="display: none;"
                 >
-                <span class="form-hint">Click to upload a logo for the center of the QR code</span>
+                <small class="form-hint">Click to upload a logo</small>
+              </div>
+
+              <!-- Generate Button -->
+              <div class="form-group form-group-button">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-primary btn-generate">
+                  Generate QR Code
+                </button>
               </div>
             </div>
-
-            <button type="submit" class="btn btn-primary">
-              Generate QR Code
-            </button>
           </form>
 
           <!-- QR Preview -->
@@ -332,6 +336,45 @@
         <button id="downloadPngBtn" class="btn btn-primary">Download PNG</button>
         <button id="downloadSvgBtn" class="btn btn-secondary">Download SVG</button>
         <button id="copyUrlBtn" class="btn btn-secondary">Copy URL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit QR Code Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit QR Code</h3>
+        <button class="modal-close" id="editModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="editQRForm">
+          <div class="form-group">
+            <label for="editTitleInput">Title</label>
+            <input
+              type="text"
+              id="editTitleInput"
+              name="title"
+              placeholder="Enter a descriptive title for this video"
+              maxlength="100"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="editDescriptionInput">Description</label>
+            <textarea
+              id="editDescriptionInput"
+              name="description"
+              placeholder="Enter a description for this video"
+              rows="4"
+              maxlength="500"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="saveEditBtn" class="btn btn-primary">Save Changes</button>
+        <button id="cancelEditBtn" class="btn btn-secondary">Cancel</button>
       </div>
     </div>
   </div>

@@ -147,6 +147,24 @@ export async function deleteQRCode(id) {
 }
 
 /**
+ * Update QR code title and description
+ * @param {number} id - QR code ID
+ * @param {Object} updates - Updates to apply
+ * @param {string} [updates.title] - New title
+ * @param {string} [updates.description] - New description
+ * @param {string} [updates.imageData] - New QR code image data
+ * @returns {Promise<void>}
+ */
+export async function updateQRCode(id, updates) {
+  try {
+    await db.qrCodes.update(id, updates);
+  } catch (error) {
+    console.error('Error updating QR code:', error);
+    throw error;
+  }
+}
+
+/**
  * Search QR codes by URL within an organization
  * @param {number} organizationId - Organization ID
  * @param {string} searchTerm - The search term

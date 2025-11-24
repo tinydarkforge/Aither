@@ -19,7 +19,8 @@ import {
   deleteCollection,
   getQRCodesByCollection,
   getCollectionById,
-  updateCollectionScanTime
+  updateCollectionScanTime,
+  updateQRCode
 } from './db.js';
 import {
   generateQR,
@@ -38,6 +39,7 @@ let currentQRCode = null;
 let currentQRInstance = null;
 let logoDataURL = null;
 let selectedQRId = null;
+let editingQRId = null;
 let organizationId = null;
 
 // Initialize app
@@ -145,6 +147,16 @@ function initializeEventListeners() {
   document.getElementById('downloadPngBtn').addEventListener('click', () => downloadFromModal('png'));
   document.getElementById('downloadSvgBtn').addEventListener('click', () => downloadFromModal('svg'));
   document.getElementById('copyUrlBtn').addEventListener('click', copyUrlFromModal);
+
+  // Edit modal
+  document.getElementById('editModalClose').addEventListener('click', closeEditModal);
+  document.getElementById('cancelEditBtn').addEventListener('click', closeEditModal);
+  document.getElementById('saveEditBtn').addEventListener('click', saveQREdit);
+  document.getElementById('editModal').addEventListener('click', (e) => {
+    if (e.target.id === 'editModal') {
+      closeEditModal();
+    }
+  });
 
   // Collection form submission
   document.getElementById('collectionForm').addEventListener('submit', handleCollectionFormSubmit);
@@ -421,6 +433,7 @@ function renderQRList(codes) {
       </div>
       <div class="qr-actions">
         <button class="btn btn-sm btn-secondary" onclick="window.viewQR(${code.id})">View</button>
+        <button class="btn btn-sm btn-secondary" onclick="window.editQR(${code.id})">Edit</button>
         <button class="btn btn-sm btn-secondary" onclick="window.downloadQRById(${code.id}, 'png')">Download</button>
         <button class="btn btn-sm btn-danger" onclick="window.deleteQR(${code.id})">Delete</button>
       </div>
@@ -551,6 +564,85 @@ async function deleteQR(id) {
   } catch (error) {
     console.error('Error deleting QR code:', error);
     showMessage('Error deleting QR code', 'error');
+  }
+}
+
+/**
+ * Edit QR code title and description
+ */
+async function editQR(id) {
+  try {
+    const codes = await getAllQRCodes(organizationId);
+    const code = codes.find(c => c.id === id);
+
+    if (!code) {
+      showMessage('QR code not found', 'error');
+      return;
+    }
+
+    // Store ID for saving
+    editingQRId = id;
+
+    // Populate form
+    document.getElementById('editTitleInput').value = code.title || '';
+    document.getElementById('editDescriptionInput').value = code.description || '';
+
+    // Show modal
+    document.getElementById('editModal').classList.add('active');
+  } catch (error) {
+    console.error('Error loading QR code for edit:', error);
+    showMessage('Error loading QR code', 'error');
+  }
+}
+
+/**
+ * Close edit modal
+ */
+function closeEditModal() {
+  document.getElementById('editModal').classList.remove('active');
+  editingQRId = null;
+  document.getElementById('editQRForm').reset();
+}
+
+/**
+ * Save QR code edits
+ */
+async function saveQREdit() {
+  if (!editingQRId) return;
+
+  try {
+    const title = document.getElementById('editTitleInput').value.trim() || null;
+    const description = document.getElementById('editDescriptionInput').value.trim() || null;
+
+    // Get original QR data to regenerate with new metadata
+    const codes = await getAllQRCodes(organizationId);
+    const code = codes.find(c => c.id === editingQRId);
+
+    if (!code) {
+      showMessage('QR code not found', 'error');
+      return;
+    }
+
+    // Regenerate QR code with new title/description
+    const qrUrl = getQRReadyURL(code.url, title, description);
+    const qrCode = createQRCode(qrUrl, code.options);
+    const imageData = await getQRDataURL(qrCode, 'png');
+
+    // Update database
+    await updateQRCode(editingQRId, {
+      title,
+      description,
+      imageData
+    });
+
+    showMessage('QR code updated successfully!', 'success');
+    closeEditModal();
+
+    // Refresh list
+    loadQRList();
+  } catch (error) {
+    console.error('Error saving QR edit:', error);
+    showMessage('Error updating QR code', 'error');
   }
 }
 
@@ -1074,6 +1166,7 @@ async function deleteCollectionById(collectionId) {
 
 // Expose functions to window for inline event handlers
 window.viewQR = viewQR;
+window.editQR = editQR;
 window.downloadQRById = downloadQRById;
 window.deleteQR = deleteQR;
 window.viewCollection = viewCollection;
