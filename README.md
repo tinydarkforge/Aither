@@ -2,7 +2,7 @@
 
 **Copyright © 2025 Cirrus. All rights reserved.**
 
-A static QR code generator and manager for ASL (American Sign Language) museum videos. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
+A static QR code generator and manager for ASL (American Sign Language) videos. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
 
 ## Features
 
@@ -290,7 +290,7 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
 **Benefits:**
 - Videos play directly in the browser (no download required)
 - Consistent viewing experience across devices
-- Professional presentation for museum visitors
+- Professional presentation for museum visitors and other entities
 - Works perfectly on mobile devices after QR scanning
 - **No login required** - The player page is completely public and accessible to anyone
 
@@ -330,7 +330,7 @@ The video player provides a **native-like mobile experience** optimized for muse
 - Translucent status bar on iOS for edge-to-edge display
 - Playsinline attributes for smooth mobile video playback
 
-This mobile experience makes Aither perfect for museum exhibits where visitors scan QR codes with their phones and expect a polished, native-app-quality video viewing experience.
+This mobile experience makes Aither perfect for museum and other entities exhibits where visitors scan QR codes with their phones and expect a polished, native-app-quality video viewing experience.
 
 ### Scanning Multiple Videos
 
@@ -459,4 +459,4 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 **© 2025 Cirrus. All rights reserved.**
 
-Built for the ASL museum community with care and attention to detail.
+Built for the ASL community with care and attention to detail.
