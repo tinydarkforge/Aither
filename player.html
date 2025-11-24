@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>ASL Video Player - Aither</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/src/styles/vars.css">
@@ -38,6 +41,11 @@
         controls
         playsinline
         preload="metadata"
+        webkit-playsinline
+        x5-playsinline
+        x5-video-player-type="h5"
+        x5-video-player-fullscreen="true"
+        x5-video-orientation="landscape"
       >
         <p>Your browser doesn't support HTML5 video.</p>
       </video>
@@ -71,6 +79,15 @@
       <div class="loading-spinner"></div>
       <p>Loading video...</p>
     </div>
+
+    <!-- Rotate Phone Prompt -->
+    <div id="rotatePrompt" class="rotate-prompt" style="display: none;">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <rect x="6" y="4" width="12" height="16" rx="2"></rect>
+        <path d="M9 1v2M15 1v2M9 21v2M15 21v2"></path>
+      </svg>
+      <p>Please rotate your device</p>
+    </div>
   </div>
 
   <!-- QR Scanner Modal -->
@@ -103,10 +120,12 @@
     const overlayQrBtn = document.getElementById('overlayQrBtn');
     const startOverlay = document.getElementById('startOverlay');
     const startVideoBtn = document.getElementById('startVideoBtn');
+    const rotatePrompt = document.getElementById('rotatePrompt');
     const scannerModal = document.getElementById('scannerModal');
     const closeScannerBtn = document.getElementById('closeScannerBtn');
 
     let html5QrCode = null;
+    let isVideoPlaying = false;
 
     // Get video info from query parameters
     const urlParams = new URLSearchParams(window.location.search);
@@ -192,10 +211,32 @@
     // Handle fullscreen
     const videoWrapper = document.querySelector('.video-wrapper');
 
+    // Detect device type
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isAndroid = /Android/.test(navigator.userAgent);
+    const isMobile = isIOS || isAndroid;
+
+    console.log('Device detection:', { isIOS, isAndroid, isMobile });
+
     // Function to enter fullscreen with landscape orientation
     async function enterFullscreenLandscape() {
+      console.log('Attempting fullscreen...');
+
       try {
-        // Request fullscreen
+        // iOS-specific fullscreen (uses native video fullscreen)
+        if (isIOS) {
+          console.log('iOS detected - using webkitEnterFullscreen');
+          if (videoPlayer.webkitEnterFullscreen) {
+            videoPlayer.webkitEnterFullscreen();
+            // iOS handles orientation automatically in native fullscreen
+            console.log('iOS fullscreen activated');
+          } else if (videoPlayer.webkitRequestFullscreen) {
+            await videoPlayer.webkitRequestFullscreen();
+          }
+          return;
+        }
+
+        // Android and desktop - request fullscreen on wrapper
         if (videoWrapper.requestFullscreen) {
           await videoWrapper.requestFullscreen();
         } else if (videoWrapper.webkitRequestFullscreen) {
@@ -206,17 +247,28 @@
           await videoWrapper.msRequestFullscreen();
         }
 
-        // Lock to landscape orientation (mobile only)
+        console.log('Fullscreen activated, attempting orientation lock...');
+
+        // Lock to landscape orientation (Android and some desktop browsers)
         if (screen.orientation && screen.orientation.lock) {
           try {
             await screen.orientation.lock('landscape');
-            console.log('Orientation locked to landscape');
+            console.log('✓ Orientation locked to landscape');
           } catch (err) {
-            console.log('Orientation lock failed:', err);
+            console.log('⚠ Orientation lock failed:', err.message);
+            // Try alternative orientation lock
+            try {
+              await screen.orientation.lock('landscape-primary');
+              console.log('✓ Orientation locked to landscape-primary');
+            } catch (err2) {
+              console.log('⚠ Alternative orientation lock failed:', err2.message);
+            }
           }
+        } else {
+          console.log('⚠ Screen Orientation API not supported');
         }
       } catch (err) {
-        console.log('Fullscreen error:', err);
+        console.log('❌ Fullscreen error:', err.message);
       }
     }
 
@@ -243,11 +295,41 @@
       }
     }
 
+    // Handle orientation changes
+    function checkOrientation() {
+      if (!isMobile || !isVideoPlaying) return;
+
+      const isPortrait = window.innerHeight > window.innerWidth;
+      const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement ||
+                              document.mozFullScreenElement || document.msFullscreenElement ||
+                              videoPlayer.webkitDisplayingFullscreen);
+
+      console.log('Orientation check:', { isPortrait, isFullscreen, isVideoPlaying });
+
+      // Show rotation prompt if in portrait and video is playing
+      if (isPortrait && isFullscreen && isVideoPlaying) {
+        rotatePrompt.style.display = 'flex';
+      } else {
+        rotatePrompt.style.display = 'none';
+      }
+    }
+
+    // Listen for orientation changes
+    window.addEventListener('orientationchange', () => {
+      console.log('Orientation changed');
+      setTimeout(checkOrientation, 300);
+    });
+
+    window.addEventListener('resize', () => {
+      checkOrientation();
+    });
+
     // Start Video button - user interaction triggers fullscreen
     startVideoBtn.addEventListener('click', async () => {
       // Hide start overlay and show QR button
       startOverlay.style.display = 'none';
       overlayQrBtn.style.display = 'flex';
+      isVideoPlaying = true;
 
       // Enter fullscreen with landscape orientation
       await enterFullscreenLandscape();
@@ -255,6 +337,7 @@
       // Play the video
       try {
         await videoPlayer.play();
+        checkOrientation();
       } catch (err) {
         console.log('Play error:', err);
       }
