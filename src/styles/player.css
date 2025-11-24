@@ -363,6 +363,40 @@ video:-webkit-full-screen {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
+/* iOS Fullscreen Mode - CSS-based fullscreen to preserve overlays */
+.video-wrapper.ios-fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+  background: #000 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.video-wrapper.ios-fullscreen .video-player {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100vh !important;
+  object-fit: contain !important;
+}
+
+/* Hide other content when iOS fullscreen is active */
+body.ios-fullscreen-active .video-info,
+body.ios-fullscreen-active .error-container,
+body.ios-fullscreen-active footer {
+  display: none !important;
+}
+
+body.ios-fullscreen-active {
+  overflow: hidden !important;
+}
+
 /* Overlay QR Button - Positioned on video */
 .overlay-qr-btn {
   position: absolute;
@@ -398,6 +432,51 @@ video:-webkit-full-screen {
 
 .overlay-qr-btn svg {
   flex-shrink: 0;
+}
+
+/* iOS Exit Button - Top right corner */
+.ios-exit-btn {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.ios-exit-btn:hover {
+  background: rgba(220, 38, 38, 1);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.ios-exit-btn:active {
+  transform: scale(0.98);
+}
+
+.ios-exit-btn svg {
+  flex-shrink: 0;
+}
+
+/* Ensure buttons are always visible in iOS fullscreen */
+.video-wrapper.ios-fullscreen .overlay-qr-btn,
+.video-wrapper.ios-fullscreen .ios-exit-btn {
+  position: fixed !important;
+  display: flex !important;
+  z-index: 1000000 !important;
 }
 
 /* Scan QR Button */

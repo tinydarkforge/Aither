@@ -35,6 +35,14 @@
           <rect x="3" y="14" width="7" height="7"></rect>
         </svg>
       </button>
+
+      <!-- iOS Exit Fullscreen Button -->
+      <button id="iosExitBtn" class="ios-exit-btn" title="Exit Fullscreen" style="display: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <video
         id="videoPlayer"
         class="video-player"
@@ -118,6 +126,7 @@
     const loadingIndicator = document.getElementById('loadingIndicator');
     const scanQrBtn = document.getElementById('scanQrBtn');
     const overlayQrBtn = document.getElementById('overlayQrBtn');
+    const iosExitBtn = document.getElementById('iosExitBtn');
     const startOverlay = document.getElementById('startOverlay');
     const startVideoBtn = document.getElementById('startVideoBtn');
     const rotatePrompt = document.getElementById('rotatePrompt');
@@ -223,16 +232,28 @@
       console.log('Attempting fullscreen...');
 
       try {
-        // iOS-specific fullscreen (uses native video fullscreen)
+        // iOS-specific: Use CSS fullscreen to keep overlay controls
         if (isIOS) {
-          console.log('iOS detected - using webkitEnterFullscreen');
-          if (videoPlayer.webkitEnterFullscreen) {
-            videoPlayer.webkitEnterFullscreen();
-            // iOS handles orientation automatically in native fullscreen
-            console.log('iOS fullscreen activated');
-          } else if (videoPlayer.webkitRequestFullscreen) {
-            await videoPlayer.webkitRequestFullscreen();
+          console.log('iOS detected - using CSS fullscreen to preserve overlays');
+
+          // Add fullscreen class to wrapper for CSS-based fullscreen
+          videoWrapper.classList.add('ios-fullscreen');
+          document.body.classList.add('ios-fullscreen-active');
+
+          // Show iOS exit button
+          iosExitBtn.style.display = 'flex';
+
+          // Try to lock orientation (may not work on iOS, but worth trying)
+          if (screen.orientation && screen.orientation.lock) {
+            try {
+              await screen.orientation.lock('landscape');
+              console.log('✓ iOS orientation locked');
+            } catch (err) {
+              console.log('⚠ iOS orientation lock not supported:', err.message);
+            }
           }
+
+          console.log('✓ iOS CSS fullscreen activated');
           return;
         }
 
@@ -275,6 +296,16 @@
     // Function to exit fullscreen and unlock orientation
     async function exitFullscreenLandscape() {
       try {
+        // iOS CSS fullscreen exit
+        if (isIOS && videoWrapper.classList.contains('ios-fullscreen')) {
+          videoWrapper.classList.remove('ios-fullscreen');
+          document.body.classList.remove('ios-fullscreen-active');
+          iosExitBtn.style.display = 'none';
+          console.log('✓ iOS CSS fullscreen exited');
+          return;
+        }
+
+        // Standard fullscreen exit
         if (document.exitFullscreen) {
           await document.exitFullscreen();
         } else if (document.webkitExitFullscreen) {
@@ -300,11 +331,12 @@
       if (!isMobile || !isVideoPlaying) return;
 
       const isPortrait = window.innerHeight > window.innerWidth;
-      const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement ||
+      const isIOSFullscreen = videoWrapper.classList.contains('ios-fullscreen');
+      const isFullscreen = !!(isIOSFullscreen || document.fullscreenElement || document.webkitFullscreenElement ||
                               document.mozFullScreenElement || document.msFullscreenElement ||
                               videoPlayer.webkitDisplayingFullscreen);
 
-      console.log('Orientation check:', { isPortrait, isFullscreen, isVideoPlaying });
+      console.log('Orientation check:', { isPortrait, isFullscreen, isVideoPlaying, isIOSFullscreen });
 
       // Show rotation prompt if in portrait and video is playing
       if (isPortrait && isFullscreen && isVideoPlaying) {
@@ -345,11 +377,14 @@
 
     // Double-click to toggle fullscreen
     videoPlayer.addEventListener('dblclick', () => {
-      if (!document.fullscreenElement && !document.webkitFullscreenElement &&
-          !document.mozFullScreenElement && !document.msFullscreenElement) {
-        enterFullscreenLandscape();
-      } else {
+      // Check iOS CSS fullscreen
+      const isIOSFullscreen = videoWrapper.classList.contains('ios-fullscreen');
+
+      if (isIOSFullscreen || document.fullscreenElement || document.webkitFullscreenElement ||
+          document.mozFullScreenElement || document.msFullscreenElement) {
         exitFullscreenLandscape();
+      } else {
+        enterFullscreenLandscape();
       }
     });
 
@@ -369,6 +404,9 @@
         }
       }
     });
+
+    // iOS Exit button
+    iosExitBtn.addEventListener('click', exitFullscreenLandscape);
 
     // QR Scanner functionality
     scanQrBtn.addEventListener('click', openScanner);
