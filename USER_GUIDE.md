@@ -1,6 +1,6 @@
 # Aither User Guide
 
-**Copyright © 2025 Cirrus. All rights reserved.**
+**Copyright © 2025 Your Company. All rights reserved.**
 
 Welcome to Aither! This comprehensive guide will help you get started with creating, managing, and sharing QR codes for your video content.
 
@@ -781,7 +781,7 @@ A: No. All data is stored locally in your browser using IndexedDB. Nothing is se
 A: Yes! Aither is fully responsive and works on phones and tablets.
 
 **Q: Is Aither free?**
-A: Aither is proprietary software developed by Cirrus. Contact info@hellocirrus.com for licensing.
+A: Aither is proprietary software developed by Your Company. Contact contact@example.com for licensing.
 
 ### Superadmin Questions
 
@@ -837,7 +837,7 @@ A: Modern browsers: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+.
 A: Yes, build with `npm run build` and deploy the `dist` folder to any static host.
 
 **Q: Is the source code available?**
-A: Aither is proprietary. Contact Cirrus for licensing inquiries.
+A: Aither is proprietary. Contact Your Company for licensing inquiries.
 
 **Q: How secure is the authentication?**
 A: Client-side authentication is NOT enterprise-grade. See SECURITY.md for details.
@@ -849,15 +849,15 @@ A: Client-side authentication is NOT enterprise-grade. See SECURITY.md for detai
 ### Support Channels
 
 **For general questions:**
-- Email: info@hellocirrus.com
-- Website: https://hellocirrus.com
+- Email: contact@example.com
+- Website: https://example.com
 
 **For security issues:**
-- Email: security@hellocirrus.com
+- Email: security@example.com
 - See SECURITY.md for responsible disclosure
 
 **For feature requests:**
-- Contact: info@hellocirrus.com
+- Contact: contact@example.com
 - Include detailed use case and benefits
 
 ### Documentation
@@ -870,10 +870,10 @@ A: Client-side authentication is NOT enterprise-grade. See SECURITY.md for detai
 
 ### Community
 
-Aither is a tool developed by Cirrus for organizations that want to share video content through QR codes. External community support is not currently available.
+Aither is a tool developed by Your Company for organizations that want to share video content through QR codes. External community support is not currently available.
 
 ---
 
-**© 2025 Cirrus. All rights reserved.**
+**© 2025 Your Company. All rights reserved.**
 
 Thank you for using Aither! We hope this guide helps you create amazing QR code experiences for your audience.

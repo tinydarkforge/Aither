@@ -1,7 +1,7 @@
 /**
  * Aither - QR Code Manager for ASL Videos
  *
- * Copyright (c) 2025 Cirrus. All rights reserved.
+ * Copyright (c) 2025 Your Company. All rights reserved.
  * Licensed under Proprietary License - see LICENSE file
  *
  * CSS Variables - Modern SaaS Theme with Light/Dark Mode
@@ -31,7 +31,7 @@
   --warning-bg: #FEF3C7;
 }
 
-/* Dark Theme - Cirrus Inspired */
+/* Dark Theme */
 [data-theme="dark"] {
   --bg: #0B0B1A;
   --bg-secondary: #14142B;

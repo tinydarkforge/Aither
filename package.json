@@ -2,10 +2,10 @@
   "name": "aither",
   "version": "1.0.0",
   "description": "A static QR code generator and manager for ASL museum videos",
-  "author": "Cirrus <info@hellocirrus.com>",
+  "author": "Your Company <contact@example.com>",
   "license": "UNLICENSED",
   "private": true,
-  "copyright": "Copyright (c) 2025 Cirrus. All rights reserved.",
+  "copyright": "Copyright (c) 2025 Your Company. All rights reserved.",
   "type": "module",
   "scripts": {
     "dev": "vite",

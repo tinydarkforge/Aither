@@ -38,10 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Better visual hierarchy**: Icons improve scannability and professionalism
 
 #### Theme Enhancements
-- **Cirrus brand colors**: Dark theme updated with purple/blue aesthetic (#6366F1 accent)
+- **Your Company brand colors**: Dark theme updated with purple/blue aesthetic (#6366F1 accent)
 - **Professional dark mode**: Deep navy backgrounds with indigo accents
 - **Improved contrast**: Better text readability in dark mode
-- **Consistent branding**: Matches hellocirrus.com design language
+- **Consistent branding**: Matches example.com design language
 
 #### Form Layout Improvements
 - **3-column grid system**: Fixed grid layout for consistent form structure
@@ -146,7 +146,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Theme System
 - **Light/Dark mode switcher**: Toggle between light and dark themes
 - **User preference persistence**: Theme choice saved to localStorage
-- **Modern SaaS design**: Clean, professional interface inspired by hellocirrus.com
+- **Modern SaaS design**: Clean, professional interface inspired by example.com
 - **Adaptive player theme**: Video player respects user theme preference
 - **CSS custom properties**: Complete theme system using CSS variables
 
@@ -189,7 +189,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Design & Branding
 - **Replaced JW.org-inspired theme** with modern SaaS design
-- **Updated color palette**: Professional colors matching hellocirrus.com branding
+- **Updated color palette**: Professional colors matching example.com branding
 - **Improved typography**: Better font hierarchy and readability
 - **Enhanced component styling**: Modernized buttons, inputs, cards, and navigation
 - **Refined spacing**: Consistent padding and margins throughout the app
@@ -326,6 +326,6 @@ For these features, consider using Aither with a custom backend implementation.
 
 ---
 
-**© 2025 Cirrus. All rights reserved.**
+**© 2025 Your Company. All rights reserved.**
 
-For questions about this changelog or version history, contact: info@hellocirrus.com
+For questions about this changelog or version history, contact: contact@example.com

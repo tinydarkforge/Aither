@@ -202,7 +202,7 @@ Aither implements multi-tenant architecture:
 If you discover a security vulnerability in Aither:
 
 **Do:**
-1. Email details to: security@hellocirrus.com
+1. Email details to: security@example.com
 2. Include detailed steps to reproduce
 3. Allow reasonable time for a fix (90 days suggested)
 4. Avoid public disclosure until patch is available
@@ -307,9 +307,9 @@ Security features are designed to be accessible:
 
 For security concerns or questions:
 
-**Cirrus Security Team**
-Email: security@hellocirrus.com
-Website: https://hellocirrus.com
+**Your Company Security Team**
+Email: security@example.com
+Website: https://example.com
 PGP Key: [Available on request]
 
 ---
@@ -318,4 +318,4 @@ PGP Key: [Available on request]
 **Last Updated:** January 1, 2025
 **Next Review:** April 1, 2025
 
-© 2025 Cirrus. All rights reserved.
+© 2025 Your Company. All rights reserved.

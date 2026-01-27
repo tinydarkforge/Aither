@@ -9,7 +9,7 @@ By accessing or using Aither ("the Software"), you agree to be bound by these Te
 ## 2. License and Restrictions
 
 ### 2.1 Grant of License
-Subject to these Terms and a separate written license agreement with Cirrus, you are granted a limited, non-exclusive, non-transferable license to use the Software.
+Subject to these Terms and a separate written license agreement with Your Company, you are granted a limited, non-exclusive, non-transferable license to use the Software.
 
 ### 2.2 Restrictions
 You may NOT:
@@ -18,17 +18,17 @@ You may NOT:
 - Remove or alter any proprietary notices or labels
 - Distribute, sublicense, lease, or transfer the Software to any third party
 - Use the Software for any unlawful purpose or in violation of these Terms
-- Use the Software to compete with Cirrus or create a competing product
+- Use the Software to compete with Your Company or create a competing product
 - Access the Software's source code except as necessary for authorized use
 - Sell, resell, or commercialize the Software without explicit permission
 
 ## 3. Intellectual Property Rights
 
 ### 3.1 Ownership
-All rights, title, and interest in and to the Software, including all intellectual property rights, are and will remain the exclusive property of Cirrus.
+All rights, title, and interest in and to the Software, including all intellectual property rights, are and will remain the exclusive property of Your Company.
 
 ### 3.2 Trademarks
-"Aither," "Cirrus," and associated logos are trademarks of Cirrus. You may not use these trademarks without prior written permission.
+"Aither," "Your Company," and associated logos are trademarks of Your Company. You may not use these trademarks without prior written permission.
 
 ## 4. User Responsibilities
 
@@ -36,7 +36,7 @@ All rights, title, and interest in and to the Software, including all intellectu
 If you are an organization administrator:
 - You are responsible for maintaining the confidentiality of your password
 - You are responsible for all activities that occur under your account
-- You must notify Cirrus immediately of any unauthorized use
+- You must notify Your Company immediately of any unauthorized use
 
 ### 4.2 Content
 - You are solely responsible for any content you upload or process through the Software
@@ -47,12 +47,12 @@ If you are an organization administrator:
 
 ### 5.1 Client-Side Storage
 - The Software stores data locally in your browser using IndexedDB
-- Cirrus does not have access to your locally stored data
+- Your Company does not have access to your locally stored data
 - You are responsible for backing up your data
 
 ### 5.2 No Server-Side Data Collection
 - The Software operates entirely client-side
-- Cirrus does not collect or store your QR codes, videos, or organizational data
+- Your Company does not collect or store your QR codes, videos, or organizational data
 - Standard web analytics may be used for aggregate usage statistics
 
 ## 6. Warranty Disclaimer
@@ -63,20 +63,20 @@ THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIE
 - NON-INFRINGEMENT
 - ACCURACY OR RELIABILITY
 
-Cirrus does not warrant that:
+Your Company does not warrant that:
 - The Software will meet your requirements
 - The Software will be uninterrupted, timely, secure, or error-free
 - Any errors in the Software will be corrected
 
 ## 7. Limitation of Liability
 
-TO THE MAXIMUM EXTENT PERMITTED BY LAW, CIRRUS SHALL NOT BE LIABLE FOR:
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, YOUR COMPANY SHALL NOT BE LIABLE FOR:
 - ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES
 - LOSS OF PROFITS, DATA, USE, OR GOODWILL
 - SERVICE INTERRUPTION OR SYSTEM FAILURE
 - COST OF SUBSTITUTE SERVICES
 
-This limitation applies regardless of the legal theory, whether in contract, tort, negligence, strict liability, or otherwise, even if Cirrus has been advised of the possibility of such damages.
+This limitation applies regardless of the legal theory, whether in contract, tort, negligence, strict liability, or otherwise, even if Your Company has been advised of the possibility of such damages.
 
 ## 8. Security Considerations
 
@@ -87,22 +87,22 @@ This limitation applies regardless of the legal theory, whether in contract, tor
 - You acknowledge these limitations by using the Software
 
 ### 8.2 No Guarantees
-Cirrus makes no guarantees regarding:
+Your Company makes no guarantees regarding:
 - The security of data stored in your browser
 - Protection against unauthorized access
 - Prevention of data loss
 
 ## 9. Modifications to Terms
 
-Cirrus reserves the right to modify these Terms at any time. Changes will be effective immediately upon posting. Your continued use of the Software after changes constitutes acceptance of the modified Terms.
+Your Company reserves the right to modify these Terms at any time. Changes will be effective immediately upon posting. Your continued use of the Software after changes constitutes acceptance of the modified Terms.
 
 ## 10. Termination
 
 ### 10.1 By You
 You may stop using the Software at any time.
 
-### 10.2 By Cirrus
-Cirrus may terminate or suspend your access to the Software:
+### 10.2 By Your Company
+Your Company may terminate or suspend your access to the Software:
 - If you violate these Terms
 - If required by law
 - At any time, for any reason, with or without notice
@@ -119,7 +119,7 @@ You agree to comply with all applicable export and import control laws and regul
 
 ## 12. Entire Agreement
 
-These Terms, together with any separate written license agreement, constitute the entire agreement between you and Cirrus regarding the Software.
+These Terms, together with any separate written license agreement, constitute the entire agreement between you and Your Company regarding the Software.
 
 ## 13. Severability
 
@@ -133,10 +133,10 @@ These Terms are governed by the laws of [Your Jurisdiction], without regard to c
 
 For questions about these Terms, contact:
 
-**Cirrus**
-Email: info@hellocirrus.com
-Website: https://hellocirrus.com
+**Your Company**
+Email: contact@example.com
+Website: https://example.com
 
 ---
 
-© 2025 Cirrus. All rights reserved.
+© 2025 Your Company. All rights reserved.

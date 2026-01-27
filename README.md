@@ -1,6 +1,6 @@
 # Aither
 
-**Copyright © 2025 Cirrus. All rights reserved.**
+**Copyright © 2025 Your Company. All rights reserved.**
 
 A static QR code generator and manager for video content. Perfect for exhibits, advertising campaigns, events, digital signage, and more. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
 
@@ -28,7 +28,7 @@ A static QR code generator and manager for video content. Perfect for exhibits, 
 
 ### Modern UI/UX
 - **Theme Switcher**: Toggle between light and dark mode with user preference persistence
-- **Modern SaaS Design**: Clean, professional interface inspired by hellocirrus.com
+- **Modern SaaS Design**: Clean, professional interface
 - **Responsive Layout**: Works seamlessly on desktop, tablet, and mobile devices
 - **Keyboard Shortcuts**: Efficient navigation for power users
 
@@ -423,7 +423,7 @@ Edit `/src/js/qr.js` to change default QR code settings.
 
 ## Legal & Documentation
 
-This project is proprietary software owned by Cirrus. Please review the following documentation:
+This project is proprietary software. Please review the following documentation:
 
 - **[LICENSE](LICENSE)** - Proprietary license and usage restrictions
 - **[TERMS.md](TERMS.md)** - Terms of Service for users
@@ -431,13 +431,13 @@ This project is proprietary software owned by Cirrus. Please review the followin
 
 **Important Legal Notes:**
 - This software is NOT open source
-- All rights reserved by Cirrus
+- All rights reserved
 - Redistribution, modification, or commercial use is prohibited without written permission
 - See LICENSE file for full terms
 
 ## Contributing
 
-This is a proprietary internal tool developed by Cirrus. External contributions are not accepted at this time.
+This is a proprietary internal tool. External contributions are not accepted at this time.
 
 For authorized team members:
 1. Create a feature branch
@@ -449,14 +449,13 @@ For authorized team members:
 
 For questions, issues, or security concerns:
 
-**Cirrus Support:**
-- Email: info@hellocirrus.com
-- Website: https://hellocirrus.com
-- Security: security@hellocirrus.com
+**Support:**
+- Email: contact@example.com
+- Security: security@example.com
 
 **Security Issues:**
 - See [SECURITY.md](SECURITY.md) for responsible disclosure policy
-- Email security@hellocirrus.com for sensitive vulnerabilities
+- Email security@example.com for sensitive vulnerabilities
 - Do not publicly disclose security issues
 
 ## Changelog
@@ -465,10 +464,6 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 ---
 
-**© 2025 Cirrus. All rights reserved.**
+**© 2025 Your Company. All rights reserved.**
 
-<<<<<<< HEAD
-Built for the ASL community with care and attention to detail.
-=======
-Built with care and attention to detail for organizations that want to share video content through QR codes.
->>>>>>> 55f2de0 (Generalize documentation for broader use cases)
+Built with care and attention to detail.
