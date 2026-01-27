@@ -163,6 +163,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Responsive layout**: Optimized for desktop, tablet, and mobile devices
 - **Loading states**: Visual feedback for async operations
 - **Toast notifications**: Non-intrusive feedback for user actions
+- **Search functionality**: Filter QR codes by URL, title, or description
+- **QR code editing**: Edit titles and descriptions after creation
+- **Bulk URL input**: Enter multiple video URLs manually (alternative to directory parsing)
+- **Collection rescanning**: Rescan directories to add new videos to existing collections
+
+#### Backup & Export (Backend Implemented)
+- **Organization export**: Export all QR codes for an organization as JSON
+- **Organization import**: Restore data from JSON backups
+- **Superadmin export**: Export all organizations and data
+- **Data validation**: Import validation to prevent data corruption
 
 #### Legal & Security Documentation
 - **Proprietary LICENSE**: Comprehensive proprietary license with usage restrictions
@@ -275,7 +285,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Video player page for MP4 QR codes
 - QR code customization (size, colors, logo)
 - Export as PNG or SVG
-- Offline-capable PWA features
+- Local data persistence via IndexedDB
 
 ### Initial Features
 - Pure static app (no backend required)
@@ -292,12 +302,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Planned Features (v1.1.0)
 - [ ] Global error boundary and improved error handling
 - [ ] Enhanced loading states and retry mechanisms
-- [ ] Backup/export functionality for organizations
-- [ ] Data import from JSON backups
 - [ ] Password strength requirements
 - [ ] Session timeout warnings
 - [ ] Bulk delete operations
-- [ ] Search and filter in QR code library
+- [ ] Expose backup/export UI in admin panel (backend implemented)
 
 ### Under Consideration
 - [ ] 2FA/MFA for superadmin

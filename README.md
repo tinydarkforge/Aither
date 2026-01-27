@@ -12,7 +12,7 @@ A static QR code generator and manager for video content. Perfect for exhibits, 
 - **Smart Video Player**: MP4 URLs automatically use a custom video player when scanned
 - **Client-Side Storage**: Saves all QR codes locally using IndexedDB
 - **Export Options**: Download QR codes as PNG or SVG
-- **Offline Capable**: Works without an internet connection once loaded
+- **Local Data Persistence**: QR codes and settings stored locally in IndexedDB (videos still require internet)
 
 ### Multi-Tenant Organization System
 - **Organization Management**: Superadmin can create and manage multiple organizations
@@ -268,10 +268,41 @@ If you forget your superadmin password, use the reset utility at `/reset-admin.h
 
 1. Go to the "List" tab
 2. View all saved QR codes
-3. Filter by collection (if applicable)
-4. Click on any QR to view full-size
-5. Download as PNG or SVG
-6. Copy URL or delete as needed
+3. **Search**: Use the search box to filter QR codes by URL, title, or description
+4. Filter by collection (if applicable)
+5. Click on any QR to view full-size
+6. **Edit**: Click edit to modify QR code title and description
+7. Download as PNG or SVG
+8. Copy URL or delete as needed
+
+### Bulk URL Input
+
+In addition to directory parsing, you can manually enter multiple video URLs:
+
+1. Go to the "Collections" tab
+2. Switch to "Bulk URLs" mode
+3. Enter one video URL per line
+4. Enter a collection name
+5. Click "Generate Collection"
+
+### Rescan Collections
+
+Update existing collections with new videos:
+
+1. Go to the "Collections" tab
+2. Find the collection you want to update
+3. Click "Rescan" to check the source directory for new videos
+4. New QR codes are automatically added to the collection
+
+### Backup & Export
+
+Export your data for backup or migration:
+
+1. **Organization Export**: Export all QR codes for your organization as JSON
+2. **Import Data**: Restore from a previously exported JSON backup
+3. **Superadmin Export**: Export all organizations and their data (superadmin only)
+
+*Note: Access backup features through the admin panel settings.*
 
 ### Video Player Feature
 
@@ -279,8 +310,9 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
 
 **How it works:**
 1. Enter an MP4 URL (e.g., `https://example.com/video.mp4`)
-2. The QR code will link to: `https://yoursite.com/player.html?video=<encoded-url>`
-3. When scanned, visitors see a beautiful video player with:
+2. Optionally add a title and description for the video
+3. The QR code will link to: `https://yoursite.com/player.html?video=<encoded-url>&title=<title>&description=<description>`
+4. When scanned, visitors see a beautiful video player with:
    - Play/pause controls
    - Fullscreen support (double-click video)
    - Mobile-optimized layout
@@ -290,11 +322,7 @@ When you enter an MP4 URL, Aither automatically creates a QR code that links to 
 **Benefits:**
 - Videos play directly in the browser (no download required)
 - Consistent viewing experience across devices
-<<<<<<< HEAD
-- Professional presentation for museum visitors and other entities
-=======
 - Professional presentation for your audience
->>>>>>> 55f2de0 (Generalize documentation for broader use cases)
 - Works perfectly on mobile devices after QR scanning
 - **No login required** - The player page is completely public and accessible to anyone
 
@@ -334,11 +362,7 @@ The video player provides a **native-like mobile experience** optimized for on-t
 - Translucent status bar on iOS for edge-to-edge display
 - Playsinline attributes for smooth mobile video playback
 
-<<<<<<< HEAD
-This mobile experience makes Aither perfect for museum and other entities exhibits where visitors scan QR codes with their phones and expect a polished, native-app-quality video viewing experience.
-=======
 This mobile experience makes Aither perfect for exhibits, events, advertising campaigns, and any scenario where users scan QR codes with their phones and expect a polished, native-app-quality video viewing experience.
->>>>>>> 55f2de0 (Generalize documentation for broader use cases)
 
 ### Scanning Multiple Videos
 
