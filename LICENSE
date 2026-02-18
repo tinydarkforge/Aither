@@ -1,44 +1,21 @@
-PROPRIETARY LICENSE
+MIT License
 
-Copyright (c) 2025 Your Company. All rights reserved.
+Copyright (c) 2025 Daniel Oceno
 
-NOTICE: This software and its source code are proprietary and confidential.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-This software is the exclusive property of Your Company. No part of this software,
-including but not limited to its source code, design, algorithms, user interface,
-and documentation, may be:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-1. Copied, reproduced, or duplicated in any form or by any means
-2. Modified, adapted, translated, or created derivative works from
-3. Distributed, sublicensed, sold, rented, leased, or transferred
-4. Reverse engineered, decompiled, or disassembled
-5. Used for commercial purposes without explicit written permission
-
-PERMITTED USE:
-This software is licensed, not sold. You may use this software only as
-expressly permitted in a separate written license agreement with Your Company.
-
-RESTRICTIONS:
-- The software may only be used by authorized organizations and individuals
-- Each organization must have a valid license agreement
-- Source code access does not grant usage or modification rights
-- All intellectual property rights remain with Your Company
-
-NO WARRANTY:
-This software is provided "AS IS" without warranty of any kind, either
-expressed or implied, including, but not limited to, the implied warranties
-of merchantability and fitness for a particular purpose.
-
-LIABILITY:
-In no event shall Your Company be liable for any damages whatsoever
-(including, without limitation, damages for loss of business profits,
-business interruption, loss of business information, or any other
-pecuniary loss) arising out of the use of or inability to use this software.
-
-CONTACT:
-For licensing inquiries or permissions, contact:
-Your Company
-Email: contact@example.com
-Website: https://example.com
-
-This license is effective as of January 1, 2025.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

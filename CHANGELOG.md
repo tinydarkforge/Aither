@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Better visual hierarchy**: Icons improve scannability and professionalism
 
 #### Theme Enhancements
-- **Your Company brand colors**: Dark theme updated with purple/blue aesthetic (#6366F1 accent)
+- **Daniel Oceno brand colors**: Dark theme updated with purple/blue aesthetic (#6366F1 accent)
 - **Professional dark mode**: Deep navy backgrounds with indigo accents
 - **Improved contrast**: Better text readability in dark mode
 - **Consistent branding**: Matches example.com design language
@@ -175,8 +175,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Data validation**: Import validation to prevent data corruption
 
 #### Legal & Security Documentation
-- **Proprietary LICENSE**: Comprehensive proprietary license with usage restrictions
-- **TERMS.md**: Complete Terms of Service for users
+- **MIT LICENSE**: Open source under MIT license
+- **SECURITY.md**: Security policy and responsible disclosure
 - **SECURITY.md**: Security policy, limitations, and responsible disclosure policy
 - **Copyright headers**: Added to all source files (JavaScript and CSS)
 - **Copyright footers**: Visible copyright notices on all HTML pages
@@ -334,6 +334,6 @@ For these features, consider using Aither with a custom backend implementation.
 
 ---
 
-**© 2025 Your Company. All rights reserved.**
+**© 2025 Daniel Oceno. MIT License.**
 
-For questions about this changelog or version history, contact: contact@example.com
+For questions about this changelog or version history, contact: hello@danieloceno.com

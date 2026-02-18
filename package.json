@@ -2,10 +2,9 @@
   "name": "aither",
   "version": "1.0.1",
   "description": "A static QR code generator and manager for video content",
-  "author": "Your Company <contact@example.com>",
-  "license": "UNLICENSED",
-  "private": true,
-  "copyright": "Copyright (c) 2025 Your Company. All rights reserved.",
+  "author": "Daniel Oceno",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2025 Daniel Oceno.",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,6 +1,6 @@
 # Aither
 
-**Copyright © 2025 Your Company. All rights reserved.**
+**Copyright © 2025 Daniel Oceno. MIT License.**
 
 A static QR code generator and manager for video content. Perfect for exhibits, advertising campaigns, events, digital signage, and more. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
 
@@ -198,7 +198,7 @@ aither/
 ├── package.json
 ├── vite.config.js
 ├── .env.example
-├── LICENSE                 # Proprietary license
+├── LICENSE                 # MIT License
 ├── TERMS.md                # Terms of Service
 ├── SECURITY.md             # Security policy and documentation
 ├── scripts/
@@ -447,39 +447,31 @@ Edit `/src/js/qr.js` to change default QR code settings.
 
 ## Legal & Documentation
 
-This project is proprietary software. Please review the following documentation:
+This project is open source under the MIT License.
 
-- **[LICENSE](LICENSE)** - Proprietary license and usage restrictions
-- **[TERMS.md](TERMS.md)** - Terms of Service for users
-- **[SECURITY.md](SECURITY.md)** - Security policy, limitations, and best practices
-
-**Important Legal Notes:**
-- This software is NOT open source
-- All rights reserved
-- Redistribution, modification, or commercial use is prohibited without written permission
-- See LICENSE file for full terms
+- **[LICENSE](LICENSE)** - MIT License
+- **[SECURITY.md](SECURITY.md)** - Security policy and best practices
 
 ## Contributing
 
-This is a proprietary internal tool. External contributions are not accepted at this time.
-
-For authorized team members:
-1. Create a feature branch
-2. Make your changes
-3. Test thoroughly
-4. Submit a pull request for review
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## Support
 
 For questions, issues, or security concerns:
 
 **Support:**
-- Email: contact@example.com
-- Security: security@example.com
+- Email: hello@danieloceno.com
+- Security: hello@danieloceno.com
 
 **Security Issues:**
 - See [SECURITY.md](SECURITY.md) for responsible disclosure policy
-- Email security@example.com for sensitive vulnerabilities
+- Email hello@danieloceno.com for sensitive vulnerabilities
 - Do not publicly disclose security issues
 
 ## Changelog
@@ -488,6 +480,6 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 ---
 
-**© 2025 Your Company. All rights reserved.**
+**© 2025 Daniel Oceno. MIT License.**
 
 Built with care and attention to detail.

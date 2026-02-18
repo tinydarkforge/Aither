@@ -1,8 +1,8 @@
 /**
  * Aither - QR Code Manager for ASL Videos
  *
- * Copyright (c) 2025 Your Company. All rights reserved.
- * Licensed under Proprietary License - see LICENSE file
+ * Copyright (c) 2025 Daniel Oceno. All rights reserved.
+ * Licensed under MIT - see LICENSE file
  *
  * Backup and Export Module
  * Handles data backup, export, and import functionality
