@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Redirect superadmin to admin panel
   if (isSuperadmin()) {
-    window.location.href = '/admin.html';
+    window.location.href = 'admin.html';
     return;
   }
 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   organizationId = getCurrentOrganizationId();
   if (!organizationId) {
     logout();
-    window.location.href = '/login.html';
+    window.location.href = 'login.html';
     return;
   }
 
@@ -235,7 +235,7 @@ function toggleBulkMode(mode) {
  */
 function handleLogout() {
   logout();
-  window.location.href = '/login.html';
+  window.location.href = 'login.html';
 }
 
 /**

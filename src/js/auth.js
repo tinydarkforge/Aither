@@ -228,7 +228,7 @@ export function isSuperadmin() {
  */
 export function requireSuperadmin() {
   if (!isSuperadmin()) {
-    window.location.href = '/login.html';
+    window.location.href = 'login.html';
   }
 }
 
@@ -238,7 +238,7 @@ export function requireSuperadmin() {
 export function requireOrganization() {
   const session = getSession();
   if (!session || session.role !== 'organization') {
-    window.location.href = '/login.html';
+    window.location.href = 'login.html';
   }
 }
 
@@ -300,7 +300,7 @@ export function logout() {
  */
 export function requireAuth() {
   if (!checkAuth()) {
-    window.location.href = '/login.html';
+    window.location.href = 'login.html';
   }
 }
 

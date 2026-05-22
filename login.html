@@ -59,7 +59,7 @@
           <a href="#" id="toggleLoginMode" style="color: var(--accent); margin-left: 0.5rem;">Superadmin Login</a>
         </p>
         <p class="text-muted" style="margin-top: var(--spacing-md);">
-          <a href="/aboutus.html" style="color: var(--accent);">About Us</a>
+          <a href="aboutus.html" style="color: var(--accent);">About Us</a>
         </p>
       </div>
     </div>
@@ -81,9 +81,9 @@
     // Redirect if already logged in
     if (checkAuth()) {
       if (isSuperadmin()) {
-        window.location.href = '/admin.html';
+        window.location.href = 'admin.html';
       } else {
-        window.location.href = '/index.html';
+        window.location.href = 'index.html';
       }
     }
 
@@ -145,7 +145,7 @@
           const result = await loginAsSuperadmin(password);
 
           if (result.success) {
-            window.location.href = '/admin.html';
+            window.location.href = 'admin.html';
           } else {
             showError(result.message);
             passwordInput.value = '';
@@ -165,7 +165,7 @@
           const result = await login(orgName, password);
 
           if (result.success) {
-            window.location.href = '/index.html';
+            window.location.href = 'index.html';
           } else {
             showError(result.message);
             passwordInput.value = '';
