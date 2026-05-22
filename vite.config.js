@@ -3,6 +3,7 @@ import javascriptObfuscator from 'vite-plugin-javascript-obfuscator';
 
 export default defineConfig({
   root: '.',
+  base: '/Aither/',
   plugins: [
     javascriptObfuscator({
       options: {
