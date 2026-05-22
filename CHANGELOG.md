@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Better visual hierarchy**: Icons improve scannability and professionalism
 
 #### Theme Enhancements
-- **Daniel Oceno brand colors**: Dark theme updated with purple/blue aesthetic (#6366F1 accent)
+- **TinyDarkForge brand colors**: Dark theme updated with purple/blue aesthetic (#6366F1 accent)
 - **Professional dark mode**: Deep navy backgrounds with indigo accents
 - **Improved contrast**: Better text readability in dark mode
 - **Consistent branding**: Matches example.com design language
@@ -334,6 +334,6 @@ For these features, consider using Aither with a custom backend implementation.
 
 ---
 
-**© 2025 Daniel Oceno. MIT License.**
+**© 2025 TinyDarkForge. MIT License.**
 
-For questions about this changelog or version history, contact: hello@danieloceno.com
+For questions about this changelog or version history, contact: hello@tinydarkforge.com

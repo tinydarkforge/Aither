@@ -202,7 +202,7 @@ Aither implements multi-tenant architecture:
 If you discover a security vulnerability in Aither:
 
 **Do:**
-1. Email details to: hello@danieloceno.com
+1. Email details to: hello@tinydarkforge.com
 2. Include detailed steps to reproduce
 3. Allow reasonable time for a fix (90 days suggested)
 4. Avoid public disclosure until patch is available
@@ -307,8 +307,8 @@ Security features are designed to be accessible:
 
 For security concerns or questions:
 
-**Daniel Oceno Security Team**
-Email: hello@danieloceno.com
+**TinyDarkForge Security Team**
+Email: hello@tinydarkforge.com
 Website: https://github.com/tinydarkforge/Aither
 PGP Key: [Available on request]
 
@@ -318,4 +318,4 @@ PGP Key: [Available on request]
 **Last Updated:** January 1, 2025
 **Next Review:** April 1, 2025
 
-© 2025 Daniel Oceno. MIT License.
+© 2025 TinyDarkForge. MIT License.

@@ -1,5 +1,32 @@
 # Aither - TODO List
 
+## Planned Tasks
+
+### 1. Password Form Enhancements (Admin Panel)
+**Priority**: High
+**Status**: Completed ✅
+
+Improve the organization creation experience by adding password confirmation and visibility toggles.
+
+**Requirements**:
+- [x] Add "Confirm Password" field to the "Create New Organization" form in `admin.html`.
+- [x] Implement "Show/Hide Password" icons for all password fields (Create, Rename, Reset, Superadmin settings).
+- [x] Add client-side validation to ensure passwords match before submission.
+- [x] Update `auth.js` or `admin.html` script to handle the new validation and toggle logic.
+
+### 2. UI Redesign ("Less is More" Aesthetic)
+**Priority**: Medium
+**Status**: Completed ✅
+
+Redesign the interface to move away from "AI-style" aesthetics (gradients, heavy shadows) toward a modernist, functionalist look inspired by `less-is-more-ui`.
+
+**Requirements**:
+- [x] **Palette Update**: Switch to neutral foundations (soft grays, off-whites, deep charcoals) in `vars.css`.
+- [x] **Component Simplification**: Replace heavy box-shadows with thin borders (`1px solid var(--border)`) in `components.css`.
+- [x] **Functional Color**: Use accent colors strictly for state or primary actions, removing decorative gradients.
+- [x] **Spacing & Typography**: Implement a strict, scale-based spacing system and prioritize typographic hierarchy.
+- [x] **Modernist Reduction**: Remove non-functional decorative elements to improve focus and reduce visual noise.
+
 ## Feature Roadmap
 
 ### Multi-Language Support
@@ -57,4 +84,4 @@ Add multi-language/internationalization (i18n) support to make Aither accessible
 
 ---
 
-**Last Updated**: 2025-11-24
+**Last Updated**: 2026-05-22

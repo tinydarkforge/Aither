@@ -1,101 +1,101 @@
 /**
  * Aither - QR Code Manager for Video Content
  *
- * Copyright (c) 2025 Daniel Oceno. All rights reserved.
+ * Copyright (c) 2025 TinyDarkForge. All rights reserved.
  * Licensed under MIT - see LICENSE file
  *
- * CSS Variables - Modern SaaS Theme with Light/Dark Mode
- * Professional dual-theme design
+ * CSS Variables - Modernist "Less is More" Aesthetic
+ * Functional, neutral-centric, typography-first design.
  */
 
 :root {
-  /* Light Theme (Default) */
-  --bg: #F9FAFB;
-  --bg-secondary: #FFFFFF;
+  /* Light Theme - GitHub Primer Light */
+  --bg: #FFFFFF;
+  --bg-secondary: #F6F8FA;
   --panel: #FFFFFF;
-  --accent: #3B82F6;
-  --accent-hover: #2563EB;
-  --accent-light: #DBEAFE;
-  --muted: #6B7280;
-  --text: #111827;
-  --text-secondary: #4B5563;
-  --text-muted: #9CA3AF;
-  --border: #E5E7EB;
-  --border-light: #F3F4F6;
-  --success: #10B981;
-  --success-bg: #D1FAE5;
-  --error: #EF4444;
-  --error-bg: #FEE2E2;
-  --danger: #DC2626;
-  --warning: #F59E0B;
-  --warning-bg: #FEF3C7;
+  --accent: #0969DA;       /* GitHub Blue */
+  --accent-hover: #0550AE;
+  --accent-light: #DDF4FF;
+  --muted: #6E7781;
+  --text: #1F2328;
+  --text-secondary: #424A53;
+  --text-muted: #656D76;
+  --border: #D0D7DE;
+  --border-light: #EBECF0;
+  --success: #1A7F37;
+  --success-bg: #DAFBE1;
+  --error: #D1242F;
+  --error-bg: #FFEBE9;
+  --danger: #CF222E;
+  --warning: #9A6700;
+  --warning-bg: #FFF8C5;
 }
 
-/* Dark Theme */
+/* Dark Theme - GitHub Primer Dark (Dimmed/Default) */
 [data-theme="dark"] {
-  --bg: #0B0B1A;
-  --bg-secondary: #14142B;
-  --panel: #1A1A2E;
-  --accent: #6366F1;
-  --accent-hover: #818CF8;
-  --accent-light: #312E81;
-  --muted: #9CA3AF;
-  --text: #F9FAFB;
-  --text-secondary: #D1D5DB;
-  --text-muted: #9CA3AF;
-  --border: #2A2A3E;
-  --border-light: #1F1F35;
-  --success: #10B981;
-  --success-bg: #064E3B;
-  --error: #EF4444;
-  --error-bg: #7F1D1D;
-  --danger: #DC2626;
-  --warning: #F59E0B;
-  --warning-bg: #78350F;
+  --bg: #0D1117;           /* Iconic GitHub Dark Navy */
+  --bg-secondary: #161B22;
+  --panel: #161B22;
+  --accent: #2F81F7;
+  --accent-hover: #58A6FF;
+  --accent-light: #121D2F;
+  --muted: #8B949E;
+  --text: #E6EDF3;
+  --text-secondary: #7D8590;
+  --text-muted: #6E7681;
+  --border: #30363D;
+  --border-light: #21262D;
+  --success: #3FB950;
+  --success-bg: #0E2A1C;
+  --error: #F85149;
+  --error-bg: #2F1716;
+  --danger: #F85149;
+  --warning: #D29922;
+  --warning-bg: #2D230B;
 }
 
 :root {
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
+  /* Spacing - Strict Geometric Scale (4px base) */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
+  --spacing-2xl: 4rem;    /* 64px */
 
-  /* Border Radius */
+  /* Border Radius - GitHub Style */
   --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  /* Shadows - Minimalist Reduction (Prefer Borders) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.05);
+  --shadow-inner: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 
-  /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 2rem;
-  --font-size-4xl: 2.5rem;
+  /* Typography - System Fonts (Reliable, Humanist) */
+  --font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.8125rem; /* 13px */
+  --font-size-base: 0.9375rem; /* 15px - Slightly tighter than standard 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 2.25rem;  /* 36px */
+  --font-size-4xl: 3rem;     /* 48px */
 
   --font-weight-normal: 400;
   --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+  --font-weight-semibold: 500; /* Merge 500/600 for cleaner hierarchy */
+  --font-weight-bold: 600;     /* 600 is "bold enough" in modernist design */
 
-  --line-height-tight: 1.25;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);

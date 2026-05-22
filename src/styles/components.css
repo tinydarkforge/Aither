@@ -1,7 +1,7 @@
 /**
  * Aither - QR Code Manager for Video Content
  *
- * Copyright (c) 2025 Daniel Oceno. All rights reserved.
+ * Copyright (c) 2025 TinyDarkForge. All rights reserved.
  * Licensed under MIT - see LICENSE file
  *
  * Component Styles
@@ -67,11 +67,11 @@
 
 .btn:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 2px var(--border), 0 0 0 4px var(--accent-light);
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
@@ -84,33 +84,33 @@
 .btn-primary:hover:not(:disabled) {
   background: var(--accent-hover);
   border-color: var(--accent-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-secondary {
-  background: white;
+  background: var(--bg-secondary);
   color: var(--text);
   border-color: var(--border);
 }
 
 .btn-secondary:hover:not(:disabled) {
   background: var(--border-light);
-  border-color: var(--text-muted);
-  transform: translateY(-1px);
+  border-color: var(--muted);
+  transform: none;
 }
 
 .btn-danger {
-  background: var(--danger);
-  color: white;
-  border-color: var(--danger);
+  background: transparent;
+  color: var(--error);
+  border-color: var(--error);
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: #B91C1C;
-  border-color: #B91C1C;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  background: var(--error-bg);
+  border-color: var(--error);
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-sm {
@@ -157,10 +157,10 @@
   font-size: var(--font-size-base);
   font-family: var(--font-family);
   color: var(--text);
-  background: white;
+  background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-base);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
 }
 
 .form-group input:focus,
@@ -168,7 +168,7 @@
 .form-group select:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .form-group input::placeholder,
@@ -178,7 +178,7 @@
 
 .form-group input[type="file"] {
   padding: var(--spacing-sm);
-  background: white;
+  background: var(--bg-secondary);
   border: 2px dashed var(--border);
   border-radius: var(--radius-md);
   color: var(--text);
@@ -225,12 +225,48 @@
   height: 42px;
 }
 
+/* Password Input with Toggle */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  padding-right: 40px !important;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+  z-index: 5;
+}
+
+.password-toggle:hover {
+  color: var(--accent);
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
 /* Color Input */
 .color-input-wrapper {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  background: white;
+  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 0 var(--spacing-sm);
@@ -307,28 +343,28 @@
   gap: var(--spacing-lg);
   align-items: center;
   padding: var(--spacing-lg);
-  background: white;
-  border-radius: var(--radius-lg);
+  background: var(--panel);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   transition: all var(--transition-base);
 }
 
 .qr-item:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: none;
+  box-shadow: none;
   border-color: var(--accent);
 }
 
 .qr-thumbnail {
   width: 80px;
   height: 80px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  background: white;
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   border: 1px solid var(--border);
 }
 
@@ -394,8 +430,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
   z-index: var(--z-modal);
   padding: var(--spacing-md);
   overflow-y: auto;
@@ -409,8 +445,8 @@
 }
 
 .modal-content {
-  background: white;
-  border-radius: var(--radius-xl);
+  background: var(--panel);
+  border-radius: var(--radius-md);
   max-width: 600px;
   width: 100%;
   max-height: 90vh;
@@ -477,7 +513,7 @@
   align-items: center;
   margin-bottom: var(--spacing-sm);
   padding: var(--spacing-sm);
-  background: white;
+  background: var(--bg-secondary);
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   max-width: fit-content;
@@ -558,13 +594,13 @@
 
 .success-message {
   background: var(--success-bg);
-  color: #065F46;
+  color: var(--success);
   border-color: var(--success);
 }
 
 .error-message {
   background: var(--error-bg);
-  color: #991B1B;
+  color: var(--error);
   border-color: var(--error);
 }
 
@@ -579,11 +615,11 @@
 
 /* Card */
 .card {
-  background: white;
+  background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: none;
 }
 
 .card h3 {
@@ -635,7 +671,7 @@
 
 /* Collection Progress */
 .collection-progress {
-  background: white;
+  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
@@ -703,7 +739,7 @@
   gap: var(--spacing-lg);
   align-items: center;
   padding: var(--spacing-lg);
-  background: white;
+  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   transition: all var(--transition-base);

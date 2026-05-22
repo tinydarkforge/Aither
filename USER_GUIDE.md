@@ -1,6 +1,6 @@
 # Aither User Guide
 
-**Copyright © 2025 Daniel Oceno. MIT License.**
+**Copyright © 2025 TinyDarkForge. MIT License.**
 
 Welcome to Aither! This comprehensive guide will help you get started with creating, managing, and sharing QR codes for your video content.
 
@@ -849,15 +849,15 @@ A: Client-side authentication is NOT enterprise-grade. See SECURITY.md for detai
 ### Support Channels
 
 **For general questions:**
-- Email: hello@danieloceno.com
-- Website: https://github.com/Pamperito74/Aither
+- Email: hello@tinydarkforge.com
+- Website: https://github.com/tinydarkforge/Aither
 
 **For security issues:**
-- Email: hello@danieloceno.com
+- Email: hello@tinydarkforge.com
 - See SECURITY.md for responsible disclosure
 
 **For feature requests:**
-- Contact: hello@danieloceno.com
+- Contact: hello@tinydarkforge.com
 - Include detailed use case and benefits
 
 ### Documentation
@@ -870,10 +870,10 @@ A: Client-side authentication is NOT enterprise-grade. See SECURITY.md for detai
 
 ### Community
 
-Aither is an open-source tool by Daniel Oceno. Contributions, issues, and feature requests are welcome on GitHub.
+Aither is an open-source tool by TinyDarkForge. Contributions, issues, and feature requests are welcome on GitHub.
 
 ---
 
-**© 2025 Daniel Oceno. MIT License.**
+**© 2025 TinyDarkForge. MIT License.**
 
 Thank you for using Aither! We hope this guide helps you create amazing QR code experiences for your audience.

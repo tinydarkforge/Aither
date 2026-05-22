@@ -1,7 +1,7 @@
 /**
  * Aither - QR Code Manager for Video Content
  *
- * Copyright (c) 2025 Daniel Oceno. All rights reserved.
+ * Copyright (c) 2025 TinyDarkForge. All rights reserved.
  * Licensed under MIT - see LICENSE file
  *
  * Theme Management Module
