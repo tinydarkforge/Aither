@@ -6,16 +6,20 @@
   "license": "MIT",
   "copyright": "Copyright (c) 2025 Daniel Oceno.",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "check": "npm run build",
     "preview": "vite preview",
     "hash-password": "node scripts/hash-password.js"
   },
   "devDependencies": {
     "javascript-obfuscator": "^4.1.1",
     "terser": "^5.44.1",
-    "vite": "^5.0.0",
+    "vite": "^8.0.14",
     "vite-plugin-javascript-obfuscator": "^3.1.0"
   },
   "dependencies": {

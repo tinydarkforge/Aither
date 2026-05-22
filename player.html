@@ -6,7 +6,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>ASL Video Player - Aither</title>
+  <title>Video Player - Aither</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/src/styles/vars.css">
   <link rel="stylesheet" href="/src/styles/player.css">
@@ -53,7 +53,7 @@
 
     <!-- Video Info -->
     <div class="video-info">
-      <h1 class="video-title" id="videoTitle">ASL Video</h1>
+      <h1 class="video-title" id="videoTitle">Video</h1>
       <p class="video-description" id="videoDescription"></p>
       <p class="video-url" id="videoUrl"></p>
       <button id="scanQrBtn" class="scan-qr-btn">
@@ -166,7 +166,7 @@
           const filename = url.pathname.split('/').pop();
           videoTitle.textContent = filename.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
         } catch (e) {
-          videoTitle.textContent = 'ASL Video';
+          videoTitle.textContent = 'Video';
         }
       }
 

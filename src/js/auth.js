@@ -1,5 +1,5 @@
 /**
- * Aither - QR Code Manager for ASL Videos
+ * Aither - QR Code Manager for Video Content
  *
  * Copyright (c) 2025 Daniel Oceno. All rights reserved.
  * Licensed under MIT - see LICENSE file

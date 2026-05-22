@@ -33,33 +33,33 @@ A static QR code generator and manager for video content. Perfect for exhibits, 
 - **Keyboard Shortcuts**: Efficient navigation for power users
 
 ### Security & Authentication
-- **Secure Login**: Client-side password authentication with SHA-256 hashing
+- **Internal-Use Login**: Client-side password gates for trusted staff workflows
 - **Superadmin Panel**: Dedicated admin interface for organization management
 - **Password Reset Utility**: Built-in tool for superadmin password recovery
-- **Code Protection**: Obfuscated and minified production builds
+- **Optimized Builds**: Minified production assets with optional JavaScript obfuscation
 
 ## Tech Stack
 
-- **Build Tool**: Vite 5.0
+- **Build Tool**: Vite 8
 - **Storage**: IndexedDB via Dexie.js
 - **QR Generation**: qr-code-styling
 - **QR Scanning**: html5-qrcode (in-player scanner)
 - **Authentication**: Client-side SHA-256 hashed passwords
-- **Code Protection**: javascript-obfuscator with terser minification
+- **Build Optimization**: javascript-obfuscator with terser minification
 - **Languages**: Vanilla HTML, CSS, JavaScript (no frameworks)
 
 ## Quick Start
 
 ### Prerequisites
 
-- Node.js 16+ and npm
+- Node.js 20.19+ or 22.12+ and npm
 
 ### Installation
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd aither
+git clone https://github.com/tinydarkforge/Aither.git
+cd Aither
 ```
 
 2. Install dependencies:
@@ -69,13 +69,13 @@ npm install
 
 3. Set up your superadmin password:
 ```bash
-# Generate a password hash
-npm run hash-password
-
 # Create .env file from example
 cp .env.example .env
 
-# Edit .env and replace the hash with your generated hash
+# Generate a password hash
+npm run hash-password
+
+# Edit .env and replace VITE_ADMIN_PASS_HASH with your generated hash
 ```
 
 4. Start the development server:
@@ -85,6 +85,16 @@ npm run dev
 
 5. Open your browser to `http://localhost:3010/login.html`
 
+6. Log in as superadmin, create an organization, then log out and sign in with the new organization credentials to generate and manage QR codes.
+
+### First-Run Flow
+
+1. Use `/login.html?admin=true` or the "Superadmin" option on the login page.
+2. Enter the superadmin password whose hash you configured in `.env`.
+3. Go to `/admin.html` and create at least one organization with its own password.
+4. Share the organization login details with trusted staff.
+5. Staff sign in at `/login.html`, generate QR codes, and manage their organization's local QR library.
+
 ## Building for Production
 
 ```bash
@@ -92,7 +102,7 @@ npm run build
 ```
 
 The static files will be output to the `dist/` directory. Production builds include:
-- Code obfuscation for IP protection
+- JavaScript obfuscation as a deterrent, not a security boundary
 - Terser minification for smaller bundle size
 - Optimized assets for faster loading
 
@@ -195,11 +205,13 @@ aither/
 ├── player.html             # Video player page (for QR scans)
 ├── admin.html              # Superadmin panel
 ├── reset-admin.html        # Superadmin password reset utility
+├── public/
+│   └── favicon.svg         # Custom favicon with QR code
 ├── package.json
 ├── vite.config.js
 ├── .env.example
 ├── LICENSE                 # MIT License
-├── TERMS.md                # Terms of Service
+├── TERMS.md                # Terms of use
 ├── SECURITY.md             # Security policy and documentation
 ├── scripts/
 │   └── hash-password.js    # Password hashing utility
@@ -216,9 +228,6 @@ aither/
     │   ├── layout.css      # Layout styles
     │   ├── components.css  # Component styles
     │   └── player.css      # Video player styles
-    └── assets/
-        ├── logo.svg        # App logo
-        └── favicon.svg     # Custom favicon with QR code
 ```
 
 ## Usage
@@ -441,7 +450,7 @@ Edit `/src/js/qr.js` to change default QR code settings.
 
 ### Build fails
 - Delete `node_modules` and run `npm install` again
-- Ensure Node.js version is 16 or higher
+- Ensure Node.js version is 20.19+ or 22.12+
 - Check for syntax errors in `.env`
 - Verify all dependencies are properly installed
 
@@ -450,6 +459,7 @@ Edit `/src/js/qr.js` to change default QR code settings.
 This project is open source under the MIT License.
 
 - **[LICENSE](LICENSE)** - MIT License
+- **[TERMS.md](TERMS.md)** - Terms of use
 - **[SECURITY.md](SECURITY.md)** - Security policy and best practices
 
 ## Contributing
@@ -458,8 +468,10 @@ Contributions are welcome! Please:
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+4. Run `npm install` if dependencies changed
+5. Run `npm run check`
+6. Smoke-test the first-run flow in a browser when changing authentication, QR generation, player, or storage behavior
+7. Submit a pull request
 
 ## Support
 
@@ -482,4 +494,4 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 **© 2025 Daniel Oceno. MIT License.**
 
-Built with care and attention to detail.
+Developed with care and attention to detail.

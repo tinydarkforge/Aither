@@ -309,7 +309,7 @@ For security concerns or questions:
 
 **Daniel Oceno Security Team**
 Email: hello@danieloceno.com
-Website: https://github.com/Pamperito74/Aither
+Website: https://github.com/tinydarkforge/Aither
 PGP Key: [Available on request]
 
 ---
