@@ -57,7 +57,7 @@ export async function loginAsSuperadmin(password) {
       expectedHash = overrideHash;
     } else {
       // Fall back to the environment variable
-      expectedHash = import.meta.env.VITE_ADMIN_PASS_HASH;
+      expectedHash = __ADMIN_HASH__;
     }
 
     if (!expectedHash) {
@@ -457,7 +457,7 @@ export async function changeSuperadminPassword(currentPassword, newPassword) {
     // Verify current password
     const currentHash = await hashPassword(currentPassword);
     const overrideHash = await getSetting('superadmin_password_hash');
-    const expectedHash = overrideHash || import.meta.env.VITE_ADMIN_PASS_HASH;
+    const expectedHash = overrideHash || __ADMIN_HASH__;
 
     if (!expectedHash) {
       return { success: false, message: 'System configuration error' };

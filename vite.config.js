@@ -4,6 +4,9 @@ import javascriptObfuscator from 'vite-plugin-javascript-obfuscator';
 export default defineConfig({
   root: '.',
   base: '/Aither/',
+  define: {
+    __ADMIN_HASH__: JSON.stringify(process.env.VITE_ADMIN_PASS_HASH || ''),
+  },
   plugins: [
     javascriptObfuscator({
       options: {
