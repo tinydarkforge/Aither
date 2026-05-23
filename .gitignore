@@ -138,6 +138,9 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# Obfuscator cache
+.a5c/
+
 # Aither-specific security files
 .env
 .env.local
