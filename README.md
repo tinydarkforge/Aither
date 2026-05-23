@@ -1,6 +1,6 @@
 # Aither
 
-**Copyright © 2025 TinyDarkForge. MIT License.**
+**Copyright © 2025/26 TinyDarkForge. MIT License.**
 
 A static QR code generator and manager for video content. Perfect for exhibits, advertising campaigns, events, digital signage, and more. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
 
