@@ -4,6 +4,8 @@
 
 A static QR code generator and manager for video content. Perfect for exhibits, advertising campaigns, events, digital signage, and more. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
 
+> **Scope:** Aither has no server. All data is stored locally per browser/device via IndexedDB — there is no account, no cross-device or cross-user sync, and login is a client-side gate (see [Security Model](#security-model)). Aither stores video **URLs**, not video files; it does not host or upload media.
+
 ## Features
 
 ### Core Functionality
@@ -19,6 +21,7 @@ A static QR code generator and manager for video content. Perfect for exhibits, 
 - **Organization Isolation**: Each organization has separate data and authentication
 - **Per-Organization Login**: Each organization has its own credentials and QR code library
 - **Password Management**: Superadmin can reset organization passwords
+- **Per-Device Storage**: Organization data lives in each browser's IndexedDB and does **not** sync across devices or users — logging in on another browser/device starts an empty library. Use the export/import features to move data.
 
 ### Bulk Collection Generation
 - **Directory URL Parsing**: Paste a directory listing URL to extract all video links
