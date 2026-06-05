@@ -2,13 +2,15 @@
 
 **Copyright © 2025/26 TinyDarkForge. MIT License.**
 
+> Built by **[Luxbase](https://luxbase.github.io/)** — we design & build custom web tools. Need one? [Get in touch.](https://luxbase.github.io/)
+
 A static QR code generator and manager for video content. Perfect for exhibits, advertising campaigns, events, digital signage, and more. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
 
 > **Scope:** Aither has no server. All data is stored locally per browser/device via IndexedDB — there is no account, no cross-device or cross-user sync, and login is a client-side gate (see [Security Model](#security-model)). Aither stores video **URLs**, not video files; it does not host or upload media.
 
 ## Live Demo
 
-**[tinydarkforge.github.io/Aither](https://tinydarkforge.github.io/Aither/)**
+**[luxbase.github.io/Aither](https://luxbase.github.io/Aither/)**
 
 A public demo runs on GitHub Pages. It's a throwaway sandbox — all data lives only in *your* browser, so nothing you do affects other visitors.
 
@@ -70,7 +72,7 @@ A public demo runs on GitHub Pages. It's a throwaway sandbox — all data lives 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/tinydarkforge/Aither.git
+git clone https://github.com/luxbase/Aither.git
 cd Aither
 ```
 
