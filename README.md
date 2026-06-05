@@ -6,6 +6,15 @@ A static QR code generator and manager for video content. Perfect for exhibits, 
 
 > **Scope:** Aither has no server. All data is stored locally per browser/device via IndexedDB — there is no account, no cross-device or cross-user sync, and login is a client-side gate (see [Security Model](#security-model)). Aither stores video **URLs**, not video files; it does not host or upload media.
 
+## Live Demo
+
+**[tinydarkforge.github.io/Aither](https://tinydarkforge.github.io/Aither/)**
+
+A public demo runs on GitHub Pages. It's a throwaway sandbox — all data lives only in *your* browser, so nothing you do affects other visitors.
+
+- Demo superadmin password: **`demo`** (log in via the "Superadmin" option, create an organization, then sign in with that organization to generate QR codes).
+- This password is intentionally public and gates nothing of value — the auth is a client-side convenience gate, not real security (see [Security Model](#security-model)).
+
 ## Features
 
 ### Core Functionality
