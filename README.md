@@ -12,7 +12,7 @@ A static QR code generator and manager for video content. Perfect for exhibits, 
 
 A public demo runs on GitHub Pages. It's a throwaway sandbox — all data lives only in *your* browser, so nothing you do affects other visitors.
 
-- Demo superadmin password: **`demo`** (log in via the "Superadmin" option, create an organization, then sign in with that organization to generate QR codes).
+- Demo superadmin password: **`AitherAdmin1234!!!!`** (log in via the "Superadmin" option, create an organization, then sign in with that organization to generate QR codes).
 - This password is intentionally public and gates nothing of value — the auth is a client-side convenience gate, not real security (see [Security Model](#security-model)).
 
 ## Features
