@@ -2,9 +2,9 @@
   "name": "aither",
   "version": "1.0.1",
   "description": "A static QR code generator and manager for video content",
-  "author": "TinyDarkForge",
+  "author": "Luxbase",
   "license": "MIT",
-  "copyright": "Copyright (c) 2025 TinyDarkForge.",
+  "copyright": "Copyright (c) 2026 Luxbase.",
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

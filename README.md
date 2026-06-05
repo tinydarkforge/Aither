@@ -1,6 +1,6 @@
 # Aither
 
-**Copyright © 2025/26 TinyDarkForge. MIT License.**
+**Copyright © 2026 Luxbase. MIT License.**
 
 > Built by **[Luxbase](https://luxbase.github.io/)** — we design & build custom web tools. Need one? [Get in touch.](https://luxbase.github.io/)
 
@@ -506,6 +506,6 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 ---
 
-**© 2025 TinyDarkForge. MIT License.**
+**© 2026 Luxbase. MIT License.**
 
 Developed with care and attention to detail.
