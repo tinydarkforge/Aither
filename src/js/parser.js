@@ -16,10 +16,9 @@
 export async function parseDirectoryForMP4s(directoryUrl) {
   try {
     // Validate URL
-    let url;
     try {
-      url = new URL(directoryUrl);
-    } catch (error) {
+      new URL(directoryUrl);
+    } catch {
       return { success: false, error: 'Invalid URL format' };
     }
 
@@ -92,7 +91,7 @@ function extractMP4UrlsFromHTML(html, baseUrl) {
     try {
       const absoluteUrl = new URL(href, base).href;
       mp4Urls.add(absoluteUrl);
-    } catch (error) {
+    } catch {
       console.warn('Invalid URL:', href);
     }
   }
@@ -106,7 +105,7 @@ function extractMP4UrlsFromHTML(html, baseUrl) {
     urlMatches.forEach(url => {
       try {
         mp4Urls.add(new URL(url).href);
-      } catch (error) {
+      } catch {
         console.warn('Invalid URL:', url);
       }
     });
@@ -121,7 +120,7 @@ function extractMP4UrlsFromHTML(html, baseUrl) {
     try {
       const absoluteUrl = new URL(src, base).href;
       mp4Urls.add(absoluteUrl);
-    } catch (error) {
+    } catch {
       console.warn('Invalid URL:', src);
     }
   }
@@ -135,7 +134,7 @@ function extractMP4UrlsFromHTML(html, baseUrl) {
     try {
       const absoluteUrl = new URL(src, base).href;
       mp4Urls.add(absoluteUrl);
-    } catch (error) {
+    } catch {
       console.warn('Invalid URL:', src);
     }
   }
@@ -152,7 +151,7 @@ export function isMP4URL(url) {
   try {
     const urlObj = new URL(url);
     return urlObj.pathname.toLowerCase().endsWith('.mp4');
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -168,7 +167,7 @@ export function getFilenameFromURL(url) {
     const pathname = urlObj.pathname;
     const filename = pathname.substring(pathname.lastIndexOf('/') + 1);
     return filename || 'unknown.mp4';
-  } catch (error) {
+  } catch {
     return 'unknown.mp4';
   }
 }

@@ -331,10 +331,7 @@ export async function importOrganizationData(data, options = {}) {
  * @returns {Promise<Object>} Import result
  */
 export async function importAllOrganizations(data, options = {}) {
-  const {
-    skipExisting = true,
-    updatePasswords = false
-  } = options;
+  const { skipExisting = true } = options;
 
   try {
     const loading = showLoading('Importing organizations...');
