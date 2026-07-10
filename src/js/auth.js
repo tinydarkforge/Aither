@@ -14,7 +14,6 @@
 import {
   createOrganization,
   getOrganizationByName,
-  getOrganizationById,
   updateOrganizationName,
   updateOrganizationPassword,
   deleteOrganization,
@@ -329,7 +328,7 @@ export function getSessionTimeRemaining() {
     const session = JSON.parse(sessionData);
     const remaining = session.expiresAt - Date.now();
     return remaining > 0 ? remaining : 0;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

@@ -31,12 +31,11 @@ import {
   generateFilename,
   createQRCode
 } from './qr.js';
-import { parseDirectoryForMP4s, getFilenameFromURL } from './parser.js';
+import { parseDirectoryForMP4s } from './parser.js';
 import { initializeErrorHandlers } from './error-handler.js';
 
 // State
 let currentQRCode = null;
-let currentQRInstance = null;
 let logoDataURL = null;
 let dirLogoDataURL = null;
 let bulkLogoDataURL = null;
@@ -116,12 +115,12 @@ function initializeEventListeners() {
   document.getElementById('qrForm').addEventListener('submit', handleQRFormSubmit);
 
   // Color input updates
-  document.getElementById('fgColorInput').addEventListener('input', (e) => {
+  document.getElementById('fgColorInput').addEventListener('input', () => {
     updateColorDisplay('fgColorInput', 'fgColorValue');
     updatePreview();
   });
 
-  document.getElementById('bgColorInput').addEventListener('input', (e) => {
+  document.getElementById('bgColorInput').addEventListener('input', () => {
     updateColorDisplay('bgColorInput', 'bgColorValue');
     updatePreview();
   });
@@ -389,7 +388,7 @@ function updatePreview() {
 
   // Use player-wrapped URL for MP4s with title and description
   const qrUrl = getQRReadyURL(url, title, description);
-  currentQRInstance = generateQR(container, qrUrl, options);
+  generateQR(container, qrUrl, options);
   document.getElementById('qrPreview').style.display = 'block';
 }
 

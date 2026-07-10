@@ -1,511 +1,97 @@
 # Aither
 
-**Copyright © 2026 Luxbase. MIT License.**
+A static, client-side QR code generator and manager for video content — built for exhibits, events, advertising campaigns, and digital signage where visitors scan a code and watch a video instantly.
 
 > Built by **[Luxbase](https://luxbase.github.io/)** — we design & build custom web tools. Need one? [Get in touch.](https://luxbase.github.io/)
 
-A static QR code generator and manager for video content. Perfect for exhibits, advertising campaigns, events, digital signage, and more. Built with a modern SaaS theme featuring light/dark mode switcher, Aither runs entirely client-side with no backend required.
+## Why it exists
 
-> **Scope:** Aither has no server. All data is stored locally per browser/device via IndexedDB — there is no account, no cross-device or cross-user sync, and login is a client-side gate (see [Security Model](#security-model)). Aither stores video **URLs**, not video files; it does not host or upload media.
+Teams running exhibits and campaigns need "scan this QR, watch this video" without standing up a backend. Aither runs 100% in the browser: it stores video **URLs** (not files) in IndexedDB, generates styled QR codes, and serves scans through a mobile-optimized video player page. No server, no accounts, no hosting costs beyond static files.
 
-## Live Demo
+## Live demo
 
 **[luxbase.github.io/Aither](https://luxbase.github.io/Aither/)**
 
-A public demo runs on GitHub Pages. It's a throwaway sandbox — all data lives only in *your* browser, so nothing you do affects other visitors.
+A public sandbox on GitHub Pages — all data lives only in *your* browser, so nothing you do affects other visitors. The admin area is gated by a superadmin password (not published here); the video player pages are fully public.
 
-- Demo superadmin password: **`AitherAdmin1234!!!!`** (log in via the "Superadmin" option, create an organization, then sign in with that organization to generate QR codes).
-- This password is intentionally public and gates nothing of value — the auth is a client-side convenience gate, not real security (see [Security Model](#security-model)).
+![screenshot](docs/screenshot.jpg)
+
+## Security note
+
+**Authentication is client-side only and is NOT a real security boundary.** Passwords are SHA-256 hashed (unsalted) and compared in the browser; session tokens live in plain `localStorage`. Anyone with devtools can bypass the login in seconds. This is suitable only for casual gating of trusted-staff workflows — never for protecting sensitive data. The production build's JavaScript obfuscation is a deterrent, not protection. If you need real security, put the app behind server-side auth (or a service like Auth0/Firebase Auth). Full details: [SECURITY.md](SECURITY.md).
 
 ## Features
 
-### Core Functionality
-- **Pure Static App**: Runs 100% in the browser with no server needed
-- **QR Code Generation**: Create beautiful QR codes for video URLs with customization options
-- **Smart Video Player**: MP4 URLs automatically use a custom video player when scanned
-- **Client-Side Storage**: Saves all QR codes locally using IndexedDB
-- **Export Options**: Download QR codes as PNG or SVG
-- **Local Data Persistence**: QR codes and settings stored locally in IndexedDB (videos still require internet)
+- **Pure static app** — no backend; data persists per browser/device via IndexedDB (Dexie). No cross-device sync; use export/import to move data.
+- **Styled QR generation** — colors, sizes, margins, optional logo; export as PNG or SVG.
+- **Smart video player** — MP4 URLs get a QR that opens a custom player page (`player.html`) with auto-fullscreen, landscape lock on mobile, and a built-in "scan another QR" camera flow.
+- **Bulk collections** — paste a directory-listing URL or a list of URLs to generate a whole batch of QR codes at once; rescan collections to pick up new videos.
+- **Multi-tenant organizations** — a superadmin creates organizations, each with its own password and isolated QR library (per device).
+- **Light/dark theme**, keyboard shortcuts, responsive layout.
 
-### Multi-Tenant Organization System
-- **Organization Management**: Superadmin can create and manage multiple organizations
-- **Organization Isolation**: Each organization has separate data and authentication
-- **Per-Organization Login**: Each organization has its own credentials and QR code library
-- **Password Management**: Superadmin can reset organization passwords
-- **Per-Device Storage**: Organization data lives in each browser's IndexedDB and does **not** sync across devices or users — logging in on another browser/device starts an empty library. Use the export/import features to move data.
+## Tech stack
 
-### Bulk Collection Generation
-- **Directory URL Parsing**: Paste a directory listing URL to extract all video links
-- **Automatic Collection Creation**: Generates QR codes for all videos in a directory at once
-- **Smart Filtering**: Automatically filters for MP4 files
-- **Collection Organization**: Group related videos together for easy management
-
-### Modern UI/UX
-- **Theme Switcher**: Toggle between light and dark mode with user preference persistence
-- **Modern SaaS Design**: Clean, professional interface
-- **Responsive Layout**: Works seamlessly on desktop, tablet, and mobile devices
-- **Keyboard Shortcuts**: Efficient navigation for power users
-
-### Security & Authentication
-- **Internal-Use Login**: Client-side password gates for trusted staff workflows
-- **Superadmin Panel**: Dedicated admin interface for organization management
-- **Password Reset Utility**: Built-in tool for superadmin password recovery
-- **Optimized Builds**: Minified production assets with optional JavaScript obfuscation
-
-## Tech Stack
-
-- **Build Tool**: Vite 8
+- **Build**: Vite 8 · terser · javascript-obfuscator
 - **Storage**: IndexedDB via Dexie.js
-- **QR Generation**: qr-code-styling
-- **QR Scanning**: html5-qrcode (in-player scanner)
-- **Authentication**: Client-side SHA-256 hashed passwords
-- **Build Optimization**: javascript-obfuscator with terser minification
-- **Languages**: Vanilla HTML, CSS, JavaScript (no frameworks)
+- **QR**: qr-code-styling (generation) · html5-qrcode (in-player scanning)
+- **Language**: vanilla HTML/CSS/JavaScript — no framework
 
-## Quick Start
+## Getting started
 
-### Prerequisites
+Requires Node.js 20.19+ or 22.12+.
 
-- Node.js 20.19+ or 22.12+ and npm
-
-### Installation
-
-1. Clone the repository:
 ```bash
 git clone https://github.com/luxbase/Aither.git
 cd Aither
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
 
-3. Set up your superadmin password:
-```bash
-# Create .env file from example
+# Configure the superadmin password (never commit real values)
 cp .env.example .env
+npm run hash-password        # prompts for a password, prints the SHA-256 hash
+# paste the hash into .env as VITE_ADMIN_PASS_HASH
 
-# Generate a password hash
-npm run hash-password
-
-# Edit .env and replace VITE_ADMIN_PASS_HASH with your generated hash
+npm run dev                  # http://localhost:3010/login.html
 ```
 
-4. Start the development server:
-```bash
-npm run dev
-```
+First run: log in via the "Superadmin" option (or `/login.html?admin=true`), create an organization in `/admin.html`, then sign in with that organization to generate and manage QR codes.
 
-5. Open your browser to `http://localhost:3010/login.html`
-
-6. Log in as superadmin, create an organization, then log out and sign in with the new organization credentials to generate and manage QR codes.
-
-### First-Run Flow
-
-1. Use `/login.html?admin=true` or the "Superadmin" option on the login page.
-2. Enter the superadmin password whose hash you configured in `.env`.
-3. Go to `/admin.html` and create at least one organization with its own password.
-4. Share the organization login details with trusted staff.
-5. Staff sign in at `/login.html`, generate QR codes, and manage their organization's local QR library.
-
-## Building for Production
+## Build & deploy
 
 ```bash
-npm run build
+npm run build   # static output in dist/
 ```
 
-The static files will be output to the `dist/` directory. Production builds include:
-- JavaScript obfuscation as a deterrent, not a security boundary
-- Terser minification for smaller bundle size
-- Optimized assets for faster loading
+Deployable to any static host:
 
-You can deploy these to any static hosting service.
+- **GitHub Pages** — this repo ships a workflow ([.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml)) that builds and deploys on push to `main`, reading `VITE_ADMIN_PASS_HASH` from repository variables.
+- **Vercel** — [vercel.json](vercel.json) is included; set `VITE_ADMIN_PASS_HASH` in Project Settings → Environment Variables, then redeploy (Vite bakes env vars in at build time).
+- **Anything else** — copy `dist/` to your web root.
 
-### Deploying to Vercel
-
-1. **Connect your repository** to Vercel
-2. **Set environment variable:**
-   - Go to Project Settings → Environment Variables
-   - Add new variable:
-     - **Key:** `VITE_ADMIN_PASS_HASH`
-     - **Value:** (your password hash from `.env`)
-     - **Environments:** Check Production, Preview, and Development
-3. **Deploy settings:**
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-4. **Redeploy** after adding the environment variable
-
-**Important:** Vite requires environment variables at build time, so you must redeploy after adding them.
-
-### Other Deployment Options
-
-- **Netlify**: Drag and drop the `dist` folder, or connect repo and set env vars in Build & Deploy settings
-- **GitHub Pages**: Push the `dist` folder to a `gh-pages` branch
-- **Any web server**: Copy `dist` contents to your web root
-
-## Security Model
-
-### Important Security Notes
-
-**This is NOT enterprise-grade security.** The authentication system is designed for internal use where:
-
-- The app is accessed by trusted staff only
-- Physical security is assumed
-- The risk of credential compromise is low
-
-For detailed security information, see [SECURITY.md](SECURITY.md).
-
-### How Authentication Works
-
-1. **Password Hashing**: Passwords are hashed using SHA-256
-2. **Hash Storage**: Superadmin hash is embedded during build; organization hashes are stored in IndexedDB
-3. **Client-Side Validation**: Entered password is hashed and compared to stored hash
-4. **Session Management**: Session tokens stored in localStorage with 24-hour expiration
-
-### Limitations
-
-- **Client-Side Only**: Anyone with browser dev tools can bypass authentication
-- **No Salt**: Passwords hashed without salts (vulnerable to rainbow tables)
-- **Local Storage**: Session tokens stored in plain localStorage
-- **No Rate Limiting**: No protection against brute force attempts
-
-See [SECURITY.md](SECURITY.md) for comprehensive security documentation and best practices.
-
-### When This Approach is Appropriate
-
-- Internal tools for trusted users
-- Low-stakes applications
-- Offline-first requirements
-- When you want to avoid backend infrastructure
-
-### When to Use Something Else
-
-If you need real security, consider:
-
-- **Firebase Auth**: Free OAuth provider, easy to integrate
-- **Auth0**: Comprehensive authentication service
-- **Backend API**: Build a proper server with session management
-
-## Generating Password Hashes
-
-To create or update your superadmin password:
-
-```bash
-npm run hash-password
-```
-
-Enter your desired password when prompted. The script will output:
-- The SHA-256 hash
-- Instructions to add it to your `.env` file
-
-Example:
-```
-Enter password to hash: MySecurePassword123
-
-Your password hash:
-a1b2c3d4e5f6...
-
-Add this to your .env file:
-VITE_ADMIN_PASS_HASH=a1b2c3d4e5f6...
-```
-
-## Project Structure
+## Project structure
 
 ```
-aither/
-├── index.html              # Main app page (QR generator)
-├── login.html              # Login page
-├── player.html             # Video player page (for QR scans)
-├── admin.html              # Superadmin panel
-├── reset-admin.html        # Superadmin password reset utility
-├── public/
-│   └── favicon.svg         # Custom favicon with QR code
-├── package.json
-├── vite.config.js
-├── .env.example
-├── LICENSE                 # MIT License
-├── TERMS.md                # Terms of use
-├── SECURITY.md             # Security policy and documentation
-├── scripts/
-│   └── hash-password.js    # Password hashing utility
-└── src/
-    ├── js/
-    │   ├── auth.js         # Authentication logic
-    │   ├── db.js           # IndexedDB wrapper (Dexie)
-    │   ├── qr.js           # QR generation
-    │   ├── ui.js           # UI interactions
-    │   ├── theme.js        # Theme switcher (light/dark)
-    │   └── parser.js       # Directory URL parser
-    ├── styles/
-    │   ├── vars.css        # CSS variables (theme)
-    │   ├── layout.css      # Layout styles
-    │   ├── components.css  # Component styles
-    │   └── player.css      # Video player styles
+index.html            # QR generator app
+login.html            # Login page
+admin.html            # Superadmin panel (organizations)
+player.html           # Public video player (target of QR scans)
+reset-admin.html      # Superadmin password reset utility
+scripts/hash-password.js
+src/js/               # auth, db (Dexie), qr, ui, theme, parser
+src/styles/           # theme vars, layout, components, player
 ```
 
-## Usage
+## Documentation
 
-### Superadmin: Managing Organizations
-
-1. Navigate to `/admin.html`
-2. Enter your superadmin password
-3. Create new organizations with unique credentials
-4. View all organizations and their login links
-5. Reset organization passwords as needed
-
-**Password Reset Utility:**
-If you forget your superadmin password, use the reset utility at `/reset-admin.html` to set a new password.
-
-### Organization Admin: Logging In
-
-1. Navigate to the app URL or use the organization-specific login link
-2. Enter your organization password
-3. Click "Login"
-
-### Generating Individual QR Codes
-
-1. Go to the "Generate" tab
-2. Enter the video URL
-3. Customize size, colors, and margins (optional)
-4. Upload a logo (optional)
-5. Preview the QR code
-6. Click "Generate QR" to save
-
-### Generating Bulk Collections
-
-1. Go to the "Collections" tab
-2. Enter a directory listing URL (e.g., `https://example.com/videos/`)
-3. Click "Parse Directory"
-4. Review the extracted video URLs
-5. Enter a collection name
-6. Click "Generate Collection"
-7. All QR codes are created and saved automatically
-
-**Directory URL Requirements:**
-- Must be a publicly accessible webpage
-- Should contain links to MP4 files
-- Works best with Apache-style directory listings
-
-### Managing QR Codes
-
-1. Go to the "List" tab
-2. View all saved QR codes
-3. **Search**: Use the search box to filter QR codes by URL, title, or description
-4. Filter by collection (if applicable)
-5. Click on any QR to view full-size
-6. **Edit**: Click edit to modify QR code title and description
-7. Download as PNG or SVG
-8. Copy URL or delete as needed
-
-### Bulk URL Input
-
-In addition to directory parsing, you can manually enter multiple video URLs:
-
-1. Go to the "Collections" tab
-2. Switch to "Bulk URLs" mode
-3. Enter one video URL per line
-4. Enter a collection name
-5. Click "Generate Collection"
-
-### Rescan Collections
-
-Update existing collections with new videos:
-
-1. Go to the "Collections" tab
-2. Find the collection you want to update
-3. Click "Rescan" to check the source directory for new videos
-4. New QR codes are automatically added to the collection
-
-### Backup & Export
-
-Export your data for backup or migration:
-
-1. **Organization Export**: Export all QR codes for your organization as JSON
-2. **Import Data**: Restore from a previously exported JSON backup
-3. **Superadmin Export**: Export all organizations and their data (superadmin only)
-
-*Note: Access backup features through the admin panel settings.*
-
-### Video Player Feature
-
-When you enter an MP4 URL, Aither automatically creates a QR code that links to a custom video player instead of the raw MP4 file. This provides a better user experience:
-
-**How it works:**
-1. Enter an MP4 URL (e.g., `https://example.com/video.mp4`)
-2. Optionally add a title and description for the video
-3. The QR code will link to: `https://yoursite.com/player.html?video=<encoded-url>&title=<title>&description=<description>`
-4. When scanned, visitors see a beautiful video player with:
-   - Play/pause controls
-   - Fullscreen support (double-click video)
-   - Mobile-optimized layout
-   - Adaptive theme (light/dark based on user preference)
-   - **Built-in QR scanner** for watching multiple videos
-
-**Benefits:**
-- Videos play directly in the browser (no download required)
-- Consistent viewing experience across devices
-- Professional presentation for your audience
-- Works perfectly on mobile devices after QR scanning
-- **No login required** - The player page is completely public and accessible to anyone
-
-The original MP4 URL is saved for your reference in the library.
-
-**Note:** Only the admin app (Generate/List/Collections tabs) requires login. The video player page is public so visitors can watch videos without authentication.
-
-### Mobile Video Experience
-
-The video player provides a **native-like mobile experience** optimized for on-the-go viewing:
-
-**Auto-Fullscreen on Mobile:**
-- When a visitor scans a QR code on their mobile device, they see a "Start Video" button
-- Tapping this button automatically enters fullscreen mode and begins video playback
-- This provides an immersive, distraction-free viewing experience
-
-**Forced Landscape Orientation:**
-- Mobile devices are locked to landscape (horizontal) orientation
-- Users must rotate their phone horizontally to view the video
-- If held vertically, a "Please rotate your device" prompt appears with a rotating phone icon
-- This ensures optimal video viewing on mobile screens
-
-**Device-Specific Implementations:**
-- **iOS (iPhone/iPad)**: Uses CSS-based fullscreen to preserve HTML overlay controls
-- **Android**: Uses native Fullscreen API with Screen Orientation lock
-- **Desktop**: Standard fullscreen support via double-click
-
-**Always-Visible QR Scan Button:**
-- The QR scan button remains visible even in fullscreen mode
-- Positioned in the top-left corner as a compact icon button
-- Works seamlessly on iOS (where native fullscreen removes HTML overlays)
-- Ultra-high z-index ensures it's always accessible
-
-**Mobile-Optimized Meta Tags:**
-- Viewport settings prevent zooming for an app-like feel
-- iOS web app capabilities for immersive fullscreen
-- Translucent status bar on iOS for edge-to-edge display
-- Playsinline attributes for smooth mobile video playback
-
-This mobile experience makes Aither perfect for exhibits, events, advertising campaigns, and any scenario where users scan QR codes with their phones and expect a polished, native-app-quality video viewing experience.
-
-### Scanning Multiple Videos
-
-Users can watch multiple videos without leaving the player:
-
-1. Watch the first video after scanning a QR code
-2. Click the **"Scan Another QR"** button in the player
-3. Camera opens with QR scanner
-4. Scan a new QR code for another video
-5. New video loads automatically and starts playing
-
-This feature is perfect for exhibits, product showcases, event programs, or any scenario where viewers want to explore multiple videos without repeatedly opening their camera app.
-
-### Theme Switcher
-
-Toggle between light and dark mode:
-- Click the theme toggle button in the navigation bar
-- Your preference is saved automatically
-- Theme persists across sessions
-- Also applies to the video player for a consistent experience
-
-## Customization
-
-### Theme Colors
-
-Edit `/src/styles/vars.css` to customize the color scheme:
-
-```css
-/* Light theme */
-body {
-  --bg: #f5f5f5;
-  --panel: #ffffff;
-  --accent: #0ea5b7;
-  --text: #1a1a1a;
-  --text-muted: #666666;
-}
-
-/* Dark theme */
-body.dark-theme {
-  --bg: #0b2a37;
-  --panel: #0f3b56;
-  --accent: #0ea5b7;
-  --text: #e6f7f8;
-  --text-muted: #9fb8c0;
-}
-```
-
-### QR Code Defaults
-
-Edit `/src/js/qr.js` to change default QR code settings.
-
-## Troubleshooting
-
-### Login not working
-- Check that your `.env` file has the correct `VITE_ADMIN_PASS_HASH`
-- Restart the dev server after changing `.env`
-- Clear browser localStorage and try again
-- For organization login, ensure you're using the correct organization credentials
-
-### QR codes not saving
-- Check browser console for IndexedDB errors
-- Ensure you're not in private/incognito mode
-- Check that localStorage is enabled
-- Try clearing browser data and logging in again
-
-### Collection parsing not working
-- Ensure the directory URL is publicly accessible
-- Check that the page contains links to MP4 files
-- Some websites may block CORS requests (use a CORS proxy if needed)
-- Check browser console for detailed error messages
-
-### Theme not persisting
-- Check that localStorage is enabled
-- Clear browser cache and try again
-- Ensure JavaScript is enabled in your browser
-
-### Build fails
-- Delete `node_modules` and run `npm install` again
-- Ensure Node.js version is 20.19+ or 22.12+
-- Check for syntax errors in `.env`
-- Verify all dependencies are properly installed
-
-## Legal & Documentation
-
-This project is open source under the MIT License.
-
-- **[LICENSE](LICENSE)** - MIT License
-- **[TERMS.md](TERMS.md)** - Terms of use
-- **[SECURITY.md](SECURITY.md)** - Security policy and best practices
+- [USER_GUIDE.md](USER_GUIDE.md) — end-user walkthrough
+- [SECURITY.md](SECURITY.md) — security model, limitations, disclosure policy
+- [TERMS.md](TERMS.md) · [CHANGELOG.md](CHANGELOG.md)
 
 ## Contributing
 
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run `npm install` if dependencies changed
-5. Run `npm run check`
-6. Smoke-test the first-run flow in a browser when changing authentication, QR generation, player, or storage behavior
-7. Submit a pull request
+Fork → feature branch → `npm run check` → smoke-test the first-run flow in a browser (auth, QR generation, player, storage) → PR.
 
-## Support
+## License
 
-For questions, issues, or security concerns:
+MIT — see [LICENSE](LICENSE). © 2026 Luxbase.
 
-**Support:**
-- Email: hello@tinydarkforge.com
-- Security: hello@tinydarkforge.com
-
-**Security Issues:**
-- See [SECURITY.md](SECURITY.md) for responsible disclosure policy
-- Email hello@tinydarkforge.com for sensitive vulnerabilities
-- Do not publicly disclose security issues
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
-
----
-
-**© 2026 Luxbase. MIT License.**
-
-Developed with care and attention to detail.
+Support & security contact: daniel.oceno@outlook.com (see [SECURITY.md](SECURITY.md) for responsible disclosure).
